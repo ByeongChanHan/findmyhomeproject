@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './stylesheets/mainDesign.css';
+import Entirepage from './components/Entirepage'
+import Homeclass from './components/Homeclass';
+import Login from './components/login';
+import { Switch,BrowserRouter as Router,Route } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    render(){
+      return(
+        <Router>
+        <Switch>
+        <Route exact path = "/" component={Entirepage}/>
+        <Route exact path = "/showclass" component={Homeclass}/>
+        <Route exact path = "/login" component={Login}/>
+        </Switch>
+        </Router>
+      )
+    }
 }
-
+// route 모듈은 지정한 경로로 이동하면 해당 컴포넌트를 보여주는 역할을 함
 export default App;
