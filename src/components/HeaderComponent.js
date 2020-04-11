@@ -19,19 +19,25 @@ class Header extends Component{
                 {/* <Link to = "/">
                     Home
                 </Link> */}
-                <a href ="/">Home</a>
+                <a href ="/">홈</a>
                 </span>
             <span className="individualMenu">
                 {/* <Link to = "/showclass">
                     Class
                 </Link> */}
-                <a href ="/showclass">Class</a>
+                <a href ="/showclass">옵션</a>
+            </span>
+            <span className="individualMenu">
+                {/* <Link to = "/showclass">
+                    Class
+                </Link> */}
+                <a href ="/board">게시판</a>
             </span>
             <span className="individualMenu">
                 {/* <Link to = "/login">
                     Log in
                 </Link> */}
-                <a href ="/login">Log in</a>
+                <a href ="/login">로그인</a>
             </span>
         </nav>
         </header>

@@ -13,7 +13,9 @@ class Parentbanner extends Component{
                 <Banner/>
             </section>
             <br></br>
-            <button id = "startid"><b>중개사에게 질문하기</b></button>
+                <a href = "/ask" id = "startid">
+                    중개사에게 질문하기
+                </a>
             </div>
             </section>
         )

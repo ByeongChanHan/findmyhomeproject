@@ -47,7 +47,6 @@ class Description extends Component{
         )
     }
 }
-
 class DescriptionExplain extends Component{
     render(){
         return(
