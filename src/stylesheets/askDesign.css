@@ -1,3 +1,33 @@
+<<<<<<< HEAD
 .poster{
     display: inline-block;
+=======
+#textarea{
+    width:700px;
+    height: 700px;
+    font-size:40px;
+}
+.askBtn{
+    position: relative;
+    left: 19%;
+    width: 150px;
+    height:50px;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: rgb(108, 192, 145);
+}
+.askcontainer{
+    position: relative;
+    padding: 170px 6em 40px 6em;
+    text-align: center;
+}
+.select{
+    position: relative;
+    width:100px;
+    border:1px solid #999;
+    height: 40px;
+    margin-bottom: 7px;
+    right: 16%;
+    margin-right:10px;
+>>>>>>> 691b54ad874eb4185ca4ba239ea783cc29f31ab0
 }

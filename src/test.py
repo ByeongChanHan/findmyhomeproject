@@ -13,7 +13,11 @@ def login():
     else:
         return "이것은 login get메소드 호출"
 
+<<<<<<< HEAD
 @app.route('/showclass', methods=['GET', 'POST'])
+=======
+@app.route('/ask', methods=['GET', 'POST'])
+>>>>>>> 691b54ad874eb4185ca4ba239ea783cc29f31ab0
 # http:localhost:3000/showclass에서 get으로 요청하면 5000/showclass로 요청 들어옴
 def showclass():
     # 5000으로 route받았으면 해당 함수 실행

@@ -1,6 +1,9 @@
 import React,{Component} from 'react';
 import axios from "axios"
+<<<<<<< HEAD
 import '../stylesheets/askDesign.css'
+=======
+>>>>>>> 691b54ad874eb4185ca4ba239ea783cc29f31ab0
 
 class Noticeboard extends Component{
 state = {

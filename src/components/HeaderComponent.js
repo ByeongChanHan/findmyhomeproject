@@ -25,7 +25,11 @@ class Header extends Component{
                 {/* <Link to = "/showclass">
                     Class
                 </Link> */}
+<<<<<<< HEAD
                 <a href ="/showclass">옵션</a>
+=======
+                <a href ="/ask">질문하기</a>
+>>>>>>> 691b54ad874eb4185ca4ba239ea783cc29f31ab0
             </span>
             <span className="individualMenu">
                 {/* <Link to = "/showclass">
