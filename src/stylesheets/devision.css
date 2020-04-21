@@ -1,0 +1,59 @@
+.member_register_wrap{
+    width:100%;
+    margin:auto;
+    text-align:center;
+    color:#fff;
+    overflow: hidden;
+}
+
+.member_register_wrap a{
+    color:#fff;
+    text-decoration:none;
+}
+
+.member_register_wrap .align {display:inline-block;
+    *display:inline;
+    zoom:1;
+    margin-top:30px;}
+
+.member_register_wrap img {
+    width:50%;
+    height:auto
+}
+
+.member_register_wrap .ex_text{
+    color:#242424;
+    line-height:180%;
+    margin-top: 10%;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 30px;
+}
+
+.member_register_wrap .bt_text {
+    padding-top:5%;
+    font-size: 30px;
+    color:#fff;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.member_register_wrap:after{
+    clear:both;
+    content:"";
+    display:block;
+}
+
+.member_register_basic, .member_register_dealer{
+    margin:0 auto;
+    float:left;
+    width:300px;
+    height: 300px;
+    padding:30px;
+    display:inline-block;}
+
+.member_register_basic {
+    background-color:#0431b4;
+    margin-right:20px;}
+
+.member_register_dealer {
+    background-color:#002286;
+}

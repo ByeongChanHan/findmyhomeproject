@@ -1,10 +1,6 @@
 import React from 'react';
 import './stylesheets/mainDesign.css';
 import Entirepage from './components/Entirepage'
-<<<<<<< HEAD
-import Homeclass from './components/Homeclass';
-=======
->>>>>>> 691b54ad874eb4185ca4ba239ea783cc29f31ab0
 import Login from './components/login';
 import CreateAccount from './components/CreateAccount'
 import Noticeboard from './components/Noticeboard'
@@ -17,10 +13,6 @@ class App extends React.Component {
         <Router>
         <Switch>
         <Route exact path = "/" component={Entirepage}/>
-<<<<<<< HEAD
-        <Route exact path = "/showclass" component={Homeclass}/>
-=======
->>>>>>> 691b54ad874eb4185ca4ba239ea783cc29f31ab0
         <Route exact path = "/login" component={Login}/>
         <Route exact path = "/create" component={CreateAccount}/>
         <Route exact path = "/ask" component={Askquestion}/>

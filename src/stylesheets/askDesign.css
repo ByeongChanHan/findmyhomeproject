@@ -1,24 +1,30 @@
-<<<<<<< HEAD
-.poster{
-    display: inline-block;
-=======
 #textarea{
     width:700px;
-    height: 700px;
-    font-size:40px;
+    height: 450px;
+    font-size:25px;
 }
 .askBtn{
     position: relative;
-    left: 19%;
     width: 150px;
     height:50px;
     font-weight: bold;
     font-size: 20px;
     background-color: rgb(108, 192, 145);
+    padding: 0;
+    float: right;
+    margin-top: 10px;
+}
+.askBtn a{
+    display: inline-block;
+    width: inherit;
+    height: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .askcontainer{
-    position: relative;
-    padding: 170px 6em 40px 6em;
+    width: 780px;
+    margin: 0 auto;
+    margin-top: 150px;
     text-align: center;
 }
 .select{
@@ -26,8 +32,33 @@
     width:100px;
     border:1px solid #999;
     height: 40px;
-    margin-bottom: 7px;
-    right: 16%;
     margin-right:10px;
->>>>>>> 691b54ad874eb4185ca4ba239ea783cc29f31ab0
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.askcontainer table{
+    border-top: 2px solid #999;
+    border-right: 2px solid #999;
+    border-bottom: 2px solid #999;
+    padding: 10px;
+}
+#title{
+    width: 99%;
+    height: 25px;
+    float: left;
+}
+.asktable{
+    display: flex;
+}
+.asktable tr,.asktable td{
+    border: 1px solid #999;
+    width: 100px;
+}
+td button{
+    background-color: transparent;
+    border: 0;
+}
+button:focus{
+    outline: none !important;
 }

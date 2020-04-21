@@ -40,9 +40,9 @@ label#uid,label#upass{
 a.createAccount{
     color: black;
     font-weight:bold;
-}
-.btn{
-    display:inline-block;
+    display: inline-block;
+    width: inherit;
+    height: inherit;
 }
 #loginbox{
     width:210px;

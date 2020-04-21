@@ -1,0 +1,66 @@
+.notice h1{
+    position: relative;
+    color: white;
+    top: 40%;
+    font-size: 40px;
+}
+.notice{
+    width: 100%;
+    height: 350px;
+    text-align: center;
+    margin-top: 5%;
+    background: url("../images/communication.jpg");
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+.searchText{
+    width: 150px;
+    height: 30px;
+    padding: 0;
+    border:1px solid #999;
+    margin-left: 5px;
+}
+.selector{
+    position: relative;
+    width: 60px;
+    height: 32px;
+    border:1px solid #999;
+    margin-left: 5px;
+    top:1px;
+}
+.boardsearchArea{
+    display: flex;
+    width: max-content;
+    margin: 40px 20em 20px 20em;
+}
+.boardsearchArea p{
+    margin: 0;
+}
+.boardsearchArea .boardform{
+    margin-left: 70em;
+}
+.searchBtn{
+    color: white;
+    background-color: rgb(108, 192, 145);
+    width: 60px;
+    height: 35px;
+    margin-left: 5px;
+}
+.allnum{
+    font-size: 25px;
+}
+hr{
+    border: 1px solid gray;
+}
+.boardtable{
+    width: 100%;
+    border-collapse: collapse;
+}
+.boardtable tr{
+    border-bottom: 1px solid gray;
+}
+.boardtable th,.boardtable td{
+    padding: 10px;
+    text-align: center;
+}

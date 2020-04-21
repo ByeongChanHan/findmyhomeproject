@@ -85,27 +85,6 @@ header{
     padding: 4em 2em 0em 2em;
     justify-content: center;
 }
-.desImg{
-    position: relative;
-    width: 150px;
-    height: 150px;
-    border-radius: 150px;
-    left: 36%;
-}
-.findYourplace{
-    margin: 0 3em 0 3em;
-    width: 30%;
-    justify-content: center;
-}
-.descDesign{
-    text-align: center;
-    font-family: 'Noto Sans KR', sans-serif;
-    color: rgb(154, 154, 154);
-}
-.howto{
-    text-align: center;
-    margin-bottom: 30px;
-}
 .footer{
     font-family: 'Noto Sans KR', sans-serif;
     display: flex;
@@ -115,32 +94,6 @@ header{
     padding: 3em 5em 4em 5em;
     color: white;
 }
-#Selectoption{
-    position: relative;
-    left: 36%;
-    width: 150px;
-    height: 40px;
-    margin-bottom: 40px;
-    border-radius: 30px;
-    background: transparent;
-    border: 3px solid rgb(108, 192, 145);
-    color: rgb(108, 192, 145);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 17px;
-}
-#Askrealestate{
-    position: relative;
-    left: 36%;
-    width: 150px;
-    height: 40px;
-    margin-bottom: 40px;
-    border-radius: 30px;
-    background: transparent;
-    border: 3px solid rgb(108, 192, 145);
-    color: rgb(108, 192, 145);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 17px;
-}
 .footerDesc{
     position: relative;
     width: 30%;
@@ -149,5 +102,7 @@ header{
 }
 a{
     text-decoration: none;
+}
+.title a , .individualMenu a{
     color: white;
 }
