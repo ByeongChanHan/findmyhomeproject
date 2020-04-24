@@ -50,16 +50,16 @@ def showboard():
             result['userwrote'] = userwroteArr
             result['wrotedate'] = wrotedateArr
         return result
-    elif request.method == 'POST':
-        savenum = request.json.get('savenum')
-        print(savenum)
-        conn = sqlite3.connect('writelist.db')
-        print ("POST REQUEST SUCCESSFUL")
-        cur = conn.cursor()
-        cur.execute("insert into writeDB(viewnum) values(?)",(savenum))
-        conn.commit()
-        conn.close()
-        return '조회수 저장 완료'
+    # elif request.method == 'POST':
+    #     savenum = request.json.get('savenum')
+    #     print(savenum)
+    #     conn = sqlite3.connect('writelist.db')
+    #     print ("POST REQUEST SUCCESSFUL")
+    #     cur = conn.cursor()
+    #     cur.execute("insert into writeDB(viewnum) values(?)",(savenum))
+    #     conn.commit()
+    #     conn.close()
+    #     return '조회수 저장 완료'
         
 if __name__ == '__main__':
     app.run(debug=True)
