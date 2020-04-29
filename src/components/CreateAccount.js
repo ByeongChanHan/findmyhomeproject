@@ -5,6 +5,7 @@ import '../stylesheets/devision.css'
 import '../stylesheets/NotoSans.css';
 
 class CreateAccount extends Component{
+    // 일반회원 중개사 구별 페이지
     render(){
         return(
             <div>

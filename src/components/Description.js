@@ -11,7 +11,7 @@ import '../stylesheets/NotoSans.css';
 //     })
 // }
 
-class DescriptionEntire extends Component{
+class Description extends Component{
     render(){
         return(
             <section className = "description">
@@ -20,4 +20,4 @@ class DescriptionEntire extends Component{
         )
     }
 }
-export default DescriptionEntire
+export default Description

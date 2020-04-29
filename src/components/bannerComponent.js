@@ -5,6 +5,7 @@ import location from'../images/location.png';
 import trust from'../images/trust.png';
 
 class Banner extends Component{
+    // 이미지와 영어 설명란
     imgList = [
         {
             icon : home,
@@ -20,6 +21,8 @@ class Banner extends Component{
         }
     ]
     render() {
+        // 위에있는 imgList배열을 map함수 돌려서 한꺼번에 3개 return
+        // posterIcon은 imgList하고 값이 똑같음
         return(
         this.imgList.map((posterIcon,index)=>{
             return <Advantage poster={posterIcon.icon}
@@ -31,6 +34,8 @@ class Banner extends Component{
     }
 }
 class Advantage extends Component{
+    // 이미지와 글씨태그 html 출력부분
+    // 위에 poster name description이 다 속성값(props)임
     render() {
         return(
             <div className = {this.props.name}>

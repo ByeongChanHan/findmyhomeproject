@@ -45,7 +45,7 @@
     margin: 0;
 }
 .boardsearchArea .boardform{
-    margin-left: 70em;
+    margin-left: 57em;
 }
 .searchBtn{
     color: white;
@@ -63,6 +63,7 @@ hr{
 .boardtable{
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 .boardtable tr{
     border-bottom: 1px solid gray;
@@ -70,4 +71,7 @@ hr{
 .boardtable th,.boardtable td{
     padding: 10px;
     text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

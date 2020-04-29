@@ -48,9 +48,10 @@ header{
     position: relative;
     margin-top: 105px;
     text-align: center;
+    opacity: 0.8;
 }
-.SiteExplain{
-    padding: 4em 2em 0em 2em;
+.SiteExplain{   
+    padding: 3em 2em 0em 2em;
     color: white;
     font-family: 'Noto Sans KR', sans-serif;
 }
@@ -68,13 +69,13 @@ header{
 }
 #startid{
     display: inline-block;
-    background: transparent;
+    background: rgb(108, 192, 145);
     border-radius: 30px;
     font-size: 25px;
     width: 240px;
     height: 40px;
-    color: rgb(108, 192, 145);
-    border: 3px solid rgb(108, 192, 145);
+    color: white;
+    border: 2px solid gray;
     padding: 10px;
     position: relative;
     bottom: 10px;
