@@ -24,7 +24,7 @@ class LoginPage extends Component{
                         <input id = "upass" type="password" title="패스워드"></input>
                         <div className="block"></div>
                             <span className="btn">
-                                <input id="loginbtn" type="submit" value="Login" onClick = {this._printer}/>
+                                <input id="loginbtn" type="submit" value="login" onClick = {this._printer}/>
                             </span>
                             {/* create 파라미터로 이동 */}
                             <span className="create">

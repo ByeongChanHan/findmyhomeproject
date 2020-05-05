@@ -52,7 +52,11 @@ input#uid,input#upass{
     margin:0;
     height:25px;
     line-height:25px;
-    background-color:#efefef
+    background-color:#efefef;
+}
+label#uid,label#upass{
+    text-align: center;
+    padding-right: 5px;
 }
 #wrap{
     position: relative;
@@ -95,7 +99,7 @@ input#uid,input#upass{
     height:40px;
     background-color:#efefef;
     font-weight:bold;
-    font-size: large;
+    font-size: 20px;
     padding: 0;
     border:1px solid #ccc;
 }

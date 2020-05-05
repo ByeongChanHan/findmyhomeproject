@@ -53,16 +53,31 @@ header{
 .banner{
     width: 100%;
     height: 940px;
-    background: url("../images/MainImage.jpg");
-    background-size: cover;
-    background-repeat:no-repeat;
-    background-position: center center;
     font-size: 50px;
     display: flex;
     position: relative;
     top:0px;
     text-align: center;
-    opacity: 0.8;
+}
+/* 가상의 화면 */
+.banner::after{
+    width: 100%;
+    height: 940px;
+    content: '';
+    background: url("../images/MainImage.jpg");
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+    position: absolute;
+    /* 흐리게 */
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+    top:0px;
+    /* z-index로 뒤로가게끔함 */
+    z-index: -1;
 }
 .banner .juyJUj{
     width: 100%
@@ -71,7 +86,6 @@ header{
     padding: 6em 2em 0em 2em;
     color: white;
     font-family: 'Noto Sans KR', sans-serif;
-    opacity: 1;
 }
 .advantage{
     width: 20%;
