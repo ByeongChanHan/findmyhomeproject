@@ -1,21 +1,20 @@
 import React,{Component} from 'react';
 import '../stylesheets/NotoSans.css';
-
-// componentDidMount(){
-//     fetch('http:localhost:5000/')
-//     .then(res=>console.log(res.json()))
-//     .then(res =>{
-//         let _maindataSet = res.json()
-//         console.log(_maindataSet)
-//         return _maindataSet
-//     })
-// }
+import Descvideo from '../video/mainvideo.mp4'
+import '../stylesheets/DescriptionPage.css'
+import '../stylesheets/NotoSans.css'
 
 class Description extends Component{
     render(){
         return(
-            <section className = "description">
-                <h1>공사중</h1>
+            <section>
+            <video className ="mainVideo" preload="auto" autoPlay={true} loop="loop" muted="muted">
+            <source src={Descvideo} type="video/mp4"/>
+            </video>
+            <p className ="DescExplain">
+                저희 서비스는 사용자와 중개사 간 의사소통 할수있는 공간을 제공합니다.<br></br>
+                <button className ="golink"><a href = "/board" className="goBoard">Get started!</a></button>
+            </p>
             </section>
         )
     }

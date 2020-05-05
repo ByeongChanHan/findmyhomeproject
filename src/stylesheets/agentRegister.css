@@ -1,0 +1,67 @@
+.registerForm{
+    position: relative;
+    top: 160px;
+    width: 40%;
+    background-color: #fff;
+    margin: 0 auto;
+    text-align: center;
+    height: 750px;
+    border: 2px solid silver;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.inner{
+    padding: 0 2em 1em 2em;
+    height: 65%;
+}
+.informationText{
+    color: white;
+    background-color: #26a69a;
+    font-size: 30px;
+    margin: 0;
+    padding: 20px 0 20px 0;
+}
+.informationText p {
+    margin: 0;
+}
+.inner input{
+    margin-top: 15px;
+    margin-bottom: 1px;
+    margin-left: 25px;
+    float: right;
+    width: 80%;
+    height: 30px;
+    color: slategrey;
+    padding-left: 10px;
+    font-size: 20px;
+}
+.information{
+    display: flex;
+    height: 70px;
+    margin: 25px 0 25px 0;
+}
+.information p{
+    position: relative;
+    font-size: 20px;
+    width: 95px;
+}
+.submitid{
+    width: 95%;
+    height: 50px;
+    color: black; 
+    background-color: #fff;
+    font-size: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    border: 2px solid #26a69a;
+    transition-duration: 0.5s;
+}
+.submitid:hover{
+    background-color: #26a69a;
+    color: white;
+}
+.informationText h4{
+    font-size: 15px;
+    margin: 10px 0 0 0;
+}
+.registerForm p a{
+    margin: 0 0 0 5px;
+}

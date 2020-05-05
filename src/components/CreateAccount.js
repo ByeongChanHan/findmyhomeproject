@@ -16,7 +16,7 @@ class CreateAccount extends Component{
                     고객님이 해당하는 회원 종류를 선택해주세요.
                 </p>
                 <div className="align">
-                    <a href="/register2">
+                    <a href="/register">
                     <div className="member_register_basic">
                         <p>
                             <img src={normal} alt="일반 회원"></img>
@@ -24,7 +24,7 @@ class CreateAccount extends Component{
                         <p className="bt_text">일반 회원</p>
                     </div>
                     </a>
-                    <a href="/register">
+                    <a href="/agentregister">
                         <div className="member_register_dealer">
                             <p>
                                 <img src={broker}  alt="중개사"></img>
