@@ -32,9 +32,7 @@ class Noticeboard extends Component{
         // fetch에서 불러온데이터를 res(임의로 정한 변수)에 받고
         // json으로 변환
         .then(res=>{
-            console.log(res)
             let _dataSet = res.json()
-            console.log(_dataSet)
             return _dataSet
         })
     }
@@ -47,12 +45,13 @@ class Noticeboard extends Component{
             titleList : writeData.title.slice(this.state.MinimumItems,this.state.Maxitems),
             userwroteList : writeData.userwrote.slice(this.state.MinimumItems,this.state.Maxitems),
             wrotedate : writeData.wrotedate.slice(this.state.MinimumItems,this.state.Maxitems),
+            viewnum : writeData.viewnum.slice(this.state.MinimumItems,this.state.Maxitems),
+            savedviewnum : writeData.viewnum,
             totalNum : writeData.title.length,
             titleTotal : writeData.title,
             userwroteTotal : writeData.userwrote,
             wrotedateTotal : writeData.wrotedate
         })
-        console.log(this.state)
     }
     // 최신데이터가 맨 밑에 출력되는것을 고려해서 최신순누르면 기존배열의 역순으로 자름
     _getUrlReverse = async () =>{
@@ -60,7 +59,8 @@ class Noticeboard extends Component{
         this.setState({
             titleList : writeData.title.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
             userwroteList : writeData.userwrote.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
-            wrotedate : writeData.wrotedate.reverse().slice(this.state.MinimumItems,this.state.Maxitems)
+            wrotedate : writeData.wrotedate.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
+            viewnum : writeData.viewnum.reverse().slice(this.state.MinimumItems,this.state.Maxitems)
         })
     }
     // 스크롤했을때 작용하는 메소드
@@ -101,6 +101,7 @@ class Noticeboard extends Component{
             userwrote={this.state.userwroteList[index]}
             num={index+1}
             wrotedate={this.state.wrotedate[index]}
+            viewnum={this.state.viewnum[index]}
             key={index}/>
             // 렌더링 리스트의 배열을 매핑하면서 인덱스 값이 증가하는데
             // 증가할때 userwroteList의 배열과 일치하는것
@@ -210,6 +211,7 @@ class Noticeboard extends Component{
                     userwrote={this.state.userwroteTotal[index]}
                     num={index+1}
                     wrotedate={this.state.wrotedateTotal[index]}
+                    viewnum = {this.state.savedviewnum[index]}
                     key={index}/>
                 }
                 // 없을경우 continue로 for문을 계속 실행해줌
@@ -226,6 +228,7 @@ class Noticeboard extends Component{
                     userwrote={this.state.userwroteTotal[idx]}
                     num={idx+1}
                     wrotedate={this.state.wrotedateTotal[idx]}
+                    viewnum = {this.state.savedviewnum[index]}
                     key={idx}/>
                 }
                 else{
@@ -237,10 +240,6 @@ class Noticeboard extends Component{
 }
 // tbody내용을 표시해주는 클래스
 class WriteList extends Component{
-    // 조회수 Viewnum
-    state = {
-        Viewnum: 0
-    }
     // 누를때마다 viewCounter호출
     // 하나의 열은 위에서 return한 WriteList 클래스 각각의 속성값
     // 작성자는 회원가입기능 완료후 수정예정
@@ -252,15 +251,25 @@ class WriteList extends Component{
                 <td>{this.props.userwrote}</td>
                 <td>작성자</td>
                 <td>{this.props.wrotedate}</td>
-                <td>{this.state.Viewnum}</td>
+                <td>{this.props.viewnum}</td>
             </tr>
         )
     }
-    // viewnum을 1증가시킴(수정예정)
+    // 클릭할때마다 조회수 증가
     _viewCounter = () =>{
-        this.setState({
-            Viewnum : this.state.Viewnum+1
-        })
+        var CurrentviewNum = this.props.viewnum+1
+        var SelectedObject = {}
+        SelectedObject.title = this.props.title;
+        SelectedObject.currentnum = CurrentviewNum;
+        const ClickSave = {
+            method:'POST',
+            headers:{
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body : JSON.stringify(SelectedObject)
+        }
+        fetch("http://localhost:5000/board",ClickSave)
+        .then(showList => console.log(showList.text()))
     }
 }
 export default Noticeboard

@@ -75,7 +75,6 @@ header{
     -o-filter: blur(3px);
     -ms-filter: blur(3px);
     filter: blur(3px);
-    top:0px;
     /* z-index로 뒤로가게끔함 */
     z-index: -1;
 }

@@ -12,6 +12,13 @@ class Entirepage extends Component{
     // 메인페이지 전체 구성
     componentDidMount(){
         window.addEventListener("scroll",this._scrollToggle(),true)
+        this.Islogin()
+    }
+    Islogin = () =>{
+        fetch("http://localhost:5000/")
+        .then(res=>{
+            console.log(res)
+        })
     }
     _scrollToggle = () =>{
             $('html,body').on('mousewheel',(e)=>{

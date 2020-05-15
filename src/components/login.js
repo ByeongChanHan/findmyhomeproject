@@ -24,7 +24,7 @@ class LoginPage extends Component{
                         <input id = "upass" type="password" title="패스워드"></input>
                         <div className="block"></div>
                             <span className="btn">
-                                <input id="loginbtn" type="submit" value="login" onClick = {this._printer}/>
+                                <input id="loginbtn" type="submit" value="login" onClick = {this._login}/>
                             </span>
                             {/* create 파라미터로 이동 */}
                             <span className="create">
@@ -36,15 +36,36 @@ class LoginPage extends Component{
         );
     }
     // 패스워드 확인 메소드
-    _printer = () =>{
+    _login = () =>{
         // 쿼리셀럭터 all은 아이디가 uid인것들을 다 선택해주는데 그중 1번째가 입력부분
         let idtext = document.querySelectorAll("#uid");
         let passwordtext = document.querySelectorAll("#upass");
+        var loginData = {}
+        loginData.idtext = idtext[1].value
+        loginData.passwordtext = passwordtext[1].value
         if(idtext[1].value === "")
         alert("아이디를 입력하세요");
 
         if(passwordtext[1].value === "")
         alert("패스워드를 입력하세요")
+
+        const loginsend = {
+            method:'POST',
+            headers:{
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body : JSON.stringify(loginData)
+        }
+        fetch("http://localhost:5000/login",loginsend)
+        .then(resLogin=>resLogin.text())
+        .then(res=>{
+            if(res === "존재하지 않는 ID이거나 비밀번호가 틀립니다"){
+                return false
+            }
+            else{
+                alert(res)
+            }
+        })
     }
 }
 export default LoginPage

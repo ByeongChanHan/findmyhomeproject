@@ -27,10 +27,24 @@
     height: 350px;
     text-align: center;
     margin-top: 5%;
+}
+.ask::after{
+    width: 100%;
+    height: 350px;
+    content: '';
+    position: absolute;
     background: url("../images/askquestion.jpg");
     background-size: cover;
     background-repeat:no-repeat;
-    background-position: center;
+    background-position: center center;
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+    top: 10%;
+    right: 0;
+    z-index: -1;
 }
 .ask h1{
     position: relative;

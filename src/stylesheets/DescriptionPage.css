@@ -34,7 +34,8 @@
     padding: 0;
     transition-duration: 0.7s;
 }
-.golink:hover{
-    background-color: rgb(219, 187, 72);
+.golink:hover .goBoard:hover{
+    color: rgb(219, 187, 72);
+    border: 2px solid rgb(219, 187, 72);
     border-radius: 10px;
 }
