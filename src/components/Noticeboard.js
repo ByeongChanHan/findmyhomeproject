@@ -246,7 +246,6 @@ class WriteList extends Component{
     // 작성자는 회원가입기능 완료후 수정예정
     componentDidMount(){
         var Row_id = this.props.title;
-        console.log(Row_id)
         document.getElementById(Row_id).addEventListener('click',this._viewCounter)
     }
     render(){
@@ -274,8 +273,9 @@ class WriteList extends Component{
             },
             body : JSON.stringify(SelectedObject)
         }
-        fetch("http://localhost:5000/board",ClickSave)
+        fetch(`http://localhost:5000/board/${this.props.num}`,ClickSave)
         .then(showList => console.log(showList.text()))
+        window.location.href = `http://localhost:5000/board/${this.props.num}`
     }
 }
 export default Noticeboard

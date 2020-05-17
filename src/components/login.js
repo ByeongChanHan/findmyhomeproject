@@ -59,7 +59,9 @@ class LoginPage extends Component{
         fetch("http://localhost:5000/login",loginsend)
         .then(resLogin=>resLogin.text())
         .then(res=>{
+            console.log(res)
             if(res === "존재하지 않는 ID이거나 비밀번호가 틀립니다"){
+                alert(res)
                 return false
             }
         })

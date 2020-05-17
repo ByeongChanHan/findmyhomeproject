@@ -71,7 +71,19 @@ def showboard():
             result['viewnum'] = viewnumArr
             # 다 집어넣은 배열을 return
         return result
-    elif request.method == 'POST':
+    # elif request.method == 'POST':
+    #     title = request.json.get('title')
+    #     currentnum = request.json.get('currentnum')
+    #     conn = sqlite3.connect('writelist.db')
+    #     cur = conn.cursor()
+    #     cur.execute("update writeDB set viewnum=? where title=?",(currentnum,title))
+    #     conn.commit()
+    #     conn.close()
+    #     return "success"
+
+@app.route('/board/<writenum>', methods=['GET', 'POST'])
+def selectBoard(writenum):
+    if request.method == 'POST':
         title = request.json.get('title')
         currentnum = request.json.get('currentnum')
         conn = sqlite3.connect('writelist.db')
@@ -79,8 +91,8 @@ def showboard():
         cur.execute("update writeDB set viewnum=? where title=?",(currentnum,title))
         conn.commit()
         conn.close()
-        return "success"
-        
+        return writenum
+
 @app.route('/signupagent', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -120,8 +132,7 @@ def loginform():
         if IdData == None:
             return "존재하지 않는 ID이거나 비밀번호가 틀립니다"
         else:
-            return IdData[0]
-        return redirect(url_for("/"))
+            return redirect(url_for("main"))
 @app.route('/',methods=['GET', 'POST'])
 def main():
     if request.method == 'GET':
