@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import Header from '../components/HeaderComponent'
 import '../stylesheets/askDesign.css'
+import '../stylesheets/NotoSans.css'
 
 class Askquestion extends Component{
     render(){

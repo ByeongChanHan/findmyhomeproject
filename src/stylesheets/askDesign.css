@@ -1,7 +1,9 @@
 #textarea{
     width:700px;
     height: 450px;
-    font-size:25px;
+    font-size:20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    padding-left: 5px;
 }
 .askBtn{
     position: relative;
@@ -64,6 +66,7 @@
     margin: 0 auto;
     margin-top: 50px;
     text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 .select{
     position: relative;
@@ -82,9 +85,11 @@
     padding: 10px;
 }
 #title{
+    padding-left: 5px;
     width: 99%;
     height: 25px;
     float: left;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 .asktable{
     display: flex;

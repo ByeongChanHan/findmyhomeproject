@@ -120,8 +120,9 @@ class RegisterItem extends Component{
         // placeholder를 불러오고
         let inputCheck = event.target.placeholder;
         // 입력 키 코드 불러온다음
-        let _keycode = event.which
+        let _keycode = event.which;
         // 불러온게 중개사 번호 칸일경우
+        console.log(_keycode)
         if(inputCheck === "Agentnumber"){
             // 48~57범위가 숫자로 나옴
             if((_keycode >=48)&&(_keycode<=57)){

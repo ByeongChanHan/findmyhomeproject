@@ -121,7 +121,7 @@ def loginform():
             return "존재하지 않는 ID이거나 비밀번호가 틀립니다"
         else:
             return IdData[0]
-        return ""
+        return redirect(url_for("/"))
 @app.route('/',methods=['GET', 'POST'])
 def main():
     if request.method == 'GET':

@@ -62,9 +62,6 @@ class LoginPage extends Component{
             if(res === "존재하지 않는 ID이거나 비밀번호가 틀립니다"){
                 return false
             }
-            else{
-                alert(res)
-            }
         })
     }
 }

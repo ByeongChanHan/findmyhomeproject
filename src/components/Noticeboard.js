@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import Header from '../components/HeaderComponent';
 import '../stylesheets/noticePage.css';
+import '../stylesheets/NotoSans.css'
 
 class Noticeboard extends Component{
     // 페이지의 상태값
@@ -243,11 +244,16 @@ class WriteList extends Component{
     // 누를때마다 viewCounter호출
     // 하나의 열은 위에서 return한 WriteList 클래스 각각의 속성값
     // 작성자는 회원가입기능 완료후 수정예정
+    componentDidMount(){
+        var Row_id = this.props.title;
+        console.log(Row_id)
+        document.getElementById(Row_id).addEventListener('click',this._viewCounter)
+    }
     render(){
         return(
-            <tr>
+            <tr id = {this.props.title}>
                 <td>{this.props.num}</td>
-                <td><button onClick={this._viewCounter}>{this.props.title}</button></td>
+                <td>{this.props.title}</td>
                 <td>{this.props.userwrote}</td>
                 <td>작성자</td>
                 <td>{this.props.wrotedate}</td>
