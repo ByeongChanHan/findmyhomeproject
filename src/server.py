@@ -9,7 +9,7 @@ now = datetime.now()
 app = Flask(__name__)
 app.secret_key = 'secret key'
 
-# 서로다른 포트에서 연결할때 cors에러 나는데 cors정책을 모두 허용해주는 flask_cors라이브러리 사용
+# 서로다른 포트에서 연결할때 cors에러 나서 cors정책을 모두 허용해주는 flask_cors라이브러리 사용
 CORS(app)
 @app.before_request
 def session_permanent():
@@ -71,19 +71,8 @@ def showboard():
             result['viewnum'] = viewnumArr
             # 다 집어넣은 배열을 return
         return result
-    # elif request.method == 'POST':
-    #     title = request.json.get('title')
-    #     currentnum = request.json.get('currentnum')
-    #     conn = sqlite3.connect('writelist.db')
-    #     cur = conn.cursor()
-    #     cur.execute("update writeDB set viewnum=? where title=?",(currentnum,title))
-    #     conn.commit()
-    #     conn.close()
-    #     return "success"
-
-@app.route('/board/<writenum>', methods=['GET', 'POST'])
-def selectBoard(writenum):
-    if request.method == 'POST':
+    # 게시판에서 글을 클릭했을때 post요청이 가면서 update 쿼리문으로 조회수를 늘림
+    elif request.method == 'POST':
         title = request.json.get('title')
         currentnum = request.json.get('currentnum')
         conn = sqlite3.connect('writelist.db')
@@ -91,7 +80,34 @@ def selectBoard(writenum):
         cur.execute("update writeDB set viewnum=? where title=?",(currentnum,title))
         conn.commit()
         conn.close()
-        return writenum
+        return "success"
+# 게시판에서 글을누르고 나면 페이지 url뒤에 params가 붙어서 react에서 params를 붙이고 요청을 보내면
+# board/<아무문자>를 받아 라우팅되게끔 구현
+@app.route('/board/<titleurl>', methods=['GET', 'POST'])
+def selectBoard(titleurl):
+    if request.method == 'GET':
+        conn = sqlite3.connect('writelist.db')
+        cur = conn.cursor()
+        cur.execute("select title,userwrote,wrotedate from writeDB where title=?",(titleurl,))
+        Viewdata = cur.fetchone()
+        print(Viewdata)
+        Selectdict = dict()
+        titleArr = []
+        userwroteArr = []
+        wrotedateArr = []
+        # row의 0번째는 제목의 열
+        titleArr.append(Viewdata[0])
+        # row의 1번째는 내용의 열
+        userwroteArr.append(Viewdata[1])
+        # row의 2번째는 작성날짜의 열
+        wrotedateArr.append(Viewdata[2])
+        # 배열에 다 넣었으면
+        # title,userwrote,wrotedate키에 배열을 집어넣고
+        Selectdict['SelectTitle'] = titleArr
+        Selectdict['Selectuserwrote'] = userwroteArr
+        Selectdict['Selectwrotedate'] = wrotedateArr
+        # dictionary를 리턴
+        return Selectdict
 
 @app.route('/signupagent', methods=['GET', 'POST'])
 def register():
@@ -104,6 +120,8 @@ def register():
         if reqPassword != reqRePassword:
             return "패스워드가 일치하지 않습니다."
         else:
+            # id나 중개사번호는 unique속성이여서 중복될 수가 없는데 중복되면 예외처리에 걸리기때문에
+            # 이미 존재하는 아이디나 겹치는 중개사번호는 예외처리인 except에서 처리
             try:
                 conn = sqlite3.connect('writelist.db')
                 cur = conn.cursor()
@@ -115,6 +133,8 @@ def register():
                 print("An error occurred:", e.args[0])
                 return "이미 존재하는 ID이거나 존재하는 중개사번호입니다"
 
+# 중개사 정보가 저장 되어 있는 테이블과 일반 사용자 정보가 있는 테이블을 다 비교해야하기 때문에
+# join을 이용한 쿼리문으로 수정예정
 @app.route('/login', methods=['GET', 'POST'])
 def loginform():
     if request.method == 'POST':
@@ -133,6 +153,7 @@ def loginform():
             return "존재하지 않는 ID이거나 비밀번호가 틀립니다"
         else:
             return redirect(url_for("main"))
+# 세션유지는 아직 미완성단계(디버깅중)
 @app.route('/',methods=['GET', 'POST'])
 def main():
     if request.method == 'GET':
@@ -142,12 +163,6 @@ def main():
             print(session)
             return idtext
         return "로그인실패"
-# @app.route('/', methods=['GET', 'POST'])
-# def main():
-#     if request.method == 'GET':
-#         print(session)
-#         return ''
 
-# 구동 함수
 if __name__ == '__main__':
     app.run(debug=True)

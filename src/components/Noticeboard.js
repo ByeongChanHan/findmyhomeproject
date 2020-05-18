@@ -273,9 +273,12 @@ class WriteList extends Component{
             },
             body : JSON.stringify(SelectedObject)
         }
-        fetch(`http://localhost:5000/board/${this.props.num}`,ClickSave)
+        fetch("http://localhost:5000/board",ClickSave)
         .then(showList => console.log(showList.text()))
-        window.location.href = `http://localhost:5000/board/${this.props.num}`
+        // 조회수가 저장되는 시간을 고려해서 1초 후에 페이지가 넘어감
+        setTimeout(()=>{
+            window.location.href = `http://localhost:3000/board/${this.props.title}`
+        },1000)
     }
 }
 export default Noticeboard

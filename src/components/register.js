@@ -120,39 +120,42 @@ class Printregister extends Component{
             // placeholder를 불러오고
             let inputCheck = event.target.placeholder
             // 입력 키 코드 불러온다음
-            let _keycode = event.which
+            let _keycode = event.keyCode
             // 불러온게 전화번호 칸일경우
-            let PhoneNumvalues = event.target.value
-            if(inputCheck === "PhoneNumber" && ((_keycode >=48)&&(_keycode<=57))){
-                    let PhoneNum = ""
-                    if(PhoneNumvalues.length < 4) {
-                        return PhoneNumvalues;
-                    } else if(PhoneNumvalues.length < 7) {
-                        PhoneNum += PhoneNumvalues.substr(0, 3);
-                        PhoneNum += "-";
-                        PhoneNum += PhoneNumvalues.substr(3);
-                    } else if(PhoneNumvalues.length < 11) {
-                        PhoneNum += PhoneNumvalues.substr(0, 3);
-                        PhoneNum += "-";
-                        PhoneNum += PhoneNumvalues.substr(3, 4);
-                        PhoneNum += "-";
-                        PhoneNum += PhoneNumvalues.substr(7);
+            let PhoneNumvalues = document.getElementById('PhoneNumber').value;
+            if(inputCheck === "PhoneNumber"){
+                    if((_keycode >=48)&&(_keycode<=57)){
+                        let PhoneNum = ""
+                        if(PhoneNumvalues.length < 4) {
+                            console.log(PhoneNumvalues)
+                            return PhoneNumvalues;
+                        } else if(PhoneNumvalues.length < 8) {
+                            PhoneNum += PhoneNumvalues.substr(0, 3);
+                            PhoneNum += "-";
+                            PhoneNum += PhoneNumvalues.substr(3);
+                        } else if(PhoneNumvalues.length < 11) {
+                            PhoneNum += PhoneNumvalues.substr(0, 3);
+                            PhoneNum += "-";
+                            PhoneNum += PhoneNumvalues.substr(3, 4);
+                            PhoneNum += "-";
+                            PhoneNum += PhoneNumvalues.substr(7);
+                        }
+                        else {
+                            PhoneNum += PhoneNumvalues.substr(0, 3);
+                            PhoneNum += "-";
+                            PhoneNum += PhoneNumvalues.substr(3, 4);
+                            PhoneNum += "-";
+                            PhoneNum += PhoneNumvalues.substr(7);
+                        }
+                        PhoneNumvalues = PhoneNum;
+                        console.log(PhoneNumvalues)
+                        return true;
                     }
-                    else {
-                        PhoneNum += PhoneNumvalues.substr(0, 3);
-                        PhoneNum += "-";
-                        PhoneNum += PhoneNumvalues.substr(3, 4);
-                        PhoneNum += "-";
-                        PhoneNum += PhoneNumvalues.substr(7);
+                    // 아닐경우 이벤트를 멈춰버림
+                    else{
+                        document.getElementById('PhoneNumber').value = ""
+                        return false;
                     }
-                    PhoneNumvalues = PhoneNum;
-                    console.log(PhoneNum)
-                    return true;
-                }
-                // 아닐경우 이벤트를 멈춰버림
-                else{
-                    event.preventDefault();
-                    return false;
                 }
             }
         }
