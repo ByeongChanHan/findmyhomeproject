@@ -42,7 +42,7 @@ class Agentregister extends Component{
                 <Header/>
                 <section className = 'registerForm'>
                     <div className="informationText">
-                    <p>회원가입</p>
+                    <p>중개사 회원가입</p>
                     <h4>로그인하면 더 많은 서비스를 이용할수 있습니다</h4>
                     </div>
                     <div className = 'inner'>

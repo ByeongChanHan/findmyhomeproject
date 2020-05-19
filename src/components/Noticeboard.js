@@ -262,6 +262,7 @@ class WriteList extends Component{
     }
     // 클릭할때마다 조회수 증가
     _viewCounter = () =>{
+        // 조회수를 클릭하면 1씩 늘려서 그 값을 서버에 전달
         var CurrentviewNum = this.props.viewnum+1
         var SelectedObject = {}
         SelectedObject.title = this.props.title;
@@ -276,6 +277,7 @@ class WriteList extends Component{
         fetch("http://localhost:5000/board",ClickSave)
         .then(showList => console.log(showList.text()))
         // 조회수가 저장되는 시간을 고려해서 1초 후에 페이지가 넘어감
+        // 페이지는 board 뒤에 제목을 붙여서 이동
         setTimeout(()=>{
             window.location.href = `http://localhost:3000/board/${this.props.title}`
         },1000)

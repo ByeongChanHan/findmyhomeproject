@@ -54,7 +54,7 @@ class Register extends Component{
                             key={index}/>
                         })}
                     </div>
-                    <button className="submitid">회원가입</button>
+                    <input type="button" className="submitid" onClick={this.Sendserver} value="회원가입"></input>
                     <p>이미 계정이 있으신가요?
                         <a href = "/login">로그인</a>
                     </p>
@@ -62,19 +62,7 @@ class Register extends Component{
             </div>
         )
     }
-}
-class Printregister extends Component{
-    render(){
-        return(
-            <div>
-                <div className ="information">
-                    <p>{this.props.pItem}</p>
-                    <input type={this.props.typeselect} placeholder={this.props.placeholderItem} onKeyUp={this.Isnum} id={this.props.id}></input>
-                </div>
-            </div>
-        )
-    }
-    Sendinformation = () =>{
+    Sendserver = () =>{
         let IdText = document.getElementById('idText').value;
         let pwdText =  document.getElementById('pwdText').value;
         let RepwdText = document.getElementById('repwdText').value;
@@ -114,6 +102,18 @@ class Printregister extends Component{
         fetch("http://localhost:5000/signup",sendOptions)
         .then(res => res.text())
         .then(printer => alert(printer))
+    }
+}
+class Printregister extends Component{
+    render(){
+        return(
+            <div>
+                <div className ="information">
+                    <p>{this.props.pItem}</p>
+                    <input type={this.props.typeselect} placeholder={this.props.placeholderItem} onKeyUp={this.Isnum} id={this.props.id}></input>
+                </div>
+            </div>
+        )
     }
         // 숫자만 입력해야하는지 확인하는 함수
         Isnum = (event) =>{

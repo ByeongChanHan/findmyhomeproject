@@ -109,8 +109,9 @@ def selectBoard(titleurl):
         # dictionary를 리턴
         return Selectdict
 
+# 중개사 회원가입할때
 @app.route('/signupagent', methods=['GET', 'POST'])
-def register():
+def agentregister():
     if request.method == 'POST':
         reqID = request.json.get('id')
         reqPassword = request.json.get('password')
@@ -132,6 +133,28 @@ def register():
             except sqlite3.Error as e:
                 print("An error occurred:", e.args[0])
                 return "이미 존재하는 ID이거나 존재하는 중개사번호입니다"
+
+@app.route('/signup', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        reqID = request.json.get('id')
+        reqPassword = request.json.get('password')
+        reqRePassword = request.json.get('RepwdText')
+        reqEmail = request.json.get('emailText')
+        reqPhonenum = request.json.get('PhoneText')
+        if reqPassword != reqRePassword:
+            return "패스워드가 일치하지 않습니다."
+        else:
+            try:
+                conn = sqlite3.connect('writelist.db')
+                cur = conn.cursor()
+                cur.execute("insert into normalUser(ID,password,Repassword,email,PhoneNumber) values(?,?,?,?,?)",(reqID,reqPassword,reqRePassword,reqEmail,reqPhonenum))
+                conn.commit()
+                conn.close()
+                return "회원가입이 완료되었습니다."
+            except sqlite3.Error as e:
+                print("An error occurred:", e.args[0])
+                return "이미 존재하는 ID입니다"
 
 # 중개사 정보가 저장 되어 있는 테이블과 일반 사용자 정보가 있는 테이블을 다 비교해야하기 때문에
 # join을 이용한 쿼리문으로 수정예정

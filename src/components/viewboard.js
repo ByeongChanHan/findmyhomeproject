@@ -11,6 +11,8 @@ class Viewboard extends Component{
     }
     _callUrl = () =>{
         let CurrentUrl = window.location.href;
+        // http:localhost:3000/board/제목 을 http:localhost:5000/board/제목 으로 변하게 만드는 줄인데
+        // 나중에 서버 배포할때 문제 생기면 수정
         let ConvertUrl = CurrentUrl.replace("3000","5000")
         console.log(ConvertUrl)
         return fetch(ConvertUrl)

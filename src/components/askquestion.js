@@ -6,19 +6,21 @@ import '../stylesheets/NotoSans.css'
 class Askquestion extends Component{
     render(){
         const titlestyle={
-            height : '50px',
             lineHeight:'50px',
-            fontWeight:'bold'
+            fontWeight:'bold',
+            border:0
         }
         const optionstyle={
-            height : '45px',
             lineHeight:'50px',
-            fontWeight:'bold'
+            fontWeight:'bold',
+            borderBottom:'1px solid #999',
+            borderRight:0,
+            borderLeft:0
         }
         const descwrite={
-            height : '470px',
             lineHeight:'470px',
-            fontWeight:'bold'
+            fontWeight:'bold',
+            border:0
         }
         const pageTitle={
             textAlign : 'left'
@@ -42,7 +44,9 @@ class Askquestion extends Component{
                             </tr>
                         </tr>
                         <table>
-                            <input type="text" name="titleplace" id="title"></input>
+                            {/* 제목부분 */}
+                            <input type="text" id="title"></input>
+                                {/* 선택부분 */}
                                 <select className = "select">
                                     <option selected>지역선택</option>
                                     <option>서울</option>
@@ -68,13 +72,12 @@ class Askquestion extends Component{
                                     <option>투룸</option>
                                     <option>쓰리룸 이상</option>
                                 </select>
-                                {/* 선택부분 */}
-                                <textarea type="text" name="textareaplace" id ="textarea"></textarea>
-                                {/* 입력창부분 */}
+                                {/* 내용부분 */}
+                                <textarea type="text" id ="textarea"></textarea>
                         </table>
                     </div>
+                    {/* 질문하기 버튼 */}
                 <input type="button" className = "askBtn" onClick={this._sendText} value="질문하기"></input>
-                {/* 버튼 */}
                 </div>
             </div>
         )
