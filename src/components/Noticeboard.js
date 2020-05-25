@@ -139,7 +139,7 @@ class Noticeboard extends Component{
                             <option value="userwrote">내용</option>
                         </select>
                         {/* 검색단어 입력하는 input부분 */}
-                        <input type="text" className="searchText" onChange={this.onChange}></input>
+                        <input type="text" className="searchText" onKeyPress={this._enter} onChange={this.onChange}></input>
                         {/* 검색 버튼 */}
                         <input type="button" value="검색" className="searchBtn" onClick={this.ClickToggle}></input>
                     </div>
@@ -166,6 +166,12 @@ class Noticeboard extends Component{
                 </table>
             </div>
         )
+    }
+    // keypress 엔터눌렀을때 charcode가 13으로 나옴
+    _enter = (event) =>{
+        if(event.charCode === 13){
+            this.ClickToggle()
+        }
     }
     // 테이블을 어떤걸 보여줄지 결정하는 함수
     // 검색을 안누르면 false니까 전체데이터 10개씩 쪼갠거 출력
@@ -204,10 +210,22 @@ class Noticeboard extends Component{
         let searchText = this.state.Searchvalue
         //제목을 선택했을때 titleTotal(제목 전체 데이터)를 state에서 불러와서 for문으로 검사
         if(this.state.SelectedOption === "title"){
-            for(var index = 0; index<=this.state.titleTotal.length; index++){
+            for(var index = 0; index<this.state.titleTotal.length; index++){
                 // index는 1씩 늘어나고있으니까 전체데이터를 하나씩 다 뒤져서 
                 // 아까 state에 저장한 검색값(Searchvalue)랑 같으면 해당하는 index를 return
-                if(this.state.titleTotal[index] ===searchText){
+                var All_Data = [];
+                var compareData = this.state.titleTotal[index].indexOf(searchText)
+                All_Data.push(this.state.titleTotal[compareData])
+                if(All_Data !== -1){
+                    console.log(All_Data)
+                    return <WriteList title={this.state.titleTotal[index]}
+                    userwrote={this.state.userwroteTotal[index]}
+                    num={index+1}
+                    wrotedate={this.state.wrotedateTotal[index]}
+                    viewnum = {this.state.savedviewnum[index]}
+                    key={index}/>
+                }
+                if(this.state.titleTotal[index] === searchText){
                     return <WriteList title={this.state.titleTotal[index]}
                     userwrote={this.state.userwroteTotal[index]}
                     num={index+1}
@@ -223,7 +241,7 @@ class Noticeboard extends Component{
         }
         // 내용을 선택했을때(위에 로직이랑 동일)
         else if(this.state.SelectedOption === "userwrote"){
-            for(var idx = 0; idx<=this.state.userwroteTotal.length; idx++){
+            for(var idx = 0; idx<this.state.userwroteTotal.length; idx++){
                 if(this.state.userwroteTotal[idx] ===searchText){
                     return <WriteList title={this.state.titleTotal[idx]}
                     userwrote={this.state.userwroteTotal[idx]}
@@ -245,12 +263,12 @@ class WriteList extends Component{
     // 하나의 열은 위에서 return한 WriteList 클래스 각각의 속성값
     // 작성자는 회원가입기능 완료후 수정예정
     componentDidMount(){
-        var Row_id = this.props.title;
+        var Row_id = this.props.num;
         document.getElementById(Row_id).addEventListener('click',this._viewCounter)
     }
     render(){
         return(
-            <tr id = {this.props.title}>
+            <tr id = {this.props.num}>
                 <td>{this.props.num}</td>
                 <td>{this.props.title}</td>
                 <td>{this.props.userwrote}</td>
@@ -267,6 +285,8 @@ class WriteList extends Component{
         var SelectedObject = {}
         SelectedObject.title = this.props.title;
         SelectedObject.currentnum = CurrentviewNum;
+        SelectedObject.listnum = this.props.num;
+        console.log(this.props.num)
         const ClickSave = {
             method:'POST',
             headers:{
@@ -279,7 +299,7 @@ class WriteList extends Component{
         // 조회수가 저장되는 시간을 고려해서 1초 후에 페이지가 넘어감
         // 페이지는 board 뒤에 제목을 붙여서 이동
         setTimeout(()=>{
-            window.location.href = `http://localhost:3000/board/${this.props.title}`
+            window.location.href = `http://localhost:3000/board/${this.props.num}`
         },1000)
     }
 }

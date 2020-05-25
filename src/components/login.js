@@ -64,6 +64,9 @@ class LoginPage extends Component{
                 alert(res)
                 return false
             }
+            // else{
+            //     window.location.href ="/"
+            // }
         })
     }
 }

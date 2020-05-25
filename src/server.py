@@ -75,6 +75,7 @@ def showboard():
     elif request.method == 'POST':
         title = request.json.get('title')
         currentnum = request.json.get('currentnum')
+        listnum = request.json.get('listnum')
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
         cur.execute("update writeDB set viewnum=? where title=?",(currentnum,title))
@@ -83,29 +84,33 @@ def showboard():
         return "success"
 # 게시판에서 글을누르고 나면 페이지 url뒤에 params가 붙어서 react에서 params를 붙이고 요청을 보내면
 # board/<아무문자>를 받아 라우팅되게끔 구현
-@app.route('/board/<titleurl>', methods=['GET', 'POST'])
-def selectBoard(titleurl):
+@app.route('/board/<numurl>', methods=['GET', 'POST'])
+def selectBoard(numurl):
     if request.method == 'GET':
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
-        cur.execute("select title,userwrote,wrotedate from writeDB where title=?",(titleurl,))
+        cur.execute("select title,userwrote,wrotedate,viewnum from writeDB where listnum=?",(titleurl,))
         Viewdata = cur.fetchone()
         print(Viewdata)
         Selectdict = dict()
         titleArr = []
         userwroteArr = []
         wrotedateArr = []
+        viewnumArr = []
         # row의 0번째는 제목의 열
         titleArr.append(Viewdata[0])
         # row의 1번째는 내용의 열
         userwroteArr.append(Viewdata[1])
         # row의 2번째는 작성날짜의 열
         wrotedateArr.append(Viewdata[2])
+        # row의 3번째는 조회수의 열
+        viewnumArr.append(Viewdata[3])
         # 배열에 다 넣었으면
         # title,userwrote,wrotedate키에 배열을 집어넣고
         Selectdict['SelectTitle'] = titleArr
         Selectdict['Selectuserwrote'] = userwroteArr
         Selectdict['Selectwrotedate'] = wrotedateArr
+        Selectdict['Selectviewnum'] = viewnumArr
         # dictionary를 리턴
         return Selectdict
 
@@ -164,7 +169,7 @@ def loginform():
         idText = request.json.get('idtext')
         pwdText = request.json.get('passwordtext')
         session['id'] = idText
-        print(session['id'])
+        print(session)
         
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
@@ -175,17 +180,18 @@ def loginform():
         if IdData == None:
             return "존재하지 않는 ID이거나 비밀번호가 틀립니다"
         else:
-            return redirect(url_for("main"))
+            session['islogin'] = True
+            return redirect(url_for('main'))
+        return ""
 # 세션유지는 아직 미완성단계(디버깅중)
 @app.route('/',methods=['GET', 'POST'])
 def main():
     if request.method == 'GET':
         print(session)
-        if 'id' in session:
-            idtext = session['id']
-            print(session)
-            return idtext
-        return "로그인실패"
+        if session.get('islogin') != True:
+            return "비로그인"
+        else:
+            return '로그인중'
 
 if __name__ == '__main__':
     app.run(debug=True)

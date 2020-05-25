@@ -1,5 +1,128 @@
 .showBoardItem{
+    display: flex;
     position: relative;
-    margin-top:20%;
-    text-align: center;
+    margin:0 20% 10px 20%;
+}
+.askarea{
+    padding-top:10%;
+    background-color: white;
+}
+.showBoardItem h1{
+    padding-left : 3%;
+    width: 90%;
+}
+.boardinformation{
+    display: flex;
+    margin:0 20% 0 20%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.chat{
+    width:60px;
+    height: 60px;
+    padding-top:15px;
+}
+.iconArea{
+    margin: 0 0 0 80%;
+    display:flex;
+    padding-bottom: 10px;
+}
+.commentimg{
+    border:0;
+    width: 65px;
+    height: 80px;
+    background: white;
+    margin-right: 25px;
+    padding: 5px 0 0 0;
+}
+.commentimg:active{
+    background-color: rgb(108, 192, 145);
+    color: white;
+    border: 2px solid gray;
+}
+.commentimg p{
+    margin:5px 0 0 0;
+    position: relative;
+    left: 2px;
+    width:60px;
+    font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.listimg{
+    width: 65px;
+    height: 80px;
+    padding: 5px 0 0 0;
+    border:0;
+    background: white;
+}
+.listimg:active{
+    background-color: rgb(108, 192, 145);
+    color: white;
+    border: 2px solid gray;
+}
+.listimg p{
+    position: relative;
+    font-size: 15px;
+    margin:5px 0 0 0;
+    left: 2px;
+    width:60px;
+    font-family: 'Noto Sans KR', sans-serif; 
+}
+.icon{
+    width: 40px;
+    height: 40px;
+}
+.boardinformation p{
+    margin:0 2% 0 2%;
+    font-size: 15px;
+}
+.contents{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin:0 20% 0 20%;
+    height:inherit;
+    font-size: 20px;
+}
+.blankArea{
+    width: 100%;
+    height: 40px;
+    background-color: gainsboro;
+}
+.commentArea{
+    padding: 5% 25% 5% 20%;
+    height: 270px;
+    background-color: white;
+    opacity: 0;
+}
+.commentArea textarea{
+    padding :10px 10px 10px 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 98%;
+    height: 50%;
+    font-size: 15px;
+    resize: none;
+}
+.Submitbtn{
+    width: 100px;
+    float: right;
+    background-color: white;
+    border: 2px solid rgb(108, 192, 145);
+    transition-duration: 0.7s;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+    margin-top: 20px;
+}
+.Submitbtn:hover{
+    color: white;
+    background-color: rgb(108, 192, 145);
+}
+.commentArea h1{
+    margin: 0 0 20px 0;
+}
+.ranking{
+    position: absolute;
+    left: 80%;
+    bottom: 5%;
+    width: 15%;
+    height: 30%;
+    background-color: inherit;
+    border: 2px solid lawngreen;
 }

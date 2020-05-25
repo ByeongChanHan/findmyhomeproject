@@ -17,7 +17,7 @@ class Entirepage extends Component{
     Islogin = () =>{
         fetch("http://localhost:5000/")
         .then(res=>{
-            console.log(res)
+            console.log(res.text())
         })
     }
     _scrollToggle = () =>{

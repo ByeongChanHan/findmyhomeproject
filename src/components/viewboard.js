@@ -1,6 +1,13 @@
 import React,{Component} from 'react';
 import Header from './HeaderComponent'
 import '../stylesheets/viewboard.css'
+import Chatimg from '../images/chat.png'
+import Comment from '../images/comment.png'
+import Listicon from '../images/list.png'
+import '../stylesheets/NotoSans.css'
+import $ from "jquery";
+import jQuery from 'jquery'
+window.$ = window.jQuery = jQuery;
 
 class Viewboard extends Component{
     state ={
@@ -27,7 +34,8 @@ class Viewboard extends Component{
         this.setState({
             title : selectJSON.SelectTitle,
             userwrote : selectJSON.Selectuserwrote,
-            wrotedate : selectJSON.Selectwrotedate
+            wrotedate : selectJSON.Selectwrotedate,
+            viewnum : selectJSON.Selectviewnum
         })
     }
     render(){
@@ -44,18 +52,78 @@ class Viewboard extends Component{
         return <BoardRender title={this.state.title}
         userwrote={this.state.userwrote}
         wrotedate={this.state.wrotedate}
+        viewnum={this.state.viewnum}
         />
     }
 }
 class BoardRender extends Component{
+    state ={
+        iscomment : false
+    }
     render(){
         return(
-            <div className ="showBoardItem">
-                <p>{this.props.title}</p>
-                <p>{this.props.userwrote}</p>
-                <p>{this.props.wrotedate}</p>
-            </div>
+            <section>
+                <div className="askarea">
+                    <div className ="showBoardItem">
+                        <img src={Chatimg} className="chat" alt="chatImg"/>
+                        <h1>{this.props.title}</h1>
+                    </div>
+                    <div className="boardinformation">
+                        <p>작성일 : {this.props.wrotedate}</p>
+                        <p>조회수 : {this.props.viewnum}</p>
+                    </div>
+                    <div className="contents">
+                        <p>{this.props.userwrote}</p>
+                        <div className="iconArea">
+                            <button type="button" onClick={this._Comment} className="commentimg">
+                                <img src={Comment} className ="icon" alt="commentImg"></img>
+                                <p>답변하기</p>
+                            </button>
+                            <button type="button" onClick={this._moveBoardUrl} className="listimg">
+                                <img src={Listicon} className ="icon" alt="listImg"></img>
+                                <p>목록</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className = "blankArea">
+                    {/* 빈공간 */}
+                </div>
+                <div className ="commentArea">
+                    <h1>답변하기</h1>
+                    <textarea type="text" placeholder="댓글을 입력하세요"></textarea>
+                    <button type="button" className="Submitbtn">등록</button>
+                </div>
+                <div className = 'ranking'>
+                    <p>테스트영역</p>
+                </div>
+            </section>
         )
     }
+    _moveBoardUrl = () =>{
+        window.location.href = "/board"
+    }
+    _Comment = () =>{
+        let iscomment = this.state.iscomment
+        this.setState({
+            iscomment : true
+        })
+        if(iscomment === false){
+            $('.commentArea').fadeTo(1000,1)
+        }
+        else if(iscomment === true){
+            $('.commentArea').fadeTo(1000,0)
+            this.setState({
+                iscomment : false
+            })
+        }
+    }
 }
+// class Comments extends Component{
+//     render(){
+//         return(
+
+//         )
+//     }
+// }
 export default Viewboard
