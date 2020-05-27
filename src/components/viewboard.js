@@ -91,8 +91,8 @@ class BoardRender extends Component{
                 </div>
                 <div className ="commentArea">
                     <h1>답변하기</h1>
-                    <textarea type="text" placeholder="댓글을 입력하세요"></textarea>
-                    <button type="button" className="Submitbtn">등록</button>
+                    <textarea type="text" id="commentText" placeholder="댓글을 입력하세요"></textarea>
+                    <button type="button" onClick={this.createComment} className="Submitbtn">등록</button>
                 </div>
                 <div className = 'ranking'>
                     <p>테스트영역</p>
@@ -117,6 +117,33 @@ class BoardRender extends Component{
                 iscomment : false
             })
         }
+    }
+    createComment = () =>{
+        let CurrentUrl = window.location.href;
+        // http:localhost:3000/board/제목 을 http:localhost:5000/board/제목 으로 변하게 만드는 줄인데
+        // 나중에 서버 배포할때 문제 생기면 수정
+        let ConvertUrl = CurrentUrl.replace("3000","5000");
+        var CommentDict = {};
+        var getComment = document.getElementById('commentText').value;
+        var getTitle = this.props.title[0];
+        if(getComment === ""){
+            alert("내용을 입력해주세요");
+            return false;
+        }
+        CommentDict.commentText = getComment
+        CommentDict.commentDBtitle = getTitle
+        console.log(CommentDict)
+        const reqoption = {
+            method:'POST',
+            headers:{
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body : JSON.stringify(CommentDict)
+        }
+        fetch(ConvertUrl,reqoption)
+        .then(resComment =>{
+            console.log(resComment.text())
+        })
     }
 }
 // class Comments extends Component{

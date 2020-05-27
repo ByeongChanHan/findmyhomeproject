@@ -213,8 +213,10 @@ class Noticeboard extends Component{
             for(var index = 0; index<this.state.titleTotal.length; index++){
                 // index는 1씩 늘어나고있으니까 전체데이터를 하나씩 다 뒤져서 
                 // 아까 state에 저장한 검색값(Searchvalue)랑 같으면 해당하는 index를 return
+                console.log(this.state.titleTotal)
                 var All_Data = [];
                 var compareData = this.state.titleTotal[index].indexOf(searchText)
+                console.log(compareData)
                 All_Data.push(this.state.titleTotal[compareData])
                 if(All_Data !== -1){
                     console.log(All_Data)
@@ -283,7 +285,6 @@ class WriteList extends Component{
         // 조회수를 클릭하면 1씩 늘려서 그 값을 서버에 전달
         var CurrentviewNum = this.props.viewnum+1
         var SelectedObject = {}
-        SelectedObject.title = this.props.title;
         SelectedObject.currentnum = CurrentviewNum;
         SelectedObject.listnum = this.props.num;
         console.log(this.props.num)

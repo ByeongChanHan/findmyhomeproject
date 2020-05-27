@@ -3,14 +3,17 @@ from flask_cors import CORS
 import sqlite3
 import requests
 from datetime import datetime,timedelta
+from bs4 import BeautifulSoup
 
 now = datetime.now()
-
+# 시크릿키가 있어야 세션유지 가능
 app = Flask(__name__)
 app.secret_key = 'secret key'
 
 # 서로다른 포트에서 연결할때 cors에러 나서 cors정책을 모두 허용해주는 flask_cors라이브러리 사용
 CORS(app)
+# 세션이 5분동안 유지되게 하는 구문
+# permanent값을 True로 줌
 @app.before_request
 def session_permanent():
     session.permanent = True
@@ -71,25 +74,28 @@ def showboard():
             result['viewnum'] = viewnumArr
             # 다 집어넣은 배열을 return
         return result
-    # 게시판에서 글을 클릭했을때 post요청이 가면서 update 쿼리문으로 조회수를 늘림
+    # 게시판에서 글을 클릭했을때 post요청이 가면서 update 쿼리문으로 조회수를 늘림(조회수 증가)
     elif request.method == 'POST':
-        title = request.json.get('title')
-        currentnum = request.json.get('currentnum')
         listnum = request.json.get('listnum')
+        currentnum = request.json.get('currentnum')
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
-        cur.execute("update writeDB set viewnum=? where title=?",(currentnum,title))
+        cur.execute("update writeDB set viewnum=? where listnum=?",(currentnum,listnum))
         conn.commit()
         conn.close()
         return "success"
 # 게시판에서 글을누르고 나면 페이지 url뒤에 params가 붙어서 react에서 params를 붙이고 요청을 보내면
 # board/<아무문자>를 받아 라우팅되게끔 구현
+# 여기서는 번호를 board뒤에 붙어서 받음(게시판에서 글을 클릭했을때 코드 실행)
 @app.route('/board/<numurl>', methods=['GET', 'POST'])
 def selectBoard(numurl):
     if request.method == 'GET':
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
-        cur.execute("select title,userwrote,wrotedate,viewnum from writeDB where listnum=?",(titleurl,))
+        # 클릭한 글의 정보를 db에서 조회
+        cur.execute("select title,userwrote,wrotedate,viewnum from writeDB where listnum=?",(numurl,))
+        # 하나의 데이터만 선택
+        # select title from writeDB order by viewnum desc (조회수 내림차순 순위 정렬쿼리)
         Viewdata = cur.fetchone()
         print(Viewdata)
         Selectdict = dict()
@@ -106,15 +112,26 @@ def selectBoard(numurl):
         # row의 3번째는 조회수의 열
         viewnumArr.append(Viewdata[3])
         # 배열에 다 넣었으면
-        # title,userwrote,wrotedate키에 배열을 집어넣고
+        # SelectTitle,Selectuserwrote,Selectwrotedate,Selectviewnum키에 배열을 집어넣고
         Selectdict['SelectTitle'] = titleArr
         Selectdict['Selectuserwrote'] = userwroteArr
         Selectdict['Selectwrotedate'] = wrotedateArr
         Selectdict['Selectviewnum'] = viewnumArr
         # dictionary를 리턴
         return Selectdict
-
-# 중개사 회원가입할때
+    # 글쓰고 답변달았을때는 여기로 옴
+    elif request.method == 'POST':
+        commentText = request.json.get('commentText')
+        commentDBtitle = request.json.get('commentDBtitle')
+        conn = sqlite3.connect('writelist.db')
+        cur = conn.cursor()
+        # 제목이 서로 같은것 을 저장하고 foreign key나 조인을 통해서 댓글을 리턴해야함
+        # 아직 수정중에있음
+        cur.execute("insert into comment(title,commentText) values(?,?)",(commentDBtitle,commentText))
+        conn.commit()
+        conn.close()
+        return "작성이 완료되었습니다."
+# 중개사 회원가입할때 들어오는 파라미터
 @app.route('/signupagent', methods=['GET', 'POST'])
 def agentregister():
     if request.method == 'POST':
@@ -123,6 +140,7 @@ def agentregister():
         reqRePassword = request.json.get('RepwdText')
         reqEmail = request.json.get('emailText')
         reqAgent = request.json.get('AgentText')
+        # 패스워드와 패스워드 확인값이 일치하지 않을때
         if reqPassword != reqRePassword:
             return "패스워드가 일치하지 않습니다."
         else:
@@ -139,6 +157,7 @@ def agentregister():
                 print("An error occurred:", e.args[0])
                 return "이미 존재하는 ID이거나 존재하는 중개사번호입니다"
 
+# 일반회원 회원가입할때 들어오는 파라미터
 @app.route('/signup', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -176,7 +195,7 @@ def loginform():
         cur.execute('select ID,password from userInformation where ID=? and password=?',(idText,pwdText))
         IdData = cur.fetchone()
         print(IdData)
-        cur.close()
+        conn.close()
         if IdData == None:
             return "존재하지 않는 ID이거나 비밀번호가 틀립니다"
         else:
@@ -187,6 +206,46 @@ def loginform():
 @app.route('/',methods=['GET', 'POST'])
 def main():
     if request.method == 'GET':
+        # # key = '6a5a6f6e496d636835324e436c6870'
+        arr_start = 0
+        arr_end = 1000
+        startnumber = 1
+        endnumber = 1000
+        Ra_Regno = []
+        conn = sqlite3.connect('writelist.db',isolation_level=None)
+        # 커서생성(커서 = SQL 문을 실행하거나 실행된 결과를 돌려받는 통로)
+        cur = conn.cursor()
+        cur.execute("CREATE TABLE IF NOT EXISTS Number_data(Ra_Regno TEXT)")
+        while endnumber <= 26000:
+            url='http://openapi.seoul.go.kr:8088/6a5a6f6e496d636835324e436c6870/xml/landBizInfo/'+str(startnumber)+'/'+str(endnumber)+'/'
+            # HTTP GET Request
+            req = requests.get(url)
+            # html 소스 가져오기
+            html = req.text
+            # HTTP Header 가져오기 
+            # header = req.headers
+            # HTTP Status 가져오기 (200 : 정상)
+            # status = req.status_code
+
+            ## BeautifulSoup으로 html소스를 python객체로 변환
+            ## 첫 인자는 html소스코드, 두 번째 인자는 어떤 parser를 이용할지 명시.
+            ## Python 내장 html.parser를 이용
+            soup = BeautifulSoup(html,'html.parser')
+            # select = soup.select('div.collapsible > div.expanded > div.collapsible-content > div:nth-child(20) > span.text')
+            for code in soup.findAll('ra_regno'):
+                Ra_Regno.extend(code)
+            if arr_end >= 25453:
+                arr_end = 25453
+            for i in range(arr_start,arr_end):
+                print(Ra_Regno[i])
+                cur.execute("INSERT OR IGNORE INTO Number_data(Ra_Regno) VALUES (?)",(Ra_Regno[i],))
+                conn.commit()
+            startnumber += 1000
+            endnumber += 1000
+            arr_start += 1000
+            arr_end += 1000
+        conn.close()
+        # 세션 확인
         print(session)
         if session.get('islogin') != True:
             return "비로그인"
