@@ -34,7 +34,7 @@
     font-size: 13px;
     background-color: rgb(108, 192, 145);
     color: white;
-    border: 1px solid #999;
+    border: 1px solid lightgray;
 }
 .boardsearchArea{
     display: flex;
@@ -53,6 +53,7 @@
     width: 60px;
     height: 35px;
     margin-left: 5px;
+    border: 1px solid lightgray;
 }
 .allnum{
     font-family: 'Noto Sans KR', sans-serif;

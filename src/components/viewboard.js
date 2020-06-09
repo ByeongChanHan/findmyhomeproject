@@ -35,7 +35,10 @@ class Viewboard extends Component{
             title : selectJSON.SelectTitle,
             userwrote : selectJSON.Selectuserwrote,
             wrotedate : selectJSON.Selectwrotedate,
-            viewnum : selectJSON.Selectviewnum
+            viewnum : selectJSON.Selectviewnum,
+            commentList : selectJSON.comment,
+            currentTime : selectJSON.currentTime,
+            ranking : selectJSON.rankingdata.slice(0,6)
         })
     }
     render(){
@@ -53,6 +56,9 @@ class Viewboard extends Component{
         userwrote={this.state.userwrote}
         wrotedate={this.state.wrotedate}
         viewnum={this.state.viewnum}
+        comment={this.state.commentList}
+        currentTime={this.state.currentTime}
+        ranking={this.state.ranking}
         />
     }
 }
@@ -89,13 +95,15 @@ class BoardRender extends Component{
                 <div className = "blankArea">
                     {/* 빈공간 */}
                 </div>
+                {this.props.comment ? this.CommentRender():"불러오는 중 입니다."}
                 <div className ="commentArea">
                     <h1>답변하기</h1>
                     <textarea type="text" id="commentText" placeholder="댓글을 입력하세요"></textarea>
                     <button type="button" onClick={this.createComment} className="Submitbtn">등록</button>
-                </div>
-                <div className = 'ranking'>
-                    <p>테스트영역</p>
+                    <div className = 'ranking'>
+                    <h1 className="rankingTitle">인기 게시물</h1>
+                    {this.rankingRender()}
+                    </div>
                 </div>
             </section>
         )
@@ -125,14 +133,11 @@ class BoardRender extends Component{
         let ConvertUrl = CurrentUrl.replace("3000","5000");
         var CommentDict = {};
         var getComment = document.getElementById('commentText').value;
-        var getTitle = this.props.title[0];
         if(getComment === ""){
             alert("내용을 입력해주세요");
             return false;
         }
         CommentDict.commentText = getComment
-        CommentDict.commentDBtitle = getTitle
-        console.log(CommentDict)
         const reqoption = {
             method:'POST',
             headers:{
@@ -141,16 +146,76 @@ class BoardRender extends Component{
             body : JSON.stringify(CommentDict)
         }
         fetch(ConvertUrl,reqoption)
-        .then(resComment =>{
-            console.log(resComment.text())
+        .then(resComment =>resComment.text())
+        .then(resCommentText=>{
+            alert(resCommentText)
+            window.location.reload(true)
+        })
+    }
+    // 댓글 렌더링 함수
+    CommentRender = () =>{
+        const ComArray = this.props.comment.map((CommentArr,index)=>{
+            return <Comments comment = {CommentArr}
+            currentTime = {this.props.currentTime}
+            key = {index}/>
+        })
+        return ComArray
+    }
+    // 랭킹 렌더링 함수
+    rankingRender = () =>{
+        const RankArray = this.props.ranking.map((RankArr,index)=>{
+            return <Ranking ranking = {RankArr}
+            ranknum = {index+1}
+            key = {index}/>
+        })
+        return RankArray
+    }
+}
+class Ranking extends Component{
+    render(){
+        return(
+            <div className="rankitem">
+                <b>{this.props.ranknum}</b>
+                <p onClick={this._moveUrl}>{this.props.ranking}</p>
+            </div>
+        )
+    }
+    _moveUrl = () =>{
+        let CurrentUrl = "http://localhost:5000/ranking"
+        // prop의 ranking은 인기조회수 숫자 옆에있는 제목을 뜻함
+        let sendrankingData= this.props.ranking
+        var rankingdataSet = {}
+        rankingdataSet.ranking = sendrankingData
+        const reqOptions = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body : JSON.stringify(rankingdataSet)
+        }
+        fetch(CurrentUrl,reqOptions)
+        .then(res => res.json())
+        .then(gourl => {
+            // response값안 rankingTitle키에 배열이 들어가있는데 그 배열의 0번째가 해당 글의 글목록번호
+            var sendUrl = gourl.rankingtitle[0]
+            window.location.href = `/board/${sendUrl}`
         })
     }
 }
-// class Comments extends Component{
-//     render(){
-//         return(
-
-//         )
-//     }
-// }
+class Comments extends Component{
+    render(){
+        return(
+            <div>
+            <div className="comment">
+                <h1>답변</h1>
+                <div className = "commentinform">
+                <p>사용자</p>
+                <p>{this.props.currentTime}</p>
+                </div>
+                <p>{this.props.comment}</p>
+            </div>
+            </div>
+        )
+    }
+}
 export default Viewboard

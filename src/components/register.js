@@ -148,7 +148,6 @@ class Printregister extends Component{
                             PhoneNum += PhoneNumvalues.substr(7);
                         }
                         PhoneNumvalues = PhoneNum;
-                        console.log(PhoneNumvalues)
                         return true;
                     }
                     // 아닐경우 이벤트를 멈춰버림

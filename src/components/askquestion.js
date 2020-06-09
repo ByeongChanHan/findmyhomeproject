@@ -73,7 +73,7 @@ class Askquestion extends Component{
                                     <option>쓰리룸 이상</option>
                                 </select>
                                 {/* 내용부분 */}
-                                <textarea type="text" id ="textarea"></textarea>
+                                <textarea type="text" id ="textarea" placeholder="내용을 입력해주세요"></textarea>
                         </table>
                     </div>
                     {/* 질문하기 버튼 */}

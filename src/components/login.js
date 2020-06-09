@@ -18,13 +18,13 @@ class LoginPage extends Component{
                     <div id = "loginBox">
                         <h3 className = "LoginTitle">FromMyHome</h3>
                         <label htmlFor="" id = "uid">아이디</label>
-                        <input id = "uid" type="text" title="아이디"></input>
+                        <input id = "uid" type="text" name="id" title="아이디"></input>
                         <div className="block"></div>
                         <label htmlFor="" id = "upass">패스워드</label>
-                        <input id = "upass" type="password" title="패스워드"></input>
+                        <input id = "upass" type="password" name="password" title="패스워드"></input>
                         <div className="block"></div>
                             <span className="btn">
-                                <input id="loginbtn" type="submit" value="login" onClick = {this._login}/>
+                                <input id="loginbtn" type="submit" value="login" onClick={this._login}/>
                             </span>
                             {/* create 파라미터로 이동 */}
                             <span className="create">
@@ -54,19 +54,20 @@ class LoginPage extends Component{
             headers:{
                 "Content-Type": "application/json; charset=utf-8"
             },
-            body : JSON.stringify(loginData)
+            body : JSON.stringify(loginData),
+            credentials: 'include'
         }
         fetch("http://localhost:5000/login",loginsend)
         .then(resLogin=>resLogin.text())
         .then(res=>{
-            console.log(res)
             if(res === "존재하지 않는 ID이거나 비밀번호가 틀립니다"){
                 alert(res)
                 return false
             }
-            // else{
-            //     window.location.href ="/"
-            // }
+            else{
+                console.log(res)
+                window.location.href = "/"
+            }
         })
     }
 }

@@ -5,6 +5,9 @@ import '../stylesheets/RobotoFont.css';
 // Link to 는 새로고침을 안하고 기존컴포넌트를 유지시킨채로 변경된 내용만 보여줌
 
 class Header extends Component{
+    componentDidMount(){
+        console.log(this.props.logintext)
+    }
     // 헤더에서 모든 라우팅을 설명하겠음
     // / : 홈
     // /ask : 질문하기

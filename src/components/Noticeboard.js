@@ -210,52 +210,53 @@ class Noticeboard extends Component{
         let searchText = this.state.Searchvalue
         //제목을 선택했을때 titleTotal(제목 전체 데이터)를 state에서 불러와서 for문으로 검사
         if(this.state.SelectedOption === "title"){
+            var Searchresult = []
             for(var index = 0; index<this.state.titleTotal.length; index++){
-                // index는 1씩 늘어나고있으니까 전체데이터를 하나씩 다 뒤져서 
-                // 아까 state에 저장한 검색값(Searchvalue)랑 같으면 해당하는 index를 return
-                console.log(this.state.titleTotal)
-                var All_Data = [];
-                var compareData = this.state.titleTotal[index].indexOf(searchText)
-                console.log(compareData)
-                All_Data.push(this.state.titleTotal[compareData])
-                if(All_Data !== -1){
-                    console.log(All_Data)
-                    return <WriteList title={this.state.titleTotal[index]}
-                    userwrote={this.state.userwroteTotal[index]}
-                    num={index+1}
-                    wrotedate={this.state.wrotedateTotal[index]}
-                    viewnum = {this.state.savedviewnum[index]}
-                    key={index}/>
-                }
-                if(this.state.titleTotal[index] === searchText){
-                    return <WriteList title={this.state.titleTotal[index]}
-                    userwrote={this.state.userwroteTotal[index]}
-                    num={index+1}
-                    wrotedate={this.state.wrotedateTotal[index]}
-                    viewnum = {this.state.savedviewnum[index]}
-                    key={index}/>
-                }
-                // 없을경우 continue로 for문을 계속 실행해줌
-                else{
-                    continue;
-                }
+                // 전체 제목을 불러오고
+                var Titledata = this.state.titleTotal
+                // 0번째 부터 끝까지 검색한 단어가 있는지 검사
+                // 찾으면 해당단어가 나오는 인덱스를 반환 못찾을경우 -1을 리턴
+                var compareData = Titledata[index].indexOf(searchText)
+                // 배열에다가 push해서 -1과 상관없이 넣어준다
+                Searchresult.push(compareData)
             }
+            const Searchrender = Searchresult.map((result,index)=>{
+                // result라는 배열은 Searchresult 배열과 같음
+                // 만약 result배열이 [-1,-1,0,3,-1,-1] 이런식으로 있을때
+                // -1이아니면 찾은거나 마찬가지여서 -1이 아닐경우 현재 루프 돌고있는 index의값을 출력한다
+                if(result !== -1){
+                    return <WriteList title={this.state.titleTotal[index]}
+                    userwrote={this.state.userwroteTotal[index]}
+                    num={index+1}
+                    wrotedate={this.state.wrotedateTotal[index]}
+                    viewnum = {this.state.savedviewnum[index]}
+                    key={index}/>
+                }
+                // es6 에로우함수(=>) 는 리턴값이 있어야함
+                return ''
+            })
+            return Searchrender
         }
         // 내용을 선택했을때(위에 로직이랑 동일)
         else if(this.state.SelectedOption === "userwrote"){
+            var wroteresult = []
             for(var idx = 0; idx<this.state.userwroteTotal.length; idx++){
-                if(this.state.userwroteTotal[idx] ===searchText){
-                    return <WriteList title={this.state.titleTotal[idx]}
-                    userwrote={this.state.userwroteTotal[idx]}
-                    num={idx+1}
-                    wrotedate={this.state.wrotedateTotal[idx]}
-                    viewnum = {this.state.savedviewnum[index]}
-                    key={idx}/>
-                }
-                else{
-                    continue;
-                }
+                var wrotelistdata = this.state.userwroteTotal
+                var comparewroteData = wrotelistdata[idx].indexOf(searchText)
+                wroteresult.push(comparewroteData)
             }
+            const wroterender = wroteresult.map((resultarr,index)=>{
+                if(resultarr !== -1){
+                    return <WriteList title={this.state.titleTotal[index]}
+                    userwrote={this.state.userwroteTotal[index]}
+                    num={index+1}
+                    wrotedate={this.state.wrotedateTotal[index]}
+                    viewnum = {this.state.savedviewnum[index]}
+                    key={index}/>
+                }
+                return ''
+            })
+            return wroterender
         }
     }
 }

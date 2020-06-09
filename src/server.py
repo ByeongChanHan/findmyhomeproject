@@ -1,5 +1,5 @@
 from flask import Flask,request,redirect,session,app,url_for
-from flask_cors import CORS
+from flask_cors import CORS,cross_origin
 import sqlite3
 import requests
 from datetime import datetime,timedelta
@@ -9,6 +9,7 @@ now = datetime.now()
 # 시크릿키가 있어야 세션유지 가능
 app = Flask(__name__)
 app.secret_key = 'secret key'
+app.permanent_session_lifetime = timedelta(minutes=5)
 
 # 서로다른 포트에서 연결할때 cors에러 나서 cors정책을 모두 허용해주는 flask_cors라이브러리 사용
 CORS(app)
@@ -17,7 +18,6 @@ CORS(app)
 @app.before_request
 def session_permanent():
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=5)
 # 글 작성하고 작성하기 버튼 눌렀을때 실행
 @app.route('/write', methods=['GET', 'POST'])
 def showclass():
@@ -67,12 +67,12 @@ def showboard():
             # row의 2번째는 작성날짜의 열
             wrotedateArr.append(row[2])
             viewnumArr.append(row[3])
-            # title,userwrote,wrotedate키에 배열을 집어넣는 모습
-            result['title'] = titleArr
-            result['userwrote'] = userwroteArr
-            result['wrotedate'] = wrotedateArr
-            result['viewnum'] = viewnumArr
-            # 다 집어넣은 배열을 return
+        # title,userwrote,wrotedate키에 배열을 집어넣는 모습
+        result['title'] = titleArr
+        result['userwrote'] = userwroteArr
+        result['wrotedate'] = wrotedateArr
+        result['viewnum'] = viewnumArr
+        # 다 집어넣은 배열을 return
         return result
     # 게시판에서 글을 클릭했을때 post요청이 가면서 update 쿼리문으로 조회수를 늘림(조회수 증가)
     elif request.method == 'POST':
@@ -95,14 +95,30 @@ def selectBoard(numurl):
         # 클릭한 글의 정보를 db에서 조회
         cur.execute("select title,userwrote,wrotedate,viewnum from writeDB where listnum=?",(numurl,))
         # 하나의 데이터만 선택
-        # select title from writeDB order by viewnum desc (조회수 내림차순 순위 정렬쿼리)
         Viewdata = cur.fetchone()
-        print(Viewdata)
+        conn.close()
+        # 선택한 글의 댓글 불러오기
+        connection = sqlite3.connect('writelist.db')
+        cursorlocation = connection.cursor()
+        cursorlocation.execute('select commentText,currentTime from comment,writeDB where comment.listnum = ? and comment.listnum = writeDB.listnum',(numurl))
+        # 댓글이 여러개있을경우 다 골라야 하므로 fetchall을 써줌
+        commentdataSet = cursorlocation.fetchall()
+        connection.close()
+        # 조회수 순위 내림차순 정렬 쿼리
+        junction = sqlite3.connect('writelist.db')
+        junctioncur = junction.cursor()
+        # 쿼리문수정요망
+        junctioncur.execute('select distinct title from writeDB order by viewnum desc')
+        rankingdata = junctioncur.fetchall()
+        junction.close()
+        # 딕셔너리 안에 배열 삽입(배열을 리턴하면 오류 발생)
         Selectdict = dict()
         titleArr = []
         userwroteArr = []
         wrotedateArr = []
         viewnumArr = []
+        commentTitleArr = []
+        currentTimeArr = []
         # row의 0번째는 제목의 열
         titleArr.append(Viewdata[0])
         # row의 1번째는 내용의 열
@@ -111,23 +127,28 @@ def selectBoard(numurl):
         wrotedateArr.append(Viewdata[2])
         # row의 3번째는 조회수의 열
         viewnumArr.append(Viewdata[3])
+        for rows in commentdataSet:
+            commentTitleArr.append(rows[0])
+            currentTimeArr.append(rows[1])
         # 배열에 다 넣었으면
         # SelectTitle,Selectuserwrote,Selectwrotedate,Selectviewnum키에 배열을 집어넣고
         Selectdict['SelectTitle'] = titleArr
         Selectdict['Selectuserwrote'] = userwroteArr
         Selectdict['Selectwrotedate'] = wrotedateArr
         Selectdict['Selectviewnum'] = viewnumArr
+        # 댓글까지 추가
+        Selectdict['comment'] = commentTitleArr
+        Selectdict['currentTime'] = currentTimeArr
+        Selectdict['rankingdata'] = rankingdata
         # dictionary를 리턴
         return Selectdict
     # 글쓰고 답변달았을때는 여기로 옴
     elif request.method == 'POST':
         commentText = request.json.get('commentText')
-        commentDBtitle = request.json.get('commentDBtitle')
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
-        # 제목이 서로 같은것 을 저장하고 foreign key나 조인을 통해서 댓글을 리턴해야함
-        # 아직 수정중에있음
-        cur.execute("insert into comment(title,commentText) values(?,?)",(commentDBtitle,commentText))
+        # 댓글을 insert로 db에 저장함
+        cur.execute("insert into comment(listnum,commentText) values(?,?)",(numurl,commentText))
         conn.commit()
         conn.close()
         return "작성이 완료되었습니다."
@@ -146,16 +167,28 @@ def agentregister():
         else:
             # id나 중개사번호는 unique속성이여서 중복될 수가 없는데 중복되면 예외처리에 걸리기때문에
             # 이미 존재하는 아이디나 겹치는 중개사번호는 예외처리인 except에서 처리
-            try:
-                conn = sqlite3.connect('writelist.db')
-                cur = conn.cursor()
-                cur.execute("insert into userInformation(ID,password,Repassword,email,brokernumber) values(?,?,?,?,?)",(reqID,reqPassword,reqRePassword,reqEmail,reqAgent))
-                conn.commit()
-                conn.close()
-                return "회원가입이 완료되었습니다."
-            except sqlite3.Error as e:
-                print("An error occurred:", e.args[0])
-                return "이미 존재하는 ID이거나 존재하는 중개사번호입니다"
+            connection = sqlite3.connect('writelist.db')
+            cur = connection.cursor()
+            cur.execute("select Ra_Regno from Number_data")
+            brokernumberdata = cur.fetchall()
+            connection.close()
+            brokerArr = []
+            for rowData in brokernumberdata:
+                brokerArr.append(rowData[0])
+            if reqAgent in brokerArr:
+                try:
+                    conn = sqlite3.connect('writelist.db')
+                    cur = conn.cursor()
+                    cur.execute("insert into userInformation(ID,password,Repassword,email,brokernumber) values(?,?,?,?,?)",(reqID,reqPassword,reqRePassword,reqEmail,reqAgent))
+                    conn.commit()
+                    conn.close()
+                    return "회원가입이 완료되었습니다."
+                except sqlite3.Error as e:
+                    print("An error occurred:", e.args[0])
+                    return "이미 존재하는 ID이거나 존재하는 중개사번호입니다"
+            else:
+                return "유효하지 않은 중개사 번호입니다."
+        return ""
 
 # 일반회원 회원가입할때 들어오는 파라미터
 @app.route('/signup', methods=['GET', 'POST'])
@@ -183,74 +216,98 @@ def register():
 # 중개사 정보가 저장 되어 있는 테이블과 일반 사용자 정보가 있는 테이블을 다 비교해야하기 때문에
 # join을 이용한 쿼리문으로 수정예정
 @app.route('/login', methods=['GET', 'POST'])
+@cross_origin(supports_credentials=True)
 def loginform():
     if request.method == 'POST':
         idText = request.json.get('idtext')
         pwdText = request.json.get('passwordtext')
-        session['id'] = idText
-        print(session)
-        
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
+        # id와 패스워드를 찾는 쿼리(수정요망)
         cur.execute('select ID,password from userInformation where ID=? and password=?',(idText,pwdText))
         IdData = cur.fetchone()
-        print(IdData)
         conn.close()
+        # id가 존재하지않을때
         if IdData == None:
             return "존재하지 않는 ID이거나 비밀번호가 틀립니다"
         else:
+            # 세션에 id라는 키에 아이디를 저장
+            session['id'] = idText
+            # islogin키에는 True값을 줘서 로그인 여부를 확인
             session['islogin'] = True
-            return redirect(url_for('main'))
-        return ""
-# 세션유지는 아직 미완성단계(디버깅중)
+        print(session)
+        return ''
+# 메인페이지 라우팅
 @app.route('/',methods=['GET', 'POST'])
+@cross_origin(supports_credentials=True)
 def main():
     if request.method == 'GET':
-        # # key = '6a5a6f6e496d636835324e436c6870'
-        arr_start = 0
-        arr_end = 1000
-        startnumber = 1
-        endnumber = 1000
-        Ra_Regno = []
-        conn = sqlite3.connect('writelist.db',isolation_level=None)
-        # 커서생성(커서 = SQL 문을 실행하거나 실행된 결과를 돌려받는 통로)
-        cur = conn.cursor()
-        cur.execute("CREATE TABLE IF NOT EXISTS Number_data(Ra_Regno TEXT)")
-        while endnumber <= 26000:
-            url='http://openapi.seoul.go.kr:8088/6a5a6f6e496d636835324e436c6870/xml/landBizInfo/'+str(startnumber)+'/'+str(endnumber)+'/'
-            # HTTP GET Request
-            req = requests.get(url)
-            # html 소스 가져오기
-            html = req.text
-            # HTTP Header 가져오기 
-            # header = req.headers
-            # HTTP Status 가져오기 (200 : 정상)
-            # status = req.status_code
+        # # # key = '6a5a6f6e496d636835324e436c6870'
+        # arr_start = 0
+        # arr_end = 1000
+        # startnumber = 1
+        # endnumber = 1000
+        # Ra_Regno = []
+        # conn = sqlite3.connect('writelist.db',isolation_level=None)
+        # # 커서생성(커서 = SQL 문을 실행하거나 실행된 결과를 돌려받는 통로)
+        # cur = conn.cursor()
+        # cur.execute("CREATE TABLE IF NOT EXISTS Number_data(Ra_Regno TEXT)")
+        # while endnumber <= 26000:
+        #     url='http://openapi.seoul.go.kr:8088/6a5a6f6e496d636835324e436c6870/xml/landBizInfo/'+str(startnumber)+'/'+str(endnumber)+'/'
+        #     # HTTP GET Request
+        #     req = requests.get(url)
+        #     # html 소스 가져오기
+        #     html = req.text
+        #     # HTTP Header 가져오기 
+        #     # header = req.headers
+        #     # HTTP Status 가져오기 (200 : 정상)
+        #     # status = req.status_code
 
-            ## BeautifulSoup으로 html소스를 python객체로 변환
-            ## 첫 인자는 html소스코드, 두 번째 인자는 어떤 parser를 이용할지 명시.
-            ## Python 내장 html.parser를 이용
-            soup = BeautifulSoup(html,'html.parser')
-            # select = soup.select('div.collapsible > div.expanded > div.collapsible-content > div:nth-child(20) > span.text')
-            for code in soup.findAll('ra_regno'):
-                Ra_Regno.extend(code)
-            if arr_end >= 25453:
-                arr_end = 25453
-            for i in range(arr_start,arr_end):
-                print(Ra_Regno[i])
-                cur.execute("INSERT OR IGNORE INTO Number_data(Ra_Regno) VALUES (?)",(Ra_Regno[i],))
-                conn.commit()
-            startnumber += 1000
-            endnumber += 1000
-            arr_start += 1000
-            arr_end += 1000
-        conn.close()
-        # 세션 확인
+        #     ## BeautifulSoup으로 html소스를 python객체로 변환
+        #     ## 첫 인자는 html소스코드, 두 번째 인자는 어떤 parser를 이용할지 명시.
+        #     ## Python 내장 html.parser를 이용
+        #     soup = BeautifulSoup(html,'html.parser')
+        #     # select = soup.select('div.collapsible > div.expanded > div.collapsible-content > div:nth-child(20) > span.text')
+        #     for code in soup.findAll('ra_regno'):
+        #         Ra_Regno.extend(code)
+        #     if arr_end >= 25453:
+        #         arr_end = 25453
+        #     for i in range(arr_start,arr_end):
+        #         print(Ra_Regno[i])
+        #         cur.execute("INSERT OR IGNORE INTO Number_data(Ra_Regno) VALUES (?)",(Ra_Regno[i],))
+        #         conn.commit()
+        #     startnumber += 1000
+        #     endnumber += 1000
+        #     arr_start += 1000
+        #     arr_end += 1000
+        # conn.close()
+        showID = dict()
         print(session)
-        if session.get('islogin') != True:
-            return "비로그인"
-        else:
-            return '로그인중'
+        if 'islogin' in session:
+            sessionID = session['id']
+            showID['showid'] = sessionID
+            return showID
+        return showID
+@app.route('/logout') 
+def logout():
+    session.pop('islogin', None)
+    session.pop('id', None)
+    return '로그아웃 되었습니다.'
+# 조회수 순위에서 해당 제목을 클릭했을때
+@app.route('/ranking',methods=['GET', 'POST'])
+def ranking():
+    if request.method == 'POST':
+        selectRankingTitle = request.json.get('ranking')
+        print(selectRankingTitle)
+        conn = sqlite3.connect('writelist.db')
+        cur = conn.cursor()
+        cur.execute('select listnum from writeDB where title=?',(selectRankingTitle))
+        SelectTitle = cur.fetchone()
+        conn.close()
+        print(SelectTitle)
+        selectTitledict = dict()
+        selectTitledict['rankingtitle'] = SelectTitle
+        return selectTitledict
 
 if __name__ == '__main__':
     app.run(debug=True)
