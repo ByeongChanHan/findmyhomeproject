@@ -48,12 +48,6 @@ class Askquestion extends Component{
                             <input type="text" id="title"></input>
                                 {/* 선택부분 */}
                                 <select className = "select">
-                                    <option selected>지역선택</option>
-                                    <option>서울</option>
-                                    <option>인천</option>
-                                    <option>경기</option>
-                                </select>
-                                <select className = "select">
                                     <option selected>매물종류</option>
                                     <option>매매</option>
                                     <option>전세</option>
@@ -86,6 +80,7 @@ class Askquestion extends Component{
         // title,textarea id 불러오는 부분
         var writeTitle = document.getElementById('title').value;
         var textData = document.getElementById('textarea').value;
+        var SelectText = document.querySelectorAll('.select')
         // 제목 내용 둘중 하나라도 입력 안했을경우
         if((writeTitle)==="" || textData===""){
             alert("제목과 내용을 입력해주세요")
@@ -94,6 +89,15 @@ class Askquestion extends Component{
         // _Data 객체 생성
         var _Data = {}
         // title과 inputText키는 아까 불러왔던 id 값
+        var selectArray = []
+        for(var Index = 0; Index<SelectText.length; Index++){
+            if(SelectText[Index].value==='매물종류' || SelectText[Index].value==='층수' || SelectText[Index].value==='구조'){
+                alert('옵션을 선택해주세요')
+                return false;
+            }
+            selectArray.push(SelectText[Index].value)
+        }
+        _Data.selectoptions = selectArray
         _Data.title = writeTitle
         _Data.inputText = textData
         console.log(_Data);

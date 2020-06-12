@@ -27,6 +27,9 @@ def showclass():
         # 요청한 객체의 title,inputText키값을 불러옴
         titleData = request.json.get('title')
         textareaplace = request.json.get('inputText')
+        categoryoption = request.json.get('selectoptions')[0]
+        flooroption = request.json.get('selectoptions')[1]
+        structureoption = request.json.get('selectoptions')[2]
         # 현재 시간 변수
         currentDatetime = "{}-{}-{}".format(now.year, now.month, now.day)
         # db연결
@@ -34,7 +37,7 @@ def showclass():
         # 커서 셋팅
         cur = conn.cursor()
         # insert로 가져온 데이터를 삽입
-        cur.execute("insert into writeDB(title,userwrote,wrotedate) values(?,?,?)",(titleData,textareaplace,currentDatetime))
+        cur.execute("insert into writeDB(title,userwrote,wrotedate,categoryoption,flooroption,structureoption) values(?,?,?,?,?,?)",(titleData,textareaplace,currentDatetime,categoryoption,flooroption,structureoption))
         conn.commit()
         conn.close()
         return '게시물 작성을 완료하였습니다.'
@@ -58,6 +61,7 @@ def showboard():
         userwroteArr = []
         wrotedateArr = []
         viewnumArr = []
+        listnumArr = []
         # for로 fetchall한 모든 데이터를 row로 받고
         for row in data:
             # row의 0번째는 제목의 열
@@ -67,11 +71,13 @@ def showboard():
             # row의 2번째는 작성날짜의 열
             wrotedateArr.append(row[2])
             viewnumArr.append(row[3])
+            listnumArr.append(row[4])
         # title,userwrote,wrotedate키에 배열을 집어넣는 모습
         result['title'] = titleArr
         result['userwrote'] = userwroteArr
         result['wrotedate'] = wrotedateArr
         result['viewnum'] = viewnumArr
+        result['listnum'] = listnumArr
         # 다 집어넣은 배열을 return
         return result
     # 게시판에서 글을 클릭했을때 post요청이 가면서 update 쿼리문으로 조회수를 늘림(조회수 증가)
@@ -93,14 +99,15 @@ def selectBoard(numurl):
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
         # 클릭한 글의 정보를 db에서 조회
-        cur.execute("select title,userwrote,wrotedate,viewnum from writeDB where listnum=?",(numurl,))
+        cur.execute("select title,userwrote,wrotedate,viewnum,categoryoption,flooroption,structureoption from writeDB where listnum=?",(numurl,))
         # 하나의 데이터만 선택
         Viewdata = cur.fetchone()
+        print(Viewdata)
         conn.close()
         # 선택한 글의 댓글 불러오기
         connection = sqlite3.connect('writelist.db')
         cursorlocation = connection.cursor()
-        cursorlocation.execute('select commentText,currentTime from comment,writeDB where comment.listnum = ? and comment.listnum = writeDB.listnum',(numurl))
+        cursorlocation.execute('select commentText,currentTime from comment,writeDB where comment.listnum = ? and comment.listnum = writeDB.listnum',(numurl,))
         # 댓글이 여러개있을경우 다 골라야 하므로 fetchall을 써줌
         commentdataSet = cursorlocation.fetchall()
         connection.close()
@@ -119,6 +126,9 @@ def selectBoard(numurl):
         viewnumArr = []
         commentTitleArr = []
         currentTimeArr = []
+        categoryoptionArr = []
+        flooroptionArr = []
+        structureoptionArr = []
         # row의 0번째는 제목의 열
         titleArr.append(Viewdata[0])
         # row의 1번째는 내용의 열
@@ -127,6 +137,12 @@ def selectBoard(numurl):
         wrotedateArr.append(Viewdata[2])
         # row의 3번째는 조회수의 열
         viewnumArr.append(Viewdata[3])
+        # row의 4번째는 매물종류
+        categoryoptionArr.append(Viewdata[4])
+        # row의 5번째는 층수옵션
+        flooroptionArr.append(Viewdata[5])
+        # row의 6번째는 구조옵션
+        structureoptionArr.append(Viewdata[6])
         for rows in commentdataSet:
             commentTitleArr.append(rows[0])
             currentTimeArr.append(rows[1])
@@ -140,6 +156,9 @@ def selectBoard(numurl):
         Selectdict['comment'] = commentTitleArr
         Selectdict['currentTime'] = currentTimeArr
         Selectdict['rankingdata'] = rankingdata
+        Selectdict['categoryoption'] = categoryoptionArr
+        Selectdict['flooroption'] = flooroptionArr
+        Selectdict['structureoption'] = structureoptionArr
         # dictionary를 리턴
         return Selectdict
     # 글쓰고 답변달았을때는 여기로 옴

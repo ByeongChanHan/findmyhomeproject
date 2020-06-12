@@ -47,11 +47,18 @@ class Noticeboard extends Component{
             userwroteList : writeData.userwrote.slice(this.state.MinimumItems,this.state.Maxitems),
             wrotedate : writeData.wrotedate.slice(this.state.MinimumItems,this.state.Maxitems),
             viewnum : writeData.viewnum.slice(this.state.MinimumItems,this.state.Maxitems),
+            // 전체 조회수
             savedviewnum : writeData.viewnum,
+            // 총 몇건인지 나타내기위함
             totalNum : writeData.title.length,
+            // 제목 전체 데이터
             titleTotal : writeData.title,
+            // 내용 전체 데이터
             userwroteTotal : writeData.userwrote,
-            wrotedateTotal : writeData.wrotedate
+            // 작성날짜 전체 데이터
+            wrotedateTotal : writeData.wrotedate,
+            // 글번호
+            listnum : writeData.listnum
         })
     }
     // 최신데이터가 맨 밑에 출력되는것을 고려해서 최신순누르면 기존배열의 역순으로 자름
@@ -100,7 +107,7 @@ class Noticeboard extends Component{
             // 10개가 전원출력이 됨
             return <WriteList title={listarr}
             userwrote={this.state.userwroteList[index]}
-            num={index+1}
+            num={this.state.listnum[index]}
             wrotedate={this.state.wrotedate[index]}
             viewnum={this.state.viewnum[index]}
             key={index}/>
@@ -227,7 +234,7 @@ class Noticeboard extends Component{
                 if(result !== -1){
                     return <WriteList title={this.state.titleTotal[index]}
                     userwrote={this.state.userwroteTotal[index]}
-                    num={index+1}
+                    num={this.state.listnum[index]}
                     wrotedate={this.state.wrotedateTotal[index]}
                     viewnum = {this.state.savedviewnum[index]}
                     key={index}/>
@@ -249,7 +256,7 @@ class Noticeboard extends Component{
                 if(resultarr !== -1){
                     return <WriteList title={this.state.titleTotal[index]}
                     userwrote={this.state.userwroteTotal[index]}
-                    num={index+1}
+                    num={this.state.listnum[index]}
                     wrotedate={this.state.wrotedateTotal[index]}
                     viewnum = {this.state.savedviewnum[index]}
                     key={index}/>

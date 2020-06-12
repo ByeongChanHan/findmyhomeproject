@@ -38,7 +38,10 @@ class Viewboard extends Component{
             viewnum : selectJSON.Selectviewnum,
             commentList : selectJSON.comment,
             currentTime : selectJSON.currentTime,
-            ranking : selectJSON.rankingdata.slice(0,6)
+            ranking : selectJSON.rankingdata.slice(0,6),
+            categoryoption : selectJSON.categoryoption,
+            flooroption : selectJSON.flooroption,
+            structureoption : selectJSON.structureoption
         })
     }
     render(){
@@ -59,6 +62,9 @@ class Viewboard extends Component{
         comment={this.state.commentList}
         currentTime={this.state.currentTime}
         ranking={this.state.ranking}
+        categoryoption={this.state.categoryoption}
+        flooroption={this.state.flooroption}
+        structureoption={this.state.structureoption}
         />
     }
 }
@@ -70,13 +76,17 @@ class BoardRender extends Component{
         return(
             <section>
                 <div className="askarea">
-                    <div className ="showBoardItem">
-                        <img src={Chatimg} className="chat" alt="chatImg"/>
-                        <h1>{this.props.title}</h1>
-                    </div>
-                    <div className="boardinformation">
-                        <p>작성일 : {this.props.wrotedate}</p>
-                        <p>조회수 : {this.props.viewnum}</p>
+                    <div className="boardheader">
+                        <div className ="showBoardItem">
+                            <img src={Chatimg} className="chat" alt="chatImg"/>
+                            <h1>{this.props.title}</h1>
+                        </div>
+                        <div className="boardinformation">
+                            <p>옵션 : {this.props.categoryoption} , {this.props.flooroption} , {this.props.structureoption}</p>
+                            <hr></hr>
+                            <p>조회수 : {this.props.viewnum}</p>
+                            <p className ="wrotedate">작성일 : {this.props.wrotedate}</p>
+                        </div>
                     </div>
                     <div className="contents">
                         <p>{this.props.userwrote}</p>
@@ -91,6 +101,10 @@ class BoardRender extends Component{
                             </button>
                         </div>
                     </div>
+                    <div className = 'ranking'>
+                        <h1 className="rankingTitle">인기 게시물</h1>
+                        {this.rankingRender()}
+                    </div>
                 </div>
                 <div className = "blankArea">
                     {/* 빈공간 */}
@@ -100,10 +114,6 @@ class BoardRender extends Component{
                     <h1>답변하기</h1>
                     <textarea type="text" id="commentText" placeholder="댓글을 입력하세요"></textarea>
                     <button type="button" onClick={this.createComment} className="Submitbtn">등록</button>
-                    <div className = 'ranking'>
-                    <h1 className="rankingTitle">인기 게시물</h1>
-                    {this.rankingRender()}
-                    </div>
                 </div>
             </section>
         )
@@ -210,7 +220,7 @@ class Comments extends Component{
                 <h1>답변</h1>
                 <div className = "commentinform">
                 <p>사용자</p>
-                <p>{this.props.currentTime}</p>
+                <p>작성일 : {this.props.currentTime}</p>
                 </div>
                 <p>{this.props.comment}</p>
             </div>
