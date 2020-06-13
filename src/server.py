@@ -240,12 +240,23 @@ def loginform():
     if request.method == 'POST':
         idText = request.json.get('idtext')
         pwdText = request.json.get('passwordtext')
-        conn = sqlite3.connect('writelist.db')
-        cur = conn.cursor()
-        # id와 패스워드를 찾는 쿼리(수정요망)
-        cur.execute('select ID,password from userInformation where ID=? and password=?',(idText,pwdText))
-        IdData = cur.fetchone()
-        conn.close()
+        isagent = request.json.get('isagent')
+        # false는 체크 x (일반사용자)
+        if isagent == False:
+            conn = sqlite3.connect('writelist.db')
+            cur = conn.cursor()
+            # id와 패스워드를 찾는 쿼리(수정요망)
+            cur.execute('select ID,password from normalUser where ID=? and password=?',(idText,pwdText))
+            IdData = cur.fetchone()
+            conn.close()
+        # true일경우(체크 됐을때)
+        else:
+            connectdb = sqlite3.connect('writelist.db')
+            cursorlocation = connectdb.cursor()
+            # id와 패스워드를 찾는 쿼리(수정요망)
+            cursorlocation.execute('select ID,password from userInformation where ID=? and password=?',(idText,pwdText))
+            IdData = cursorlocation.fetchone()
+            connectdb.close()
         # id가 존재하지않을때
         if IdData == None:
             return "존재하지 않는 ID이거나 비밀번호가 틀립니다"

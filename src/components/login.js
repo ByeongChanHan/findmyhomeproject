@@ -23,6 +23,12 @@ class LoginPage extends Component{
                         <label htmlFor="" id = "upass">패스워드</label>
                         <input id = "upass" type="password" name="password" title="패스워드"></input>
                         <div className="block"></div>
+                        {/* 체크박스 부분 */}
+                        <label id = "isagent">
+                        중개사 로그인
+                        <input type = 'checkbox' name="check"></input>
+                        {/* 로그인 버튼 부분 */}
+                        </label>
                             <span className="btn">
                                 <input id="loginbtn" type="submit" value="login" onClick={this._login}/>
                             </span>
@@ -40,15 +46,24 @@ class LoginPage extends Component{
         // 쿼리셀럭터 all은 아이디가 uid인것들을 다 선택해주는데 그중 1번째가 입력부분
         let idtext = document.querySelectorAll("#uid");
         let passwordtext = document.querySelectorAll("#upass");
+        // 체크박스 체크여부 true false반환
+        let ischecked = document.getElementsByName("check");
+        // elements니까 배열을 반환해서 배열의 첫번째 인덱스에 접근
+        let ischeckresult = ischecked[0].checked
         var loginData = {}
+        // 아이디와 패스워드 체크여부값을 객체에 저장하고
         loginData.idtext = idtext[1].value
         loginData.passwordtext = passwordtext[1].value
-        if(idtext[1].value === "")
-        alert("아이디를 입력하세요");
-
-        if(passwordtext[1].value === "")
-        alert("패스워드를 입력하세요")
-
+        loginData.isagent = ischeckresult
+        if(idtext[1].value === ""){
+            alert("아이디를 입력하세요");
+            return false;
+        }
+        if(passwordtext[1].value === ""){
+            alert("패스워드를 입력하세요")
+            return false;
+        }
+        // request의 body에 객체를 보낸다 (json형식)
         const loginsend = {
             method:'POST',
             headers:{

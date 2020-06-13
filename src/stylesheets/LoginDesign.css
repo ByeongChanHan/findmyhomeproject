@@ -31,6 +31,11 @@ label#uid,label#upass{
     /* 박스를 가로로 블럭처럼 정렬 */
     vertical-align:top;
 }
+#isagent{
+    float: right;
+    margin-bottom: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
 .block{
     height:10px;
     margin:0;
@@ -64,7 +69,7 @@ label#uid,label#upass{
     border:1px solid #ddd;
     background-color:#fff;
     padding:15px;
-    height:250px;
+    height:270px;
     overflow:hidden;
     /* 내용이 넘치면 자름 */
     margin: 0 auto;
