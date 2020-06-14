@@ -67,6 +67,9 @@ hr{
     border-collapse: collapse;
     table-layout: fixed;
 }
+.boardtable tbody tr{
+    background-color: white;
+}
 .boardtable tr{
     height: 50px;
     font-family: 'Noto Sans KR', sans-serif;

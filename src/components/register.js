@@ -68,12 +68,12 @@ class Register extends Component{
         let RepwdText = document.getElementById('repwdText').value;
         let emailText = document.getElementById('emailText').value;
         let PhoneText = document.getElementById('PhoneNumber').value;
-        if(IdText.length < 9){
-            alert("아이디는 최소 9글자여야합니다")
+        if(IdText.length < 7){
+            alert("아이디는 최소 7글자여야합니다")
             return false;
         }
-        if(pwdText.length < 9){
-            alert("패스워드는 최소 9글자여야합니다")
+        if(pwdText.length < 7){
+            alert("패스워드는 최소 7글자여야합니다")
             return false;
         }
         if(emailText.length < 10){

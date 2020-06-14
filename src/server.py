@@ -312,8 +312,8 @@ def main():
         #     arr_end += 1000
         # conn.close()
         showID = dict()
-        print(session)
         if 'islogin' in session:
+            print(session)
             sessionID = session['id']
             showID['showid'] = sessionID
             return showID

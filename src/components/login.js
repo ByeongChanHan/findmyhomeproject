@@ -18,17 +18,11 @@ class LoginPage extends Component{
                     <div id = "loginBox">
                         <h3 className = "LoginTitle">FromMyHome</h3>
                         <label htmlFor="" id = "uid">아이디</label>
-                        <input id = "uid" type="text" name="id" title="아이디"></input>
+                        <input id = "uid" type="text" name="id" title="아이디" onKeyPress={this._enterlogin}></input>
                         <div className="block"></div>
                         <label htmlFor="" id = "upass">패스워드</label>
-                        <input id = "upass" type="password" name="password" title="패스워드"></input>
+                        <input id = "upass" type="password" name="password" title="패스워드" onKeyPress={this._enterlogin}></input>
                         <div className="block"></div>
-                        {/* 체크박스 부분 */}
-                        <label id = "isagent">
-                        중개사 로그인
-                        <input type = 'checkbox' name="check"></input>
-                        {/* 로그인 버튼 부분 */}
-                        </label>
                             <span className="btn">
                                 <input id="loginbtn" type="submit" value="login" onClick={this._login}/>
                             </span>
@@ -36,6 +30,11 @@ class LoginPage extends Component{
                             <span className="create">
                                 <a href="/create" className="createAccount">Create Account</a>
                             </span>
+                            {/* 체크박스 부분 */}
+                            <label id = "isagent">
+                            중개사 로그인
+                            <input type = 'checkbox' name="check"></input>
+                            </label>
                     </div>
                 </div>
             </div>
@@ -84,6 +83,12 @@ class LoginPage extends Component{
                 window.location.href = "/"
             }
         })
+    }
+    // 엔터 눌렀을때 로그인 작동
+    _enterlogin = (event) =>{
+        if(event.charCode === 13){
+            this._login();
+        }
     }
 }
 export default LoginPage

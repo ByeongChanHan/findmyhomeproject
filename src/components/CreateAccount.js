@@ -1,14 +1,16 @@
 import React,{Component} from 'react';
 import broker from '../images/broker.png'
 import normal from '../images/normal.png'
-import '../stylesheets/devision.css'
+import '../stylesheets/division.css'
 import '../stylesheets/NotoSans.css';
+import Header from '../components/HeaderComponent'
 
 class CreateAccount extends Component{
     // 일반회원 중개사 구별 페이지
     render(){
         return(
             <div>
+            <Header/>
             <div className="member_register_wrap">
                 <p className="ex_text">
                     <strong>일반회원/중개사 </strong>
