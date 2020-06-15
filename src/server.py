@@ -311,13 +311,16 @@ def main():
         #     arr_start += 1000
         #     arr_end += 1000
         # conn.close()
-        showID = dict()
+        Islogin = dict()
         if 'islogin' in session:
             print(session)
             sessionID = session['id']
-            showID['showid'] = sessionID
-            return showID
-        return showID
+            Islogin['loginresult'] = sessionID
+            return Islogin
+        else:
+            Islogin['loginresult'] = False
+            return Islogin
+    return Islogin
 @app.route('/logout') 
 def logout():
     session.pop('islogin', None)

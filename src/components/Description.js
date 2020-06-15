@@ -12,7 +12,7 @@ class Description extends Component{
             <source src={Descvideo} type="video/mp4"/>
             </video>
             <p className ="DescExplain">
-                저희 서비스는 사용자와 중개사 간 의사소통 할수있는 공간을 제공합니다.<br></br>
+                <b>저희 서비스는 사용자와 중개사 간 의사소통 할수있는 공간을 제공합니다.</b><br></br>
                 <button className ="golink"><a href = "/board" className="goBoard">Get started!</a></button>
             </p>
             </section>

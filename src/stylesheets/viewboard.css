@@ -78,6 +78,10 @@
     margin:0 20% 30px 20%;
     height:inherit;
     font-size: 20px;
+    border: 1px solid #d5d5d5;
+}
+.writecontent{
+    margin-left: 10px;
 }
 .blankArea{
     width: 100%;
@@ -183,7 +187,6 @@
 }
 .boardheader {
     background-color: #f7f7f7;
-    border-bottom: 1px solid #d5d5d5;
     border-top: 2px solid #434343;
-    margin: 0 23% 10px 20%;
+    margin: 0 20% 0 20%;
 }

@@ -46,6 +46,7 @@
     height: 300px;
     padding:30px;
     display:inline-block;
+    border: 1px solid #d5d5d5;
 }
 
 .member_register_basic {

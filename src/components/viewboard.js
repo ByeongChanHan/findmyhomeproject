@@ -89,7 +89,7 @@ class BoardRender extends Component{
                         </div>
                     </div>
                     <div className="contents">
-                        <p>{this.props.userwrote}</p>
+                        <p className="writecontent">{this.props.userwrote}</p>
                         <div className="iconArea">
                             <button type="button" onClick={this._Comment} className="commentimg">
                                 <img src={Comment} className ="icon" alt="commentImg"></img>

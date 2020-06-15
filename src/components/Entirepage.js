@@ -12,23 +12,6 @@ class Entirepage extends Component{
     // 메인페이지 전체 구성
     componentDidMount(){
         window.addEventListener("scroll",this._scrollToggle(),true)
-        this._getId()
-    }
-    // 아이디를 불러오기
-    callLogin = () =>{
-        return fetch("http://localhost:5000/",{ credentials: 'include' })
-        .then(res=>{
-            let _Idtext = res.json()
-            return _Idtext
-        })
-    }
-    _getId = async () =>{
-        const GetLogin = await this.callLogin()
-        this.setState({
-            LoginText : GetLogin.showid
-        })
-        console.log(this.state.LoginText)
-        return GetLogin
     }
     _scrollToggle = () =>{
             $('html,body').on('mousewheel',(e)=>{
@@ -70,7 +53,7 @@ class Entirepage extends Component{
     render(){
         return(
             <div>
-                <Header logintext = '까불'/>
+                <Header/>
                 <Parentbanner/>
                 <Description/>
                 <Footer/>
