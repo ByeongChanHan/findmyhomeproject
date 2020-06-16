@@ -43,10 +43,12 @@ class Noticeboard extends Component{
         const writeData = await this._callData()
         // slice로 키값(title,userwrote,wrotedate)를 잘라주고 state에 저장
         this.setState({
+            listnum : writeData.listnum.slice(this.state.MinimumItems,this.state.Maxitems),
             titleList : writeData.title.slice(this.state.MinimumItems,this.state.Maxitems),
             userwroteList : writeData.userwrote.slice(this.state.MinimumItems,this.state.Maxitems),
             wrotedate : writeData.wrotedate.slice(this.state.MinimumItems,this.state.Maxitems),
             viewnum : writeData.viewnum.slice(this.state.MinimumItems,this.state.Maxitems),
+            writeid : writeData.writeid.slice(this.state.MinimumItems,this.state.Maxitems),
             // 전체 조회수
             savedviewnum : writeData.viewnum,
             // 총 몇건인지 나타내기위함
@@ -58,7 +60,8 @@ class Noticeboard extends Component{
             // 작성날짜 전체 데이터
             wrotedateTotal : writeData.wrotedate,
             // 글번호
-            listnum : writeData.listnum
+            totallistnum : writeData.listnum,
+            totalwriteid : writeData.writeid
         })
     }
     // 최신데이터가 맨 밑에 출력되는것을 고려해서 최신순누르면 기존배열의 역순으로 자름
@@ -68,7 +71,9 @@ class Noticeboard extends Component{
             titleList : writeData.title.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
             userwroteList : writeData.userwrote.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
             wrotedate : writeData.wrotedate.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
-            viewnum : writeData.viewnum.reverse().slice(this.state.MinimumItems,this.state.Maxitems)
+            viewnum : writeData.viewnum.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
+            writeid : writeData.writeid.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
+            listnum : writeData.listnum.reverse().slice(this.state.MinimumItems,this.state.Maxitems)
         })
     }
     // 스크롤했을때 작용하는 메소드
@@ -110,6 +115,7 @@ class Noticeboard extends Component{
             num={this.state.listnum[index]}
             wrotedate={this.state.wrotedate[index]}
             viewnum={this.state.viewnum[index]}
+            writeid={this.state.writeid[index]}
             key={index}/>
             // 렌더링 리스트의 배열을 매핑하면서 인덱스 값이 증가하는데
             // 증가할때 userwroteList의 배열과 일치하는것
@@ -234,9 +240,10 @@ class Noticeboard extends Component{
                 if(result !== -1){
                     return <WriteList title={this.state.titleTotal[index]}
                     userwrote={this.state.userwroteTotal[index]}
-                    num={this.state.listnum[index]}
+                    num={this.state.totallistnum[index]}
                     wrotedate={this.state.wrotedateTotal[index]}
                     viewnum = {this.state.savedviewnum[index]}
+                    writeid = {this.state.totalwriteid[index]}
                     key={index}/>
                 }
                 // es6 에로우함수(=>) 는 리턴값이 있어야함
@@ -256,9 +263,10 @@ class Noticeboard extends Component{
                 if(resultarr !== -1){
                     return <WriteList title={this.state.titleTotal[index]}
                     userwrote={this.state.userwroteTotal[index]}
-                    num={this.state.listnum[index]}
+                    num={this.state.totallistnum[index]}
                     wrotedate={this.state.wrotedateTotal[index]}
                     viewnum = {this.state.savedviewnum[index]}
+                    writeid = {this.state.totalwriteid[index]}
                     key={index}/>
                 }
                 return ''
@@ -282,7 +290,7 @@ class WriteList extends Component{
                 <td>{this.props.num}</td>
                 <td>{this.props.title}</td>
                 <td>{this.props.userwrote}</td>
-                <td>작성자</td>
+                <td>{this.props.writeid}</td>
                 <td>{this.props.wrotedate}</td>
                 <td>{this.props.viewnum}</td>
             </tr>

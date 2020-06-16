@@ -1,8 +1,6 @@
 import React,{Component} from 'react';
 import '../stylesheets/PacificoFont.css';
 import '../stylesheets/RobotoFont.css';
-// import { Link, BrowserRouter as Router} from "react-router-dom";
-// Link to 는 새로고침을 안하고 기존컴포넌트를 유지시킨채로 변경된 내용만 보여줌
 
 class Header extends Component{
     state = {
@@ -10,7 +8,6 @@ class Header extends Component{
     }
     componentDidMount(){
         this._getId()
-        console.log(this.state)
     }
     // 아이디를 불러오기
     callLogin = () =>{
@@ -26,37 +23,20 @@ class Header extends Component{
             LoginText : GetLogin.loginresult
         })
     }
-    // 헤더에서 모든 라우팅을 설명하겠음
-    // / : 홈
-    // /ask : 질문하기
-    //  /board : 게시판
-    //  /login : 로그인
-    //  /create : 일반사용자 중개사 선택 페이지
-    //  /register,/register2 호환 안돼서 적당한 템플릿 찾아보는중
         render(){
         return(
-        // <Router>
         <header>
             <div className = "title">
                 <a href = "/">FindMyHome</a>
             </div>
             <nav className = "navigate">
                 <span className="individualMenu">
-                {/* <Link to = "/">
-                    Home
-                </Link> */}
                 <a href ="/">홈</a>
                 </span>
             <span className="individualMenu">
-                {/* <Link to = "/showclass">
-                    Class
-                </Link> */}
                 <a href ="/ask">질문하기</a>
             </span>
             <span className="individualMenu">
-                {/* <Link to = "/showclass">
-                    Class
-                </Link> */}
                 <a href ="/board">게시판</a>
             </span>
             {/* false(비로그인)일 경우 login헤더를 출력하고 아닐경우 로그아웃 헤더를 출력 */}
@@ -68,17 +48,31 @@ class Header extends Component{
 }
 class LoginHeader extends Component{
     render(){
+        const logoutbtnstyle = {
+            border : 0,
+            backgroundColor : "transparent",
+            color : "white",
+            fontSize:"20px",
+            fontWeight : "bold"
+        }
         return(
-            <span className="individualMenu">
-                {this.props.success}님 환영합니다
-            </span>
+            <section className="idsection">
+                <span className="individualMenu">
+                    <button style={logoutbtnstyle} onClick={this.logoutReq}>로그아웃</button>
+                </span>
+                <span className="individualMenu">
+                    <p id="idtext">{this.props.success}</p>
+                </span>
+            </section>
         )
+    }
+    logoutReq = () =>{
+        fetch("http://localhost:5000/logout",{ credentials: 'include' })
+        .then(res => res.text())
+        window.location.reload(true);
     }
 }
 class LogoutHeader extends Component{
-    componentDidMount(){
-        console.log(this.props)
-    }
     render(){
         return(
             <span className="individualMenu">

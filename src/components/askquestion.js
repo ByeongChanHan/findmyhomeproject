@@ -81,6 +81,19 @@ class Askquestion extends Component{
         var writeTitle = document.getElementById('title').value;
         var textData = document.getElementById('textarea').value;
         var SelectText = document.querySelectorAll('.select')
+        var sendId;
+        // 만약 로그인 되어있지 않다면 idtext라는 아이디를 찾을수가 없음
+        if(document.getElementById("idtext")===null){
+            alert("로그인 후 이용해주세요")
+            // 로그인페이지로 이동하게끔 하고
+            window.location.href ="/login"
+            // false리턴해서 빠져나간다
+            return false
+        }
+        else{
+            // 로그인 성공하면 idtext에 있는 텍스트를 sendId 변수에 저장한다
+            sendId = document.getElementById("idtext").innerText
+        }
         // 제목 내용 둘중 하나라도 입력 안했을경우
         if((writeTitle)==="" || textData===""){
             alert("제목과 내용을 입력해주세요")
@@ -90,17 +103,20 @@ class Askquestion extends Component{
         var _Data = {}
         // title과 inputText키는 아까 불러왔던 id 값
         var selectArray = []
+        // 기본선택인 매물종류,층수,구조(아무선택도 안하고) 버튼을 누를경우
         for(var Index = 0; Index<SelectText.length; Index++){
             if(SelectText[Index].value==='매물종류' || SelectText[Index].value==='층수' || SelectText[Index].value==='구조'){
                 alert('옵션을 선택해주세요')
                 return false;
             }
+            // 인덱스가 증가하면서 selectArray에 추가해준다
             selectArray.push(SelectText[Index].value)
         }
+        // 객체의 키값에 value값 설정해준 다음
         _Data.selectoptions = selectArray
         _Data.title = writeTitle
         _Data.inputText = textData
-        console.log(_Data);
+        _Data.writeid = sendId
         // 요청 옵션 post방식에 데이터를 보내주는 body에는 _Data객체를 stringify
         const requestOptions = {
             method:'POST',

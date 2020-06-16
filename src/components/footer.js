@@ -10,7 +10,8 @@ class Footer extends Component{
         }
         const CopyRightStyle={
             position:'relative',
-            top:'110px'
+            top:'110px',
+            margin:0
         }
         return(
         <footer className="footer">

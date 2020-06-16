@@ -30,6 +30,7 @@ def showclass():
         categoryoption = request.json.get('selectoptions')[0]
         flooroption = request.json.get('selectoptions')[1]
         structureoption = request.json.get('selectoptions')[2]
+        reqid = request.json.get('writeid')
         # 현재 시간 변수
         currentDatetime = "{}-{}-{}".format(now.year, now.month, now.day)
         # db연결
@@ -37,7 +38,7 @@ def showclass():
         # 커서 셋팅
         cur = conn.cursor()
         # insert로 가져온 데이터를 삽입
-        cur.execute("insert into writeDB(title,userwrote,wrotedate,categoryoption,flooroption,structureoption) values(?,?,?,?,?,?)",(titleData,textareaplace,currentDatetime,categoryoption,flooroption,structureoption))
+        cur.execute("insert into writeDB(title,userwrote,wrotedate,categoryoption,flooroption,structureoption,writeid) values(?,?,?,?,?,?,?)",(titleData,textareaplace,currentDatetime,categoryoption,flooroption,structureoption,reqid))
         conn.commit()
         conn.close()
         return '게시물 작성을 완료하였습니다.'
@@ -62,6 +63,7 @@ def showboard():
         wrotedateArr = []
         viewnumArr = []
         listnumArr = []
+        idArr = []
         # for로 fetchall한 모든 데이터를 row로 받고
         for row in data:
             # row의 0번째는 제목의 열
@@ -72,12 +74,14 @@ def showboard():
             wrotedateArr.append(row[2])
             viewnumArr.append(row[3])
             listnumArr.append(row[4])
+            idArr.append(row[8])
         # title,userwrote,wrotedate키에 배열을 집어넣는 모습
         result['title'] = titleArr
         result['userwrote'] = userwroteArr
         result['wrotedate'] = wrotedateArr
         result['viewnum'] = viewnumArr
         result['listnum'] = listnumArr
+        result['writeid'] = idArr
         # 다 집어넣은 배열을 return
         return result
     # 게시판에서 글을 클릭했을때 post요청이 가면서 update 쿼리문으로 조회수를 늘림(조회수 증가)
@@ -263,11 +267,9 @@ def loginform():
         else:
             # 세션에 id라는 키에 아이디를 저장
             session['id'] = idText
-            # islogin키에는 True값을 줘서 로그인 여부를 확인
-            session['islogin'] = True
         print(session)
         return ''
-# 메인페이지 라우팅
+# 헤더컴포넌트 라우팅
 @app.route('/',methods=['GET', 'POST'])
 @cross_origin(supports_credentials=True)
 def main():
@@ -312,7 +314,7 @@ def main():
         #     arr_end += 1000
         # conn.close()
         Islogin = dict()
-        if 'islogin' in session:
+        if 'id' in session:
             print(session)
             sessionID = session['id']
             Islogin['loginresult'] = sessionID
@@ -321,11 +323,13 @@ def main():
             Islogin['loginresult'] = False
             return Islogin
     return Islogin
-@app.route('/logout') 
+@app.route('/logout')
+@cross_origin(supports_credentials=True) 
 def logout():
-    session.pop('islogin', None)
-    session.pop('id', None)
-    return '로그아웃 되었습니다.'
+    if request.method == 'GET':
+        session.pop('id', None)
+        print(session)
+        return ''
 # 조회수 순위에서 해당 제목을 클릭했을때
 @app.route('/ranking',methods=['GET', 'POST'])
 def ranking():

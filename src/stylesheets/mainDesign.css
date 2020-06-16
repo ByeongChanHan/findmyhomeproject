@@ -21,13 +21,14 @@ header{
 }
 .navigate{
     position: relative;
-    right: 10%;
+    right: 8%;
     font-family: 'Roboto Condensed', sans-serif;
+    display: flex;
 }
 .title{
-    position: relative;
+    position: absolute;
     font-family: 'Pacifico', cursive;
-    right: 70%;
+    right: 80%;
     font-size: 30px;
 }
 .individualMenu{
@@ -46,6 +47,12 @@ header{
     left: 50%;
     bottom: -25%;
     transform: translate(-50%,-50%);
+}
+.idsection{
+    display: flex;
+}
+#idtext{
+    margin: 0;
 }
 .individualMenu:hover::after{
     width: 100%;
@@ -128,12 +135,13 @@ header{
     width: inherit;
     height: 170px;
     background-color: rgb(108, 192, 145);
-    padding: 3em 5em 4em 5em;
+    padding: 3em 4em 4em 4em;
     color: white;
     bottom: 3px;
 }
 .footerDesc{
     position: relative;
+    left: 5%;
     width: 30%;
     height: 180px;
     text-align: center;
