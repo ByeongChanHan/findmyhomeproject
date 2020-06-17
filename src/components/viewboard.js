@@ -41,7 +41,8 @@ class Viewboard extends Component{
             ranking : selectJSON.rankingdata.slice(0,6),
             categoryoption : selectJSON.categoryoption,
             flooroption : selectJSON.flooroption,
-            structureoption : selectJSON.structureoption
+            structureoption : selectJSON.structureoption,
+            selectid : selectJSON.selectid
         })
     }
     render(){
@@ -65,6 +66,7 @@ class Viewboard extends Component{
         categoryoption={this.state.categoryoption}
         flooroption={this.state.flooroption}
         structureoption={this.state.structureoption}
+        selectid={this.state.selectid}
         />
     }
 }
@@ -82,10 +84,11 @@ class BoardRender extends Component{
                             <h1>{this.props.title}</h1>
                         </div>
                         <div className="boardinformation">
+                            <p>작성자 : {this.props.selectid}</p>
                             <p>옵션 : {this.props.categoryoption} , {this.props.flooroption} , {this.props.structureoption}</p>
-                            <hr></hr>
-                            <p>조회수 : {this.props.viewnum}</p>
+                            <div className ="blank"></div>
                             <p className ="wrotedate">작성일 : {this.props.wrotedate}</p>
+                            <p>조회수 : {this.props.viewnum}</p>
                         </div>
                     </div>
                     <div className="contents">

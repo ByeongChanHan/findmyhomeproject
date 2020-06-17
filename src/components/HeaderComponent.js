@@ -69,6 +69,7 @@ class LoginHeader extends Component{
     logoutReq = () =>{
         fetch("http://localhost:5000/logout",{ credentials: 'include' })
         .then(res => res.text())
+        // 페이지를 새로고침
         window.location.reload(true);
     }
 }
@@ -76,6 +77,7 @@ class LogoutHeader extends Component{
     render(){
         return(
             <span className="individualMenu">
+                {/* this.props.logout은 로그아웃 텍스트라 로그아웃글자가 출력됨 */}
                 <a href ="/login">{this.props.logout}</a>
             </span>
         )

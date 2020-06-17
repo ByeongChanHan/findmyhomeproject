@@ -43,6 +43,7 @@ class Noticeboard extends Component{
         const writeData = await this._callData()
         // slice로 키값(title,userwrote,wrotedate)를 잘라주고 state에 저장
         this.setState({
+            // 전체데이터에서 쪼갠데이터들을 저장 0부터 10까지
             listnum : writeData.listnum.slice(this.state.MinimumItems,this.state.Maxitems),
             titleList : writeData.title.slice(this.state.MinimumItems,this.state.Maxitems),
             userwroteList : writeData.userwrote.slice(this.state.MinimumItems,this.state.Maxitems),
@@ -61,6 +62,7 @@ class Noticeboard extends Component{
             wrotedateTotal : writeData.wrotedate,
             // 글번호
             totallistnum : writeData.listnum,
+            // 글쓴 아이디들
             totalwriteid : writeData.writeid
         })
     }
@@ -68,6 +70,7 @@ class Noticeboard extends Component{
     _getUrlReverse = async () =>{
         const writeData = await this._callData()
         this.setState({
+            // 거꾸로 한다음 자른것들
             titleList : writeData.title.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
             userwroteList : writeData.userwrote.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
             wrotedate : writeData.wrotedate.reverse().slice(this.state.MinimumItems,this.state.Maxitems),
@@ -92,6 +95,7 @@ class Noticeboard extends Component{
             // state의 최소 데이터의 길이는 0인 그대로지만 최대 데이터의 길이는 10증가
             setTimeout( () =>{
             this.setState({
+                // 0개부터 최대치가 10이였는데 거기서 10개를 더 늘린다
                 ...this.state.MinimumItems,
                 Maxitems : this.state.Maxitems + 10
             })
@@ -302,8 +306,8 @@ class WriteList extends Component{
         var CurrentviewNum = this.props.viewnum+1
         var SelectedObject = {}
         SelectedObject.currentnum = CurrentviewNum;
+        // 글번호를 request로 보내는 이유 : 서버에있는 /board/<numurl>부분에서 받으려고 하기 위함
         SelectedObject.listnum = this.props.num;
-        console.log(this.props.num)
         const ClickSave = {
             method:'POST',
             headers:{
@@ -314,7 +318,7 @@ class WriteList extends Component{
         fetch("http://localhost:5000/board",ClickSave)
         .then(showList => console.log(showList.text()))
         // 조회수가 저장되는 시간을 고려해서 1초 후에 페이지가 넘어감
-        // 페이지는 board 뒤에 제목을 붙여서 이동
+        // 페이지는 board 뒤에 글번호를 붙여서 이동
         setTimeout(()=>{
             window.location.href = `http://localhost:3000/board/${this.props.num}`
         },1000)

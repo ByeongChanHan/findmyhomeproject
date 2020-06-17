@@ -74,6 +74,7 @@ def showboard():
             wrotedateArr.append(row[2])
             viewnumArr.append(row[3])
             listnumArr.append(row[4])
+            # row의 8번째 글을 올린 닉네임
             idArr.append(row[8])
         # title,userwrote,wrotedate키에 배열을 집어넣는 모습
         result['title'] = titleArr
@@ -103,10 +104,9 @@ def selectBoard(numurl):
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
         # 클릭한 글의 정보를 db에서 조회
-        cur.execute("select title,userwrote,wrotedate,viewnum,categoryoption,flooroption,structureoption from writeDB where listnum=?",(numurl,))
+        cur.execute("select title,userwrote,wrotedate,viewnum,categoryoption,flooroption,structureoption,writeid from writeDB where listnum=?",(numurl,))
         # 하나의 데이터만 선택
         Viewdata = cur.fetchone()
-        print(Viewdata)
         conn.close()
         # 선택한 글의 댓글 불러오기
         connection = sqlite3.connect('writelist.db')
@@ -118,7 +118,6 @@ def selectBoard(numurl):
         # 조회수 순위 내림차순 정렬 쿼리
         junction = sqlite3.connect('writelist.db')
         junctioncur = junction.cursor()
-        # 쿼리문수정요망
         junctioncur.execute('select distinct title from writeDB order by viewnum desc')
         rankingdata = junctioncur.fetchall()
         junction.close()
@@ -133,6 +132,7 @@ def selectBoard(numurl):
         categoryoptionArr = []
         flooroptionArr = []
         structureoptionArr = []
+        writeidArr = []
         # row의 0번째는 제목의 열
         titleArr.append(Viewdata[0])
         # row의 1번째는 내용의 열
@@ -147,6 +147,8 @@ def selectBoard(numurl):
         flooroptionArr.append(Viewdata[5])
         # row의 6번째는 구조옵션
         structureoptionArr.append(Viewdata[6])
+        # row의 7번째는 글쓴 닉네임
+        writeidArr.append(Viewdata[7])
         for rows in commentdataSet:
             commentTitleArr.append(rows[0])
             currentTimeArr.append(rows[1])
@@ -159,10 +161,12 @@ def selectBoard(numurl):
         # 댓글까지 추가
         Selectdict['comment'] = commentTitleArr
         Selectdict['currentTime'] = currentTimeArr
+        # 랭킹 제목 데이터
         Selectdict['rankingdata'] = rankingdata
         Selectdict['categoryoption'] = categoryoptionArr
         Selectdict['flooroption'] = flooroptionArr
         Selectdict['structureoption'] = structureoptionArr
+        Selectdict['selectid'] = writeidArr
         # dictionary를 리턴
         return Selectdict
     # 글쓰고 답변달았을때는 여기로 옴
@@ -327,21 +331,21 @@ def main():
 @cross_origin(supports_credentials=True) 
 def logout():
     if request.method == 'GET':
+        # 세션 제거
         session.pop('id', None)
-        print(session)
         return ''
 # 조회수 순위에서 해당 제목을 클릭했을때
 @app.route('/ranking',methods=['GET', 'POST'])
 def ranking():
     if request.method == 'POST':
+        # 랭킹을 불러온후
         selectRankingTitle = request.json.get('ranking')
-        print(selectRankingTitle)
+        # db연결 제목이 랭킹에 있는 제목과 일치하는 글번호를 불러온다
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
         cur.execute('select listnum from writeDB where title=?',(selectRankingTitle))
         SelectTitle = cur.fetchone()
         conn.close()
-        print(SelectTitle)
         selectTitledict = dict()
         selectTitledict['rankingtitle'] = SelectTitle
         return selectTitledict

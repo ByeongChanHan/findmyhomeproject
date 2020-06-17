@@ -18,10 +18,8 @@
     margin:0 5% 0 3%;
     font-family: 'Noto Sans KR', sans-serif;
 }
-.boardinformation hr{
-    margin: 0;
-    height: 20px;
-    border: 1px solid #ddd;
+.blank{
+    width: 45%;
 }
 .chat{
     width:60px;
@@ -69,7 +67,7 @@
     height: 40px;
 }
 .boardinformation p{
-    margin:0 2% 2% 2%;
+    margin:0 1% 2% 1%;
     font-size: 15px;
     color: #444;
 }

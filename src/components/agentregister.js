@@ -30,7 +30,7 @@ class Agentregister extends Component{
         id : 'emailText'
         },
         {
-        pItem : '중개사번호',
+        pItem : '등록번호',
         placeholderItem: 'Agentnumber',
         typeselect: 'text',
         id : 'AgentText'
