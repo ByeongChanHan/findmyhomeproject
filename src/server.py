@@ -111,7 +111,7 @@ def selectBoard(numurl):
         # 선택한 글의 댓글 불러오기
         connection = sqlite3.connect('writelist.db')
         cursorlocation = connection.cursor()
-        cursorlocation.execute('select commentText,currentTime from comment,writeDB where comment.listnum = ? and comment.listnum = writeDB.listnum',(numurl,))
+        cursorlocation.execute('select commentText,currentTime,commentid from comment,writeDB where comment.listnum = ? and comment.listnum = writeDB.listnum',(numurl,))
         # 댓글이 여러개있을경우 다 골라야 하므로 fetchall을 써줌
         commentdataSet = cursorlocation.fetchall()
         connection.close()
@@ -129,6 +129,7 @@ def selectBoard(numurl):
         viewnumArr = []
         commentTitleArr = []
         currentTimeArr = []
+        commentidArr = []
         categoryoptionArr = []
         flooroptionArr = []
         structureoptionArr = []
@@ -152,6 +153,7 @@ def selectBoard(numurl):
         for rows in commentdataSet:
             commentTitleArr.append(rows[0])
             currentTimeArr.append(rows[1])
+            commentidArr.append(rows[2])
         # 배열에 다 넣었으면
         # SelectTitle,Selectuserwrote,Selectwrotedate,Selectviewnum키에 배열을 집어넣고
         Selectdict['SelectTitle'] = titleArr
@@ -161,6 +163,7 @@ def selectBoard(numurl):
         # 댓글까지 추가
         Selectdict['comment'] = commentTitleArr
         Selectdict['currentTime'] = currentTimeArr
+        Selectdict['commentid'] = commentidArr
         # 랭킹 제목 데이터
         Selectdict['rankingdata'] = rankingdata
         Selectdict['categoryoption'] = categoryoptionArr
@@ -172,10 +175,11 @@ def selectBoard(numurl):
     # 글쓰고 답변달았을때는 여기로 옴
     elif request.method == 'POST':
         commentText = request.json.get('commentText')
+        commentid = request.json.get('commentid')
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
         # 댓글을 insert로 db에 저장함
-        cur.execute("insert into comment(listnum,commentText) values(?,?)",(numurl,commentText))
+        cur.execute("insert into comment(listnum,commentText,commentid) values(?,?,?)",(numurl,commentText,commentid))
         conn.commit()
         conn.close()
         return "작성이 완료되었습니다."

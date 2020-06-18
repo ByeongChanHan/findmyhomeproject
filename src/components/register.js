@@ -101,7 +101,12 @@ class Register extends Component{
         }
         fetch("http://localhost:5000/signup",sendOptions)
         .then(res => res.text())
-        .then(printer => alert(printer))
+        .then(printer =>{
+            alert(printer)
+            if(printer === "회원가입이 완료되었습니다."){
+                window.location.href = "/login"
+            }
+        })
     }
 }
 class Printregister extends Component{
@@ -127,7 +132,6 @@ class Printregister extends Component{
                     if((_keycode >=48)&&(_keycode<=57)){
                         let PhoneNum = ""
                         if(PhoneNumvalues.length < 4) {
-                            console.log(PhoneNumvalues)
                             return PhoneNumvalues;
                         } else if(PhoneNumvalues.length < 8) {
                             PhoneNum += PhoneNumvalues.substr(0, 3);
@@ -148,9 +152,10 @@ class Printregister extends Component{
                             PhoneNum += PhoneNumvalues.substr(7);
                         }
                         PhoneNumvalues = PhoneNum;
+                        console.log(PhoneNumvalues)
                         return true;
                     }
-                    // 아닐경우 이벤트를 멈춰버림
+                    // 아닐경우 빈칸으로 초기화
                     else{
                         document.getElementById('PhoneNumber').value = ""
                         return false;

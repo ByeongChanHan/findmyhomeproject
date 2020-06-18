@@ -101,7 +101,12 @@ class Agentregister extends Component{
         }
         fetch("http://localhost:5000/signupagent",sendOptions)
         .then(res => res.text())
-        .then(printer => alert(printer))
+        .then(printer => {
+            alert(printer)
+            if(printer === "회원가입이 완료되었습니다."){
+                window.location.href = "/login"
+            }
+        })
     }
 }
 class RegisterItem extends Component{

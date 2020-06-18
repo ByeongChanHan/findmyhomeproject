@@ -79,8 +79,7 @@ class LoginPage extends Component{
                 return false
             }
             else{
-                console.log(res)
-                window.location.href = "/"
+                window.location.href = "/board"
             }
         })
     }

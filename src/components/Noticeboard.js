@@ -302,6 +302,14 @@ class WriteList extends Component{
     }
     // 클릭할때마다 조회수 증가
     _viewCounter = () =>{
+        // 로그인 되지 않았을때
+        if(document.getElementById("idtext")===null){
+            alert("로그인 후 이용해주세요")
+            // 로그인페이지로 이동하게끔 하고
+            window.location.href ="/login"
+            // false리턴해서 빠져나간다
+            return false
+        }
         // 조회수를 클릭하면 1씩 늘려서 그 값을 서버에 전달
         var CurrentviewNum = this.props.viewnum+1
         var SelectedObject = {}

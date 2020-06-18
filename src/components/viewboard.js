@@ -38,6 +38,7 @@ class Viewboard extends Component{
             viewnum : selectJSON.Selectviewnum,
             commentList : selectJSON.comment,
             currentTime : selectJSON.currentTime,
+            commentid : selectJSON.commentid,
             ranking : selectJSON.rankingdata.slice(0,6),
             categoryoption : selectJSON.categoryoption,
             flooroption : selectJSON.flooroption,
@@ -62,6 +63,7 @@ class Viewboard extends Component{
         viewnum={this.state.viewnum}
         comment={this.state.commentList}
         currentTime={this.state.currentTime}
+        commentid={this.state.commentid}
         ranking={this.state.ranking}
         categoryoption={this.state.categoryoption}
         flooroption={this.state.flooroption}
@@ -85,7 +87,17 @@ class BoardRender extends Component{
                         </div>
                         <div className="boardinformation">
                             <p>작성자 : {this.props.selectid}</p>
-                            <p>옵션 : {this.props.categoryoption} , {this.props.flooroption} , {this.props.structureoption}</p>
+                            <p>옵션 : 
+                                <span className ="badge">
+                                    {this.props.categoryoption}
+                                </span>
+                                <span className ="badge">
+                                    {this.props.flooroption}
+                                </span>
+                                <span className ="badge">
+                                    {this.props.structureoption}
+                                </span>
+                            </p>
                             <div className ="blank"></div>
                             <p className ="wrotedate">작성일 : {this.props.wrotedate}</p>
                             <p>조회수 : {this.props.viewnum}</p>
@@ -145,12 +157,25 @@ class BoardRender extends Component{
         // 나중에 서버 배포할때 문제 생기면 수정
         let ConvertUrl = CurrentUrl.replace("3000","5000");
         var CommentDict = {};
+        var sendid;
         var getComment = document.getElementById('commentText').value;
+        if(document.getElementById("idtext")===null){
+            alert("로그인 후 이용해주세요")
+            // 로그인페이지로 이동하게끔 하고
+            window.location.href ="/login"
+            // false리턴해서 빠져나간다
+            return false
+        }
+        else{
+            // 로그인 성공하면 idtext에 있는 텍스트를 sendId 변수에 저장한다
+            sendid = document.getElementById("idtext").innerText
+        }
         if(getComment === ""){
             alert("내용을 입력해주세요");
             return false;
         }
         CommentDict.commentText = getComment
+        CommentDict.commentid = sendid
         const reqoption = {
             method:'POST',
             headers:{
@@ -170,6 +195,7 @@ class BoardRender extends Component{
         const ComArray = this.props.comment.map((CommentArr,index)=>{
             return <Comments comment = {CommentArr}
             currentTime = {this.props.currentTime}
+            commentid = {this.props.commentid}
             key = {index}/>
         })
         return ComArray
@@ -220,9 +246,8 @@ class Comments extends Component{
         return(
             <div>
             <div className="comment">
-                <h1>답변</h1>
+                <h1>{this.props.commentid}님의 답변</h1>
                 <div className = "commentinform">
-                <p>사용자</p>
                 <p>작성일 : {this.props.currentTime}</p>
                 </div>
                 <p>{this.props.comment}</p>
