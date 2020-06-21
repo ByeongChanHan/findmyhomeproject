@@ -9,6 +9,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "cors": "^2.8.5",
+    "gh-pages": "^3.1.0",
     "jquery": "^3.5.0",
     "react": "^16.13.1",
     "react-animations": "^1.0.0",
@@ -22,7 +23,9 @@
     "start": "set PORT=3000 &&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy" : "react-scripts build",
+    "deploy" : "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,5 +41,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "https://byeongchanhan.github.io/FindMyHomeProject/"
 }

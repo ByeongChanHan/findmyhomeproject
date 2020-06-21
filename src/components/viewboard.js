@@ -21,11 +21,9 @@ class Viewboard extends Component{
         // http:localhost:3000/board/제목 을 http:localhost:5000/board/제목 으로 변하게 만드는 줄인데
         // 나중에 서버 배포할때 문제 생기면 수정
         let ConvertUrl = CurrentUrl.replace("3000","5000")
-        console.log(ConvertUrl)
         return fetch(ConvertUrl)
         .then(res => {
             let selectData = res.json()
-            console.log(selectData)
             return selectData
         })
     }
@@ -104,7 +102,7 @@ class BoardRender extends Component{
                         </div>
                     </div>
                     <div className="contents">
-                        <p className="writecontent">{this.props.userwrote}</p>
+                        <pre className="writecontent">{this.props.userwrote}</pre>
                         <div className="iconArea">
                             <button type="button" onClick={this._Comment} className="commentimg">
                                 <img src={Comment} className ="icon" alt="commentImg"></img>
@@ -253,7 +251,7 @@ class Comments extends Component{
                 <div className = "commentinform">
                 <p>작성일 : {this.props.currentTime}</p>
                 </div>
-                <p>{this.props.comment}</p>
+                <pre>{this.props.comment}</pre>
             </div>
             </div>
         )
