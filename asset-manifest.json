@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d91c3875.chunk.css",
+    "main.js": "/static/js/main.43ef4331.chunk.js",
+    "main.js.map": "/static/js/main.43ef4331.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.00fc0a91.js",
+    "runtime-main.js.map": "/static/js/runtime-main.00fc0a91.js.map",
+    "static/js/2.c1260ce9.chunk.js": "/static/js/2.c1260ce9.chunk.js",
+    "static/js/2.c1260ce9.chunk.js.map": "/static/js/2.c1260ce9.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f5d421463b61bcaeb41d003d7d6ab666.js": "/precache-manifest.f5d421463b61bcaeb41d003d7d6ab666.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.d91c3875.chunk.css.map": "/static/css/main.d91c3875.chunk.css.map",
+    "static/js/2.c1260ce9.chunk.js.LICENSE.txt": "/static/js/2.c1260ce9.chunk.js.LICENSE.txt",
+    "static/media/mainDesign.css": "/static/media/MainImage.e673eb98.jpg",
+    "static/media/askDesign.css": "/static/media/askquestion.09d6ccae.jpg",
+    "static/media/noticePage.css": "/static/media/communication.cf94dd95.jpg",
+    "static/media/mainvideo.mp4": "/static/media/mainvideo.eed2345f.mp4"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.00fc0a91.js",
+    "static/js/2.c1260ce9.chunk.js",
+    "static/css/main.d91c3875.chunk.css",
+    "static/js/main.43ef4331.chunk.js"
+  ]
+}
