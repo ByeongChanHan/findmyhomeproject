@@ -81,6 +81,7 @@
 }
 .writecontent{
     margin-left: 10px;
+    margin-right: 10px;
 }
 .blankArea{
     width: 100%;
@@ -148,9 +149,8 @@
 }
 /* 댓글 부분 */
 .comment{
-    height: 150px;
     background-color: white;
-    padding: 30px 20% 30px 20%;
+    padding: 30px 20%;
     border :1px solid lightgray;
     margin-bottom: 10px;
     font-family: 'Noto Sans KR', sans-serif;
@@ -171,17 +171,18 @@
     text-decoration: underline;
 }
 .comment p{
-    float: left;
+    margin: 0 10px;
 }
 .comment h1{
     text-align: left;
+    margin: 0 0 10px 0;
 }
 .commentinform{
     display: flex;
 }
 .commentinform p{
     color: #444;
-    margin: 0 10px 0 0;
+    margin: 0 10px 10px 0;
 }
 .boardheader {
     background-color: #f7f7f7;

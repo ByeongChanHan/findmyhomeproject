@@ -194,8 +194,8 @@ class BoardRender extends Component{
     CommentRender = () =>{
         const ComArray = this.props.comment.map((CommentArr,index)=>{
             return <Comments comment = {CommentArr}
-            currentTime = {this.props.currentTime}
-            commentid = {this.props.commentid}
+            currentTime = {this.props.currentTime[index]}
+            commentid = {this.props.commentid[index]}
             key = {index}/>
         })
         return ComArray
@@ -242,6 +242,9 @@ class Ranking extends Component{
     }
 }
 class Comments extends Component{
+    componentDidMount(){
+        console.log(this.props.commentid)
+    }
     render(){
         return(
             <div>
