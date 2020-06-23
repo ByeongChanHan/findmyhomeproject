@@ -85,7 +85,7 @@ class BoardRender extends Component{
                         </div>
                         <div className="boardinformation">
                             <p>작성자 : {this.props.selectid}</p>
-                            <p>옵션 : 
+                            <b className="option">옵션 : 
                                 <span className ="badge">
                                     {this.props.categoryoption}
                                 </span>
@@ -95,7 +95,7 @@ class BoardRender extends Component{
                                 <span className ="badge">
                                     {this.props.structureoption}
                                 </span>
-                            </p>
+                            </b>
                             <div className ="blank"></div>
                             <p className ="wrotedate">작성일 : {this.props.wrotedate}</p>
                             <p>조회수 : {this.props.viewnum}</p>
@@ -241,12 +241,60 @@ class Ranking extends Component{
 }
 class Comments extends Component{
     componentDidMount(){
-        console.log(this.props.commentid)
+        this.enableupdate()
+        // console.log(document.getElementById("idtext").innerText)
+    }
+    enableupdate = () =>{
+        if(document.getElementById("idtext")===null){
+            const callid = setTimeout(() => {
+                window.location.reload(true)
+            }, 3000);
+            if(document.getElementById("idtext")!==null){
+                clearInterval(callid)
+            }
+        }
+        else{
+            if(document.getElementById("idtext").innerText === this.props.commentid){
+                var selectcomment = this.props.commentid
+                var commentArea = document.getElementById(selectcomment)
+                var deletebtn = document.createElement("input")
+                deletebtn.className = "deletebtn"
+                deletebtn.type = "submit"
+                deletebtn.value = "삭제"
+                deletebtn.onclick = () =>{
+                    let commentReqdict = {}
+                    let commentsend = this.props.comment
+                    commentReqdict.commentText = commentsend
+                    const deletereq = {
+                        method:'POST',
+                        headers:{
+                            "Content-Type": "application/json; charset=utf-8"
+                        },
+                        body: JSON.stringify(commentReqdict)
+                    }
+                    fetch("http://localhost:5000/delete",deletereq)
+                    .then(res=>res.text())
+                    .then(response=>{
+                        alert(response)
+                        window.location.reload(true)
+                    })
+                }
+                // 업데이트 버튼 부분
+                // var updatebtn = document.createElement("input")
+                // updatebtn.className = "updatebtn"
+                // updatebtn.type = "submit"
+                // updatebtn.value = "수정"
+                // updatebtn.onclick = () =>{
+                // }
+                commentArea.appendChild(deletebtn)
+                // commentArea.appendChild(updatebtn)
+            }
+        }
     }
     render(){
         return(
             <div>
-            <div className="comment">
+            <div className="comment" id={this.props.commentid}>
                 <h1>{this.props.commentid}님의 답변</h1>
                 <div className = "commentinform">
                 <p>작성일 : {this.props.currentTime}</p>

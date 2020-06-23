@@ -19,7 +19,7 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 .blank{
-    width: 45%;
+    width: 20%;
 }
 .chat{
     width:60px;
@@ -38,6 +38,20 @@
     background: white;
     margin-right: 25px;
     padding: 5px 0 0 0;
+}
+.deletebtn{
+    position: relative;
+    left: 90%;
+    font-size: 20px;
+    background-color: transparent;
+    border: 0;
+}
+.updatebtn{
+    position: relative;
+    left: 80%;
+    font-size: 20px;
+    background-color: transparent;
+    border: 0;
 }
 .commentimg p{
     margin:5px 0 0 0;
@@ -70,7 +84,11 @@
     margin:0 1% 2% 1%;
     font-size: 15px;
     color: #444;
-    width: auto;
+    width: 21%;
+    /* p사이즈변경 */
+}
+.option{
+    width:50%;
 }
 .contents{
     font-family: 'Noto Sans KR', sans-serif;
@@ -172,7 +190,7 @@
     text-decoration: underline;
 }
 .comment pre{
-    margin: 0 10px;
+    margin: 10px 10px;
     font-family: 'Noto Sans KR', sans-serif;
 }
 .comment h1{

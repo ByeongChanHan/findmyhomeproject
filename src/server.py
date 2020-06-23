@@ -9,7 +9,7 @@ now = datetime.now()
 # 시크릿키가 있어야 세션유지 가능
 app = Flask(__name__)
 app.secret_key = 'secret key'
-app.permanent_session_lifetime = timedelta(minutes=10)
+app.permanent_session_lifetime = timedelta(minutes=15)
 
 # 서로다른 포트에서 연결할때 cors에러 나서 cors정책을 모두 허용해주는 flask_cors라이브러리 사용
 CORS(app)
@@ -353,6 +353,17 @@ def ranking():
         selectTitledict = dict()
         selectTitledict['rankingtitle'] = SelectTitle
         return selectTitledict
+@app.route('/delete',methods=['GET', 'POST'])
+def excutedelete():
+    if request.method == "POST":
+        commentText = request.json.get("commentText")
+        conn = sqlite3.connect('writelist.db')
+        cur = conn.cursor()
+        cur.execute("delete from comment where commentText=?",(commentText,))
+        conn.commit()
+        conn.close()
+    return "답변을 삭제하였습니다."
+
 
 if __name__ == '__main__':
     app.run(debug=True)
