@@ -1,5 +1,4 @@
 import React from 'react';
-import './stylesheets/mainDesign.css';
 import Entirepage from './components/Entirepage'
 import Login from './components/login';
 import CreateAccount from './components/CreateAccount'

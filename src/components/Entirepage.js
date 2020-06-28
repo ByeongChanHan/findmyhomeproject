@@ -16,8 +16,10 @@ class Entirepage extends Component{
     _scrollToggle = () =>{
             $('html,body').on('mousewheel',(e)=>{
                 var iswheel = e.originalEvent.wheelDelta;
-                // 스크롤 밑으로 내릴때와 가려진 공간이 위에 있는 사진의 영역일때 (930이하)
-                if(iswheel <= 0 && document.documentElement.scrollTop < 930){
+                var bannerArea = $(".banner").innerHeight()
+                console.log(bannerArea)
+                // banner 크기 보다 작으면서 스크롤 밑으로 내릴때
+                if(iswheel <= 0 && document.documentElement.scrollTop < bannerArea){
                     // 밑에 비디오의 시작점 가져오고
                     var offset = $(".mainVideo").offset();
                     setTimeout(()=>{
@@ -32,7 +34,7 @@ class Entirepage extends Component{
                     $(".DescExplain").stop()
                     $(".SiteExplain").stop()
                 }
-                else if(document.documentElement.scrollTop > 930){
+                else if(document.documentElement.scrollTop > bannerArea){
                     $("html,body").stop()
                 }
                 // // 스크롤 위로 올릴때

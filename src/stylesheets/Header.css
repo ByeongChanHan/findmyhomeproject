@@ -1,0 +1,92 @@
+header{
+    position: fixed;
+    height: 75px;
+    padding: 1em;
+    color : white;
+    background: rgb(108, 192, 145);
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-end; 
+    /* 마지막부터 컴포넌트 배치 */
+    align-items: center;
+    /* 중앙정렬 */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    /* 렌더링 가장 위 */
+}
+.navigate{
+    position: relative;
+    right: 8%;
+    font-family: 'Roboto Condensed', sans-serif;
+    display: flex;
+}
+.title{
+    position: absolute;
+    font-family: 'Pacifico', cursive;
+    right: 80%;
+    font-size: 30px;
+}
+.individualMenu{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    position: relative;
+}
+.individualMenu::after{
+    transition: 0.3s;
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: white;
+    left: 50%;
+    bottom: -25%;
+    transform: translate(-50%,-50%);
+}
+.individualMenu:hover::after{
+    width: 100%;
+}
+.idsection{
+    display: flex;
+}
+#idtext{
+    margin: 0;
+}
+.title a , .individualMenu a{
+    color: white;
+}
+#logoutbtn{
+    border : 0;
+    background-color : transparent;
+    color : white;
+    font-size:20px;
+    font-weight : bold;
+}
+a{
+    text-decoration: none;
+}
+@media only screen and (max-width:480px){
+    header{
+        position: fixed;
+        height: 5%;
+        padding: 5px;
+    }
+    .title{
+        font-size:15px;
+        right: 75%;
+    }
+    .navigate{
+        right: 0;
+    }
+    .individualMenu{
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 10px;
+        position: relative;
+    }
+    #logoutbtn{
+        font-size:10px;
+    }
+}

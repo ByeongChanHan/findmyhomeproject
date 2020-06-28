@@ -1,8 +1,6 @@
 .mainVideo{
     min-width: 100%;
-    min-height: 100%;
     width: 100%;
-    height: auto;
     z-index: -1000;
     overflow: hidden;
     opacity: 0.7;
@@ -34,8 +32,27 @@
     border-radius: 10px;
     padding: 0;
     transition-duration: 0.7s;
+    padding: 5px;
 }
 .golink:hover{
     background-color: rgb(108, 192, 145);
     border-radius: 10px;
+}
+@media only screen and (max-width:480px){
+    .mainVideo{
+        height: 100%;
+    }
+    .DescExplain{
+        top:47%;
+        font-size: 11px;
+        height: inherit;
+        margin-bottom: 0;
+    }
+    .golink{
+        margin-top: 25%;
+        padding: 3px;
+    }
+    .golink a{
+        font-size: 12px;
+    }
 }

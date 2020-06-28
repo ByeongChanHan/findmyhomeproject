@@ -1,0 +1,94 @@
+.banner{
+    width: 100%;
+    height: 940px;
+    font-size: 50px;
+    display: flex;
+    position: relative;
+    top:0px;
+    text-align: center;
+}
+/* 가상의 화면 */
+.banner::after{
+    width: 100%;
+    height: 940px;
+    content: '';
+    background: url("../images/MainImage.jpg");
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+    position: absolute;
+    /* 흐리게 */
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+    /* z-index로 뒤로가게끔함 */
+    z-index: -1;
+}
+.banner .juyJUj{
+    width: 100%
+}
+.SiteExplain{   
+    padding: 6em 2em 0em 2em;
+    color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.advantage{
+    width: 20%;
+    color: white;
+    margin-top: 60px;
+    font-size: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.details{
+    display: flex;
+    justify-content: center;
+}
+#startid{
+    display: inline-block;
+    background: transparent;
+    border-radius: 30px;
+    font-size: 25px;
+    width: 240px;
+    height: 40px;
+    color: white;
+    border: 2px solid white;
+    padding: 10px;
+    position: relative;
+    bottom: 10px;
+    font-weight: bold;
+    transition-duration: 0.7s;
+}
+#startid:hover{
+    background-color: rgb(108, 192, 145);
+}
+@media only screen and (max-width:480px){
+    .banner{
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+        top:0px;
+    }
+    .advantage{
+        width: 30%;
+        color: white;
+        margin-top: 30px;
+        font-size: 10px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .SiteExplain{   
+        padding: 4em 2em 2em 2em;
+    }
+    #startid{
+        font-size: 5px;
+        width: 30%;
+        height: 20px;
+        padding: 5px;
+    }
+    .banner::after{
+        height: 100%;
+    }
+}

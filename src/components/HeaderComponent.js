@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import '../stylesheets/PacificoFont.css';
 import '../stylesheets/RobotoFont.css';
+import '../stylesheets/Header.css'
 
 class Header extends Component{
     state = {
@@ -48,17 +49,10 @@ class Header extends Component{
 }
 class LoginHeader extends Component{
     render(){
-        const logoutbtnstyle = {
-            border : 0,
-            backgroundColor : "transparent",
-            color : "white",
-            fontSize:"20px",
-            fontWeight : "bold"
-        }
         return(
             <section className="idsection">
                 <span className="individualMenu">
-                    <button style={logoutbtnstyle} onClick={this.logoutReq}>로그아웃</button>
+                    <button id="logoutbtn" onClick={this.logoutReq}>로그아웃</button>
                 </span>
                 <span className="individualMenu">
                     <p id="idtext">{this.props.success}</p>

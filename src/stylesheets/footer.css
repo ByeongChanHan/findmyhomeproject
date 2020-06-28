@@ -1,0 +1,48 @@
+.footer{
+    position: relative;
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    width: inherit;
+    height: 170px;
+    background-color: rgb(108, 192, 145);
+    padding: 3em 4em 4em 4em;
+    color: white;
+    bottom: 3px;
+}
+.footerDesc{
+    position: relative;
+    left: 5%;
+    width: 30%;
+    height: 180px;
+    text-align: center;
+}
+.footerDesc b{
+    font-size:30px;
+    top:70px;
+    position: relative;
+}
+.footerDesc p{
+    position: relative;
+    top:110px;
+    margin: 0;
+}
+@media only screen and (max-width:480px){
+    .footer{
+        height: 100%;
+        padding: 2em 3em 3em 3em;
+    }
+    .footerDesc{
+        height: 200px;
+    }
+    .footerDesc h1{
+        font-size: 20px;
+    }
+    .footerDesc p{
+        top:20%;
+        font-size: 10px;
+    }
+    .footerDesc b{
+        top:7%;
+        font-size: 20px;
+    }
+}

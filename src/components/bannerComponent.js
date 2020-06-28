@@ -3,6 +3,7 @@ import '../stylesheets/PacificoFont.css';
 import home from'../images/home.png';
 import location from'../images/location.png';
 import trust from'../images/trust.png';
+import '../stylesheets/banner.css'
 
 class Banner extends Component{
     // 이미지와 영어 설명란
