@@ -46,7 +46,7 @@
     display: flex;
     justify-content: center;
 }
-#startid{
+#askbtn{
     display: inline-block;
     background: transparent;
     border-radius: 30px;
@@ -61,7 +61,7 @@
     font-weight: bold;
     transition-duration: 0.7s;
 }
-#startid:hover{
+#askbtn:hover{
     background-color: rgb(108, 192, 145);
 }
 @media only screen and (max-width:480px){
@@ -69,23 +69,97 @@
         width: 100%;
         height: 100%;
         font-size: 20px;
-        top:0px;
     }
     .advantage{
         width: 30%;
-        color: white;
         margin-top: 30px;
         font-size: 10px;
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: 5px;
+        margin-right: 5px;
     }
     .SiteExplain{   
         padding: 4em 2em 2em 2em;
     }
-    #startid{
+    #askbtn{
         font-size: 5px;
         width: 30%;
         height: 20px;
+        padding: 5px;
+    }
+    .banner::after{
+        height: 100%;
+    }
+}
+@media only screen and (min-width:481px) and (max-width:767px){
+    .banner{
+        width: 100%;
+        height: 100%;
+        font-size: 22px;
+    }
+    .advantage{
+        width: 30%;
+        margin-top: 30px;
+        font-size: 12px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .SiteExplain{   
+        padding: 6em 2em 2em 2em;
+    }
+    #askbtn{
+        font-size: 12px;
+        width: 30%;
+        height: 20px;
+        padding: 5px;
+    }
+    .banner::after{
+        height: 100%;
+    }
+}
+@media all and (min-width:768px) and (max-width:1023px){
+    .banner{
+        width: 100%;
+        height: 100%;
+        font-size: 40px;
+    }
+    .advantage{
+        width: 30%;
+        margin-top: 30px;
+        font-size: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .SiteExplain{   
+        padding: 6em 2em 2em 2em;
+    }
+    #askbtn{
+        font-size: 20px;
+        width: 30%;
+        padding: 5px;
+    }
+    .banner::after{
+        height: 100%;
+    }
+}
+@media only screen and (min-width:1024px) and (max-width:1280px){
+    .banner{
+        width: 100%;
+        height: 100%;
+        font-size: 40px;
+    }
+    .advantage{
+        width: 20%;
+        margin-top: 30px;
+        font-size: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .SiteExplain{   
+        padding: 6em 2em 2em 2em;
+    }
+    #askbtn{
+        font-size: 23px;
+        width: 27%;
         padding: 5px;
     }
     .banner::after{

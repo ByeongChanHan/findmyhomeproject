@@ -17,7 +17,6 @@ class Entirepage extends Component{
             $('html,body').on('mousewheel',(e)=>{
                 var iswheel = e.originalEvent.wheelDelta;
                 var bannerArea = $(".banner").innerHeight()
-                console.log(bannerArea)
                 // banner 크기 보다 작으면서 스크롤 밑으로 내릴때
                 if(iswheel <= 0 && document.documentElement.scrollTop < bannerArea){
                     // 밑에 비디오의 시작점 가져오고

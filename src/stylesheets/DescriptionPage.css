@@ -43,10 +43,9 @@
         height: 100%;
     }
     .DescExplain{
-        top:47%;
-        font-size: 11px;
+        top:45%;
+        font-size: 12px;
         height: inherit;
-        margin-bottom: 0;
     }
     .golink{
         margin-top: 25%;
@@ -54,5 +53,77 @@
     }
     .golink a{
         font-size: 12px;
+    }
+}
+@media only screen and (min-width:481px) and (max-width:767px){
+    .mainVideo{
+        height: 100%;
+    }
+    .DescExplain{
+        width: 90%;
+        top:50%;
+        font-size: 18px;
+        height: inherit;
+        margin: 0 2em;
+    }
+    .golink{
+        margin-top: 30%;
+        padding: 4px;
+    }
+    .golink a{
+        font-size: 18px;
+    }
+}
+@media all and (min-width:768px) and (max-width:1023px){
+    .mainVideo{
+        height: 100%;
+    }
+    .DescExplain{
+        width: 90%;
+        top:90%;
+        font-size: 25px;
+        height: inherit;
+    }
+    .golink{
+        margin-top: 25%;
+        padding: 5px;
+    }
+    .golink a{
+        font-size: 25px;
+    }
+}
+@media only screen and (min-width:1024px) and (max-width:1280px){
+    .mainVideo{
+        height: 100%;
+    }
+    .DescExplain{
+        top:95%;
+        font-size: 30px;
+        height: inherit;
+    }
+    .golink{
+        margin-top: 25%;
+        padding: 5px;
+    }
+    .golink a{
+        font-size: 30px;
+    }
+}
+@media only screen and (min-width:1281px) and (max-width:1384px){
+    .mainVideo{
+        height: 100%;
+    }
+    .DescExplain{
+        width: 90%;
+        top:125%;
+        font-size: 34px;
+        height: inherit;
+    }
+    .golink{
+        margin-top: 27%;
+        padding: 5px;
+    }
+    .golink a{
+        font-size: 33px;
     }
 }

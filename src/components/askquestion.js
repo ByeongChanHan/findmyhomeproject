@@ -5,26 +5,6 @@ import '../stylesheets/NotoSans.css'
 
 class Askquestion extends Component{
     render(){
-        const titlestyle={
-            lineHeight:'50px',
-            fontWeight:'bold',
-            border:0
-        }
-        const optionstyle={
-            lineHeight:'50px',
-            fontWeight:'bold',
-            borderBottom:'1px solid #999',
-            borderRight:0,
-            borderLeft:0
-        }
-        const descwrite={
-            lineHeight:'470px',
-            fontWeight:'bold',
-            border:0
-        }
-        const pageTitle={
-            textAlign : 'left'
-        }
         return(
             <div>
                 <Header/>
@@ -32,43 +12,41 @@ class Askquestion extends Component{
                     <h1>질문하기</h1>
                 </section>
                 <div className ="askcontainer">
-                    <h1 style={pageTitle}>매물의뢰</h1>
                     <div className="asktable">
-                        <tr>
-                            <td style={titlestyle}>제목</td>
-                            <tr>
-                            <td style={optionstyle}>옵션</td>
-                            </tr>
-                            <tr>
-                            <td style={descwrite}>내용</td>
-                            </tr>
-                        </tr>
-                        <table>
-                            {/* 제목부분 */}
+                        <h1>글쓰기</h1>
+                        {/* 제목부분 */}
+                        <div className="titlearea">
+                            <b>제목</b>
                             <input type="text" id="title"></input>
-                                {/* 선택부분 */}
-                                <select className = "select">
-                                    <option selected>매물종류</option>
-                                    <option>매매</option>
-                                    <option>전세</option>
-                                    <option>월세</option>
-                                </select>
-                                <select className = "select">
-                                    <option selected>층수</option>
-                                    <option>지상층</option>
-                                    <option>반지하</option>
-                                    <option>옥탑</option>
-                                </select>
-                                <select className = "select">
-                                    <option selected>구조</option>
-                                    <option>원룸</option>
-                                    <option>복층</option>
-                                    <option>투룸</option>
-                                    <option>쓰리룸 이상</option>
-                                </select>
-                                {/* 내용부분 */}
-                                <textarea type="text" id ="textarea" placeholder="내용을 입력해주세요"></textarea>
-                        </table>
+                        </div>
+                        <div className="optionarea">
+                            <b>옵션</b>
+                            {/* 옵션선택부분 */}
+                            <select className = "select">
+                                <option defaultValue>매물종류</option>
+                                <option>매매</option>
+                                <option>전세</option>
+                                <option>월세</option>
+                            </select>
+                            <select className = "select">
+                                <option defaultValue>층수</option>
+                                <option>지상층</option>
+                                <option>반지하</option>
+                                <option>옥탑</option>
+                            </select>
+                            <select className = "select">
+                                <option defaultValue>구조</option>
+                                <option>원룸</option>
+                                <option>복층</option>
+                                <option>투룸</option>
+                                <option>쓰리룸 이상</option>
+                            </select>
+                            {/* 내용부분 */}
+                        </div>
+                        <div className="writetext">
+                            <b>내용</b>
+                            <textarea type="text" id ="textarea" placeholder="내용을 입력해주세요"></textarea>
+                        </div>
                     </div>
                     {/* 질문하기 버튼 */}
                 <input type="button" className = "askBtn" onClick={this._sendText} value="질문하기"></input>

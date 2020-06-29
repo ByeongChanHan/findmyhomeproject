@@ -108,3 +108,129 @@ label#uid,label#upass{
     padding: 0;
     border:1px solid #ccc;
 }
+@media only screen and (max-width:480px){
+    .LoginText{
+        margin-top:40%;
+        font-size: 30px;
+    }
+    .LoginRequire{
+        font-size: 13px;
+    }
+    #wrap{
+        width: 200px;
+        height: 220px;
+    }
+    .LoginTitle{
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+    label#uid,label#upass{
+        width: 50px;
+        font-size: 13px;
+    }
+    input#uid, input#upass{
+        width: 135px;
+    }
+    #loginbtn{
+        width: 200px;
+        height: 30px;
+        font-size: 15px;
+    }
+    .create{
+        padding:0;
+        width: 200px;
+        height: 30px;
+        font-size: 15px;
+    }
+    #isagent{
+        margin-top: 5px;
+        font-size: 10px;
+    }
+}
+@media only screen and (min-width:481px) and (max-width:767px){
+    .LoginText{
+        margin-top:35%;
+        font-size: 40px;
+    }
+    .LoginRequire{
+        font-size: 17px;
+    }
+    #wrap{
+        width: 250px;
+        height: 250px;
+    }
+    .LoginTitle{
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+    label#uid,label#upass{
+        width: 60px;
+        font-size: 15px;
+    }
+    input#uid, input#upass{
+        width: 175px;
+    }
+    #loginbtn{
+        width: 250px;
+        height: 35px;
+        font-size: 17px;
+    }
+    .create{
+        padding:0;
+        width: 250px;
+        height: 35px;
+        font-size: 17px;
+    }
+    #isagent{
+        margin-top: 5px;
+        font-size: 13px;
+    }
+}
+@media all and (min-width:768px) and (max-width:1023px){
+    .LoginText{
+        margin-top:20%;
+        font-size: 43px;
+    }
+    .LoginRequire{
+        font-size: 20px;
+    }
+    #wrap{
+        width: 260px;
+        height: 260px;
+    }
+    .LoginTitle{
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+    label#uid,label#upass{
+        width: 60px;
+        font-size: 15px;
+    }
+    input#uid, input#upass{
+        width: 175px;
+    }
+    #loginbtn{
+        width: 250px;
+        height: 40px;
+        font-size: 20px;
+    }
+    .create{
+        width: 238px;
+        height: 30px;
+        font-size: 20px;
+    }
+    #isagent{
+        margin-top: 10px;
+        font-size: 15px;
+    }
+}
+@media only screen and (min-width:1024px) and (max-width:1280px){
+    .LoginText{
+        margin-top:15%;
+    }
+}
+@media only screen and (min-width:1281px) and (max-width:1384px){
+    .LoginText{
+        margin-top:15%;
+    }
+}

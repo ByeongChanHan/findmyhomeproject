@@ -11,9 +11,8 @@ class Footer extends Component{
                 <p>Byoung Chan Han</p>
             </div>
             <div className="footerDesc">
-                {/* 위에있는 스타일 적용 */}
-                <b>I hope our website helps.</b>
-                <p> CopyRight @ FindMyHome. All rights reserved.</p>
+                <h1>I hope our website helps.</h1>
+                <p className="copyright"> CopyRight @ FindMyHome. All rights reserved.</p>
             </div>
             <div className="footerDesc">
                 <h1>contact email</h1>

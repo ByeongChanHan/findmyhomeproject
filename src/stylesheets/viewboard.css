@@ -145,9 +145,6 @@
     height: 30%;
     background-color: inherit;
     border: 2px solid rgb(108, 192, 145);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     padding: 10px;
 }
 .ranking b{
@@ -181,6 +178,9 @@
 }
 .rankitem{
     transition-duration: 0.7s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .rankitem:hover{
     color:darkgray;

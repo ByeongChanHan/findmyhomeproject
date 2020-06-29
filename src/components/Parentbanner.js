@@ -4,7 +4,7 @@ import '../stylesheets/NotoSans.css';
 import {fadeIn} from 'react-animations';
 import styled, { keyframes } from 'styled-components';
 
-// 메인페이지의 글씨 떨어지는 Animation
+// 메인페이지 글씨 페이드인 Animation
 const fadeInAnimation = keyframes`${fadeIn}`;
 const FadeIn = styled.div`
 animation : 2s ${fadeInAnimation}`;
@@ -24,7 +24,7 @@ class Parentbanner extends Component{
                         </section>
                         <br></br>
                         {/* ask 파라미터로 이동 */}
-                        <a href = "/ask" id = "startid">
+                        <a href = "/ask" id = "askbtn">
                             중개사에게 질문하기
                         </a>
                     </div>
