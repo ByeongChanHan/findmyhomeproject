@@ -43,9 +43,9 @@
 }
 .boardsearchArea p{
     margin: 0;
-}
-.boardsearchArea .boardform{
-    margin-left: 57em;
+} 
+.boardform{
+    margin-left: 1000px;
 }
 .searchBtn{
     color: white;
@@ -94,4 +94,268 @@ tbody tr{
 tbody tr:hover{
     color: azure;
     background-color: dimgrey;
+}
+@media only screen and (max-width:480px){
+    .notice h1{
+        top: 45%;
+        font-size: 30px;
+    }
+    .boardsearchArea{
+        margin: 20px 1em 20px 1em;
+    }
+    .allnum{
+        font-size: 20px;
+    }
+    .boardform{
+        margin-left: 120px;
+    }
+    .boardform button{
+        width: 60px;
+        font-size: 13px;
+    }
+    .selector{
+        position: relative;
+        width: 60px;
+        height: 25px;
+    }
+    .searchText{
+        width: 100px;
+        height: 23px;
+        padding: 0;
+    }
+    .searchBtn{
+        width: 40px;
+        height: 25px;
+    }
+}
+@media only screen and (min-width:481px) and (max-width:767px){
+    .notice h1{
+        top: 45%;
+        font-size: 30px;
+    }
+    .boardsearchArea{
+        margin: 20px 2em 20px 2em;
+    }
+    .allnum{
+        font-size: 20px;
+    }
+    .boardform{
+        margin-left: 100px;
+    }
+    .boardform button{
+        width: 60px;
+        font-size: 13px;
+    }
+    .selector{
+        position: relative;
+        width: 60px;
+        height: 27px;
+    }
+    .searchText{
+        width: 110px;
+        height: 25px;
+        padding: 0;
+    }
+    .searchBtn{
+        width: 45px;
+        height: 27px;
+    }
+}
+@media all and (min-width:768px) and (max-width:1023px){
+    .notice h1{
+        top: 45%;
+        font-size: 30px;
+    }
+    .boardsearchArea{
+        margin: 30px 5em 20px 5em;
+    }
+    .allnum{
+        font-size: 23px;
+    }
+    .boardform{
+        margin-left: 330px;
+    }
+    .boardform button{
+        width: 60px;
+        font-size: 13px;
+    }
+    .selector{
+        position: relative;
+        width: 60px;
+        height: 28px;
+    }
+    .searchText{
+        width: 110px;
+        height: 26px;
+        padding: 0;
+    }
+    .searchBtn{
+        width: 45px;
+        height: 29px;
+    }
+}
+@media only screen and (min-width:1024px) and (max-width:1175px){
+    .notice h1{
+        top: 45%;
+        font-size: 35px;
+    }
+    .boardsearchArea{
+        margin: 30px 8em 20px 8em;
+    }
+    .allnum{
+        font-size: 23px;
+    }
+    .boardform{
+        margin-left: 530px;
+    }
+    .boardform button{
+        width: 60px;
+        font-size: 14px;
+    }
+    .selector{
+        position: relative;
+        width: 60px;
+        height: 30px;
+    }
+    .searchText{
+        width: 110px;
+        height: 28px;
+        padding: 0;
+    }
+    .searchBtn{
+        width: 45px;
+        height: 31px;
+    }
+}
+@media only screen and (min-width:1176px) and (max-width:1280px){
+    .notice h1{
+        top: 45%;
+        font-size: 40px;
+    }
+    .boardsearchArea{
+        margin: 30px 10em 20px 10em;
+    }
+    .allnum{
+        font-size: 23px;
+    }
+    .boardform{
+        margin-left: 670px;
+    }
+    .boardform button{
+        width: 60px;
+        font-size: 14px;
+    }
+    .selector{
+        position: relative;
+        width: 60px;
+        height: 32px;
+    }
+    .searchText{
+        width: 110px;
+        height: 30px;
+        padding: 0;
+    }
+    .searchBtn{
+        width: 55px;
+        height: 33px;
+    }
+}
+@media only screen and (min-width:1281px) and (max-width:1439px){
+    .notice h1{
+        top: 45%;
+        font-size: 35px;
+    }
+    .boardsearchArea{
+        margin: 30px 12em 20px 12em;
+    }
+    .allnum{
+        font-size: 27px;
+    }
+    .boardform{
+        margin-left: 740px;
+    }
+    .boardform button{
+        width: 63px;
+        font-size: 14px;
+    }
+    .selector{
+        position: relative;
+        width: 60px;
+        height: 34px;
+    }
+    .searchText{
+        width: 130px;
+        height: 32px;
+        padding: 0;
+    }
+    .searchBtn{
+        width: 57px;
+        height: 35px;
+    }
+}
+@media only screen and (min-width:1400px) and (max-width:1599px){
+    .notice h1{
+        top: 45%;
+        font-size: 35px;
+    }
+    .boardsearchArea{
+        margin: 30px 12em 20px 12em;
+    }
+    .allnum{
+        font-size: 27px;
+    }
+    .boardform{
+        margin-left: 800px;
+    }
+    .boardform button{
+        width: 63px;
+        font-size: 14px;
+    }
+    .selector{
+        position: relative;
+        width: 60px;
+        height: 34px;
+    }
+    .searchText{
+        width: 130px;
+        height: 32px;
+        padding: 0;
+    }
+    .searchBtn{
+        width: 57px;
+        height: 35px;
+    }
+}
+@media only screen and (min-width:1600px) and (max-width:1767px){
+    .notice h1{
+        top: 45%;
+        font-size: 35px;
+    }
+    .boardsearchArea{
+        margin: 30px 12em 20px 12em;
+    }
+    .allnum{
+        font-size: 27px;
+    }
+    .boardform{
+        margin-left: 970px;
+    }
+    .boardform button{
+        width: 63px;
+        font-size: 14px;
+    }
+    .selector{
+        position: relative;
+        width: 60px;
+        height: 34px;
+    }
+    .searchText{
+        width: 130px;
+        height: 32px;
+        padding: 0;
+    }
+    .searchBtn{
+        width: 57px;
+        height: 35px;
+    }
 }
