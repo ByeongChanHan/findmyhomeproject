@@ -267,4 +267,11 @@
     .asktable h1{
         font-size: 30px;
     }
+    .mapdesign{
+        margin-top:30px;
+        left: 20%;
+        width: 500px;
+        height: 400px;
+        margin-bottom:10px;
+    }
 }

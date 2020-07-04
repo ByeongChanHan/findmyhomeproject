@@ -10,14 +10,16 @@
     color: black;
 }
 
-.member_register_wrap .align {display:inline-block;
-    *display:inline;
+.member_register_wrap .align {
+    display:inline-block;
     zoom:1;
-    margin-top:30px;}
+    margin-top:30px;
+    margin-bottom: 15%;
+}
 
 .member_register_wrap img {
     width:50%;
-    height:auto
+    height:auto;
 }
 
 .member_register_wrap .ex_text{
@@ -51,8 +53,78 @@
 
 .member_register_basic {
     background-color:rgb(245, 246, 250);
-    margin-right:20px;}
+    margin-right:20px;
+}
 
 .member_register_dealer {
     background-color:rgb(245, 246, 250);
+}
+
+@media only screen and (max-width:480px){
+    .member_register_wrap .ex_text{
+        margin-top: 35%;
+        font-size: 15px;
+    }
+    .member_register_basic, .member_register_dealer{
+        width: 100px;
+        height: 100px;
+    }
+    .member_register_wrap .bt_text{
+        font-size: 20px;
+        padding-top: 3%;
+    }
+    .member_register_wrap .align{
+        margin-bottom: 41%;
+    }
+}
+@media only screen and (min-width:481px) and (max-width:767px){
+    .member_register_wrap .ex_text{
+        margin-top: 35%;
+        font-size: 20px;
+    }
+    .member_register_basic, .member_register_dealer{
+        width: 150px;
+        height: 150px;
+    }
+    .member_register_wrap .bt_text {
+        font-size: 20px;
+        padding-top: 3%;
+    }
+    .member_register_wrap .align{
+        margin-bottom: 42%;
+    }
+}
+@media all and (min-width:768px) and (max-width:1023px){
+    .member_register_wrap .ex_text{
+        margin-top: 35%;
+        font-size: 25px;
+    }
+    .member_register_basic, .member_register_dealer{
+        width: 250px;
+        height: 250px;
+    }
+    .member_register_wrap .bt_text {
+        font-size: 25px;
+        padding-top: 3%;
+    }
+    .member_register_wrap .align{
+        margin-bottom: 40%;
+    }
+}
+@media only screen and (min-width:1024px) and (max-width:1280px){
+    .member_register_wrap .ex_text{
+        margin-top: 20%;
+        font-size: 25px;
+    }
+    .member_register_basic, .member_register_dealer{
+        width: 270px;
+        height: 270px;
+    }
+    .member_register_wrap .bt_text {
+        font-size: 27px;
+        padding-top: 3%;
+    }
+    .member_register_wrap .align{
+        margin-bottom: 20%;
+    }
 }

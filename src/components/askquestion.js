@@ -1,9 +1,18 @@
+/*global kakao*/
 import React,{Component} from 'react';
 import Header from '../components/HeaderComponent'
 import '../stylesheets/askDesign.css'
 import '../stylesheets/NotoSans.css'
 
 class Askquestion extends Component{
+    componentDidMount(){
+        let container = document.getElementById('map');
+		let map = new kakao.maps.Map(container,{
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level:3
+        })
+        return map;
+    }
     render(){
         return(
             <div>
@@ -48,8 +57,11 @@ class Askquestion extends Component{
                             <textarea type="text" id ="textarea" placeholder="내용을 입력해주세요"></textarea>
                         </div>
                     </div>
+                    <h1>위치 선택</h1>
+                    <div className="mapdesign" id="map"></div>
+                    <hr></hr>
                     {/* 질문하기 버튼 */}
-                <input type="button" className = "askBtn" onClick={this._sendText} value="질문하기"></input>
+                    <input type="button" className = "askBtn" onClick={this._sendText} value="질문하기"></input>
                 </div>
             </div>
         )

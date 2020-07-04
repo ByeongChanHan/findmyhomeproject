@@ -10,15 +10,15 @@ class Banner extends Component{
     imgList = [
         {
             icon : home,
-            explain : "Our services ensure the trust of the home."
+            explain : "저희 서비스는 매물의 신뢰성을 보장합니다"
         },
         {
             icon : location,
-            explain : "Find the location you want."
+            explain : "원하는 위치를 선정하세요"
         },
         {
             icon : trust,
-            explain : "Prove authorized real estate agent"
+            explain : "검증된 공인중개사의 추천을 받아보세요"
         }
     ]
     render() {

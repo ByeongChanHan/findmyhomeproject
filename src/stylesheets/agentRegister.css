@@ -42,7 +42,7 @@
 .information p{
     position: relative;
     font-size: 20px;
-    width: 95px;
+    width: 200px;
 }
 .submitid{
     width: 95%;
@@ -64,4 +64,102 @@
 }
 .registerForm p a{
     margin: 0 0 0 5px;
+}
+@media only screen and (max-width:480px){
+    .registerForm{
+        top: 160px;
+        width: 80%;
+        margin: 0 auto;
+        height: 590px;
+    }
+    .information{
+        height: 50px;
+        margin: 15px 0;
+    }
+    .information p{
+        font-size: 16px;
+        width: 200px;
+    }
+    .inner input{
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    .inner{
+        height: 45%;
+    }
+    .submitid{
+        margin-top: 15%;
+    }
+}
+@media only screen and (min-width:481px) and (max-width:767px){
+    .registerForm{
+        top: 160px;
+        width: 70%;
+        margin: 0 auto;
+        height: 650px;
+    }
+    .information{
+        height: 50px;
+        margin: 20px 0;
+    }
+    .information p{
+        font-size: 17px;
+        width: 200px;
+    }
+    .inner input{
+        font-size: 17px;
+        margin-top: 10px;
+    }
+    .inner{
+        height: 50%;
+    }
+    .submitid{
+        margin-top: 10%;
+    }
+}
+@media all and (min-width:768px) and (max-width:1023px){
+    .registerForm{
+        top: 160px;
+        width: 70%;
+        margin: 0 auto;
+        height: 670px;
+    }
+    .information{
+        height: 50px;
+        margin: 25px 0;
+    }
+    .information p{
+        font-size: 18px;
+        width: 200px;
+    }
+    .inner input{
+        font-size: 18px;
+        margin-top: 10px;
+    }
+    .inner{
+        height: 55%;
+    }
+}
+@media only screen and (min-width:1024px) and (max-width:1280px){
+    .registerForm{
+        top: 160px;
+        width: 70%;
+        margin: 0 auto;
+        height: 750px;
+    }
+    .information{
+        height: 50px;
+        margin: 40px 0;
+    }
+    .information p{
+        font-size: 20px;
+        width: 200px;
+    }
+    .inner input{
+        font-size: 20px;
+        margin-top: 10px;
+    }
+    .inner{
+        height: 60%;
+    }
 }
