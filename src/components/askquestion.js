@@ -3,16 +3,84 @@ import React,{Component} from 'react';
 import Header from '../components/HeaderComponent'
 import '../stylesheets/askDesign.css'
 import '../stylesheets/NotoSans.css'
+import SearchImg from '../images/search.png'
 
 class Askquestion extends Component{
     componentDidMount(){
+        this.mapRender();
+    }
+    mapRender = () =>{
         let container = document.getElementById('map');
 		let map = new kakao.maps.Map(container,{
-            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            center: new kakao.maps.LatLng(37.566698, 126.979122),
             level:3
         })
+        // 지도를 클릭한 위치에 표출할 마커
+        var marker = new kakao.maps.Marker({ 
+        // 지도 중심좌표에 마커를 생성 
+        position: map.getCenter() 
+        }); 
+        // 지도에 마커를 표시
+        marker.setMap(map);
+
+        // 지도에 클릭 이벤트를 등록
+        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수 호출
+        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+    
+        // 클릭한 위도, 경도 정보를 가져오고
+        var latlng = mouseEvent.latLng; 
+            
+        // 마커 위치를 클릭한 위치로 이동
+        marker.setPosition(latlng);
+        });
         return map;
     }
+    mapSearch = () =>{
+    let searchText = document.getElementById("searchblank").value;
+    let container = document.getElementById('map');
+	let map = new kakao.maps.Map(container,{
+        center: new kakao.maps.LatLng(37.566698, 126.979122),
+        level:3
+    });
+    // 장소 검색 객체를 생성
+    var ps = new kakao.maps.services.Places(); 
+    
+    // 키워드로 장소를 검색합니다
+    ps.keywordSearch(searchText, placesSearchCB); 
+    
+    // 키워드 검색 완료 시 호출되는 콜백함수
+    function placesSearchCB (data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+            // LatLngBounds 객체에 좌표를 추가
+            var bounds = new kakao.maps.LatLngBounds();
+        
+            for (var i=0; i<data.length; i++) {
+                bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+            }       
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정
+            map.setBounds(bounds);
+        } 
+    }
+    // 지도를 클릭한 위치에 표출할 마커
+    var marker = new kakao.maps.Marker({ 
+        // 지도 중심좌표에 마커를 생성 
+        position: map.getCenter() 
+        }); 
+        // 지도에 마커를 표시
+        marker.setMap(map);
+
+        // 지도에 클릭 이벤트를 등록
+        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수 호출
+        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+    
+        // 클릭한 위도, 경도 정보를 가져오고
+        var latlng = mouseEvent.latLng; 
+            
+        // 마커 위치를 클릭한 위치로 이동
+        marker.setPosition(latlng);
+        });
+}
     render(){
         return(
             <div>
@@ -57,9 +125,18 @@ class Askquestion extends Component{
                             <textarea type="text" id ="textarea" placeholder="내용을 입력해주세요"></textarea>
                         </div>
                     </div>
-                    <h1>위치 선택</h1>
-                    <div className="mapdesign" id="map"></div>
-                    <hr></hr>
+                    <section id="locationsection">
+                        <h1>위치 선택</h1>
+                        <section id="searchsection">
+                            <input type="text" id="searchblank"></input>
+                            <button className="locsearchbtn" onClick={this.mapSearch}>
+                                <img src={SearchImg} alt="searchIcon"></img> 검색
+                            </button>
+                        </section>
+                        <p>원하는 위치를 선택해주세요 , 위치를 선정하면 좀 더 자세한 답변을 얻을수 있습니다.</p>
+                        <div className="mapdesign" id="map"></div>
+                        <hr></hr>
+                    </section>
                     {/* 질문하기 버튼 */}
                     <input type="button" className = "askBtn" onClick={this._sendText} value="질문하기"></input>
                 </div>

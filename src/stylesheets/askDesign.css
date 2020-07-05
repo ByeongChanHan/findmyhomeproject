@@ -65,6 +65,11 @@
     text-align: left;
     font-family: 'Noto Sans KR', sans-serif;
 }
+.askcontainer h1{
+    margin: 15px 0;
+    text-align: center;
+    font-size: 30px;
+}
 .select{
     position: relative;
     width:100px;
@@ -105,12 +110,52 @@
 }
 .writetext{
     display: flex;
-    padding-bottom: 15px;
+    padding-bottom: 30px;
     border-bottom: 1px solid #999;
 }
 .writetext b{
     width: 30px;
     margin-right: 40px;
+}
+/* 지도 */
+.mapdesign{
+    width: 100%;
+    height: 400px;
+    margin-bottom:20px;
+}
+#locationsection p{
+    letter-spacing: -1px;
+    text-align: center;
+    color: #666;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+#searchsection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+#searchblank{
+    margin-right: 5px;
+    height: 30px;
+    font-size: 20px;
+    padding-left: 5px;
+    width: 60%;
+}
+.locsearchbtn{
+    background-color: #22c6fc;
+    border: 0;
+    border-radius: 3px;
+    width: 13%;
+    height: 36px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: black;
+    font-size: 18px;
+}
+.locsearchbtn img{
+    position: relative;
+    top:2px;
 }
 @media only screen and (max-width:480px){
     .ask::after{
@@ -266,12 +311,5 @@
     }
     .asktable h1{
         font-size: 30px;
-    }
-    .mapdesign{
-        margin-top:30px;
-        left: 20%;
-        width: 500px;
-        height: 400px;
-        margin-bottom:10px;
     }
 }

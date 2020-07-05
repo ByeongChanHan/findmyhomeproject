@@ -60,7 +60,9 @@
     font-size: 25px;
 }
 hr{
-    border: 1px solid gray;
+    border: 0;
+    height: 1px;
+    background: #999;
 }
 .boardtable{
     width: 100%;
