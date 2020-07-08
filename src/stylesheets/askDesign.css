@@ -128,7 +128,7 @@
     text-align: center;
     color: #666;
     margin-top: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 #searchsection{
     display: flex;
@@ -157,6 +157,7 @@
     position: relative;
     top:2px;
 }
+.bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 @media only screen and (max-width:480px){
     .ask::after{
         width:100%;
