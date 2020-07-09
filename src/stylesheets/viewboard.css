@@ -215,3 +215,277 @@
     padding: 4px 5px;
     margin: 0 0 0 5px;
 }
+@media only screen and (max-width:480px){
+    .askarea{
+        padding-top: 15%;
+    }
+    .boardheader{
+        margin:0 10%;
+    }
+    .chat{
+        width:30px;
+        height: 30px;
+    }
+    .showBoardItem h1{
+        font-size: 19px;
+    }
+    .boardinformation{
+        margin:0 1%;
+    }
+    .blank{
+        width:0;
+    }
+    .boardinformation p{
+        font-size: 10px;
+    }
+    .option{
+        font-size: 10px;
+        width:50%;
+    }
+    .contents{
+        margin: 0 10% 20px 10%;
+    }
+    .writecontent{
+        font-size: 15px;
+    }
+    .iconArea{
+        margin: 0 0 0 60%;
+    }
+    .icon{
+        width: 25px;
+        height:25px;
+    }
+    .commentimg p {
+        font-size: 13px;
+    }
+    .commentimg{
+        margin-right: 0;
+    }
+    .listimg p{
+        font-size: 13px;
+    }
+    .ranking{
+        position: relative;
+        left:10%;
+        width: 75%;
+        margin-bottom: 20px;
+    }
+    .comment{
+        padding:20px 10%;
+        font-size: 15px;
+    }
+    .deletebtn{
+        font-size: 15px;
+    }
+    .commentArea{
+        padding:20px 10%;
+        font-size: 15px;
+    }
+}
+@media only screen and (min-width:481px) and (max-width:767px){
+    .askarea{
+        padding-top: 15%;
+    }
+    .boardheader{
+        margin:0 5%;
+    }
+    .chat{
+        width:35px;
+        height: 35px;
+    }
+    .showBoardItem h1{
+        font-size: 19px;
+    }
+    .boardinformation{
+        margin:0 1%;
+    }
+    .blank{
+        width:0;
+    }
+    .boardinformation p{
+        font-size: 13px;
+    }
+    .option{
+        font-size: 13px;
+        width:50%;
+    }
+    .contents{
+        margin: 0 5% 20px 5%;
+    }
+    .writecontent{
+        font-size: 17px;
+    }
+    .iconArea{
+        margin: 0 0 0 70%;
+    }
+    .icon{
+        width: 30px;
+        height:30px;
+    }
+    .commentimg{
+        margin-right: 0;
+    }
+    .ranking{
+        position: relative;
+        left:10%;
+        width: 75%;
+        margin-bottom: 20px;
+    }
+    .comment{
+        padding:20px 10%;
+        font-size: 17px;
+    }
+    .deletebtn{
+        font-size: 15px;
+    }
+    .commentArea{
+        padding:20px 10%;
+        font-size: 17px;
+    }
+}
+@media all and (min-width:768px) and (max-width:1023px){
+    .askarea{
+        padding-top: 15%;
+    }
+    .boardheader{
+        margin:0 5%;
+    }
+    .chat{
+        width:40px;
+        height: 40px;
+    }
+    .showBoardItem h1{
+        font-size: 23px;
+    }
+    .boardinformation{
+        margin:0 1%;
+    }
+    .blank{
+        width:0;
+    }
+    .boardinformation p{
+        font-size: 13px;
+    }
+    .option{
+        font-size: 13px;
+        width:50%;
+    }
+    .contents{
+        margin: 0 5% 20px 5%;
+    }
+    .writecontent{
+        font-size: 17px;
+    }
+    .iconArea{
+        margin: 0 0 0 75%;
+    }
+    .icon{
+        width: 35px;
+        height:35px;
+    }
+    .commentimg{
+        margin-right: 0;
+    }
+    .ranking{
+        position: relative;
+        left:5%;
+        width: 87%;
+        margin-bottom: 20px;
+    }
+    .comment{
+        padding:20px 10%;
+        font-size: 17px;
+    }
+    .deletebtn{
+        font-size: 20px;
+    }
+    .commentArea{
+        padding:20px 10%;
+        font-size: 17px;
+    }
+}
+@media only screen and (min-width:1024px) and (max-width:1280px){
+    .askarea{
+        padding-top: 15%;
+    }
+    .boardheader{
+        margin:0 5%;
+    }
+    .chat{
+        width:40px;
+        height: 40px;
+    }
+    .showBoardItem h1{
+        font-size: 25px;
+    }
+    .boardinformation{
+        margin:0 1%;
+    }
+    .blank{
+        width:0;
+    }
+    .boardinformation p{
+        font-size: 13px;
+    }
+    .option{
+        font-size: 13px;
+        width:50%;
+    }
+    .contents{
+        margin: 0 5% 20px 5%;
+    }
+    .writecontent{
+        font-size: 17px;
+    }
+    .iconArea{
+        margin: 0 0 0 80%;
+    }
+    .icon{
+        width: 35px;
+        height:35px;
+    }
+    .commentimg{
+        margin-right: 0;
+    }
+    .ranking{
+        position: relative;
+        left:5%;
+        width: 88%;
+        margin-bottom: 20px;
+    }
+    .comment{
+        padding:20px 10%;
+        font-size: 17px;
+    }
+    .deletebtn{
+        font-size: 20px;
+    }
+    .commentArea{
+        padding:20px 10%;
+        font-size: 17px;
+    }
+}
+@media only screen and (min-width:1281px) and (max-width:1384px){
+    .askarea{
+        padding-top: 10%;
+    }
+    .boardheader{
+        margin: 0 20% 0 10%;
+    }
+    .contents{
+        margin: 0 20% 20px 10%;
+    }
+    .ranking{
+        bottom: 33%;
+        width: 15%;
+        height: 43%;
+    }
+    .comment {
+        padding: 20px 20% 20px 10%;
+        font-size: 18px;
+    }
+    .commentArea{
+        padding: 20px 20% 20px 10%;
+        font-size: 18px;
+    }
+}

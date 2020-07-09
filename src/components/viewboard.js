@@ -166,7 +166,7 @@ class BoardRender extends Component{
         }
         else{
             // 로그인 성공하면 idtext에 있는 텍스트를 sendId 변수에 저장한다
-            sendid = document.getElementById("idtext").innerText
+            sendid = document.getElementById("idtext").innerText;
         }
         if(getComment === ""){
             alert("내용을 입력해주세요");

@@ -69,7 +69,7 @@ a{
 }
 @media only screen and (max-width:480px){
     header{
-        height: 5%;
+        height: 7%;
         padding: 5px;
     }
     .title{
