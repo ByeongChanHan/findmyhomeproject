@@ -101,13 +101,14 @@
     margin-left: 10px;
     margin-right: 10px;
     font-family: 'Noto Sans KR', sans-serif;
+    white-space: pre-wrap;
 }
 .blankArea{
     width: 100%;
     height: 40px;
 }
 .commentArea{
-    padding: 5% 25% 5% 20%;
+    padding: 5% 20% 5% 20%;
     height: 270px;
     background-color: white;
     opacity: 0;
@@ -166,10 +167,11 @@
 /* 댓글 부분 */
 .comment{
     background-color: white;
-    padding: 30px 20%;
+    padding: 30px 20% 70px 20%;
     border :1px solid lightgray;
     margin-bottom: 10px;
     font-family: 'Noto Sans KR', sans-serif;
+    height: auto;
 }
 .rankingTitle{
     font-size: 20px;
@@ -192,6 +194,7 @@
 .comment pre{
     margin: 10px 10px;
     font-family: 'Noto Sans KR', sans-serif;
+    white-space: pre-wrap;
 }
 .comment h1{
     text-align: left;
@@ -214,6 +217,29 @@
     border-radius: 10px;
     padding: 4px 5px;
     margin: 0 0 0 5px;
+}
+#updateText{
+    padding :10px 10px 10px 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 98%;
+    height: 50%;
+    font-size: 15px;
+    resize: none;
+}
+.confirmbtn{
+    position: relative;
+    width: 11%;
+    float: right;
+    font-size: 20px;
+    background-color: white;
+    border: 2px solid rgb(108, 192, 145);
+    transition-duration: 0.7s;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-top: 10px;
+}
+.confirmbtn:hover{
+    color: white;
+    background-color: rgb(108, 192, 145);
 }
 @media only screen and (max-width:480px){
     .askarea{

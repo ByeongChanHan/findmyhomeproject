@@ -280,14 +280,56 @@ class Comments extends Component{
                     })
                 }
                 // 업데이트 버튼 부분
-                // var updatebtn = document.createElement("input")
-                // updatebtn.className = "updatebtn"
-                // updatebtn.type = "submit"
-                // updatebtn.value = "수정"
-                // updatebtn.onclick = () =>{
-                // }
+                var updatebtn = document.createElement("input")
+                updatebtn.className = "updatebtn"
+                updatebtn.type = "submit"
+                updatebtn.value = "수정"
+                // 수정누르면 생기는 확인버튼
+                var confirmbtn = document.createElement("input")
+                confirmbtn.className = "confirmbtn"
+                confirmbtn.type = "submit"
+                confirmbtn.value = "확인"
+                confirmbtn.onclick = () =>{
+                    let commentdict = {}
+                    // 기존에 있는 댓글 텍스트
+                    let oldText = this.props.comment;
+                    // 현재 쓰고 있는 댓글 텍스트
+                    let updateCommentText = document.getElementById("updateText").value;
+                    if(document.getElementById("updateText").value === ""){
+                        alert("글을 입력해주세요");
+                        return false;
+                    }
+                    commentdict.oldText = oldText;
+                    commentdict.updateText = updateCommentText;
+                    const updatereq = {
+                        method:'POST',
+                        headers:{
+                            "Content-Type": "application/json; charset=utf-8"
+                        },
+                        body: JSON.stringify(commentdict)
+                    }
+                    fetch("http://localhost:5000/update",updatereq)
+                    .then(res=>res.text())
+                    .then(updateSuccess=>{
+                        alert(updateSuccess);
+                        window.location.reload(true)
+                    })
+                }
+                // 업데이트 버튼을 클릭했을때 실행
+                updatebtn.onclick = () =>{
+                    // 현재 댓글의 본문(본문의 자식태그)
+                    var comment = document.getElementById(this.props.comment);
+                    // input탭을 새로 생성
+                    var updateInput = document.createElement("textarea");
+                    updateInput.id = "updateText";
+                    updateInput.value = this.props.comment;
+                    commentArea.removeChild(deletebtn);
+                    commentArea.removeChild(updatebtn);
+                    commentArea.replaceChild(updateInput,comment);
+                    commentArea.appendChild(confirmbtn);
+                }
                 commentArea.appendChild(deletebtn)
-                // commentArea.appendChild(updatebtn)
+                commentArea.appendChild(updatebtn)
             }
         }
     }
@@ -299,7 +341,9 @@ class Comments extends Component{
                 <div className = "commentinform">
                 <p>작성일 : {this.props.currentTime}</p>
                 </div>
-                <pre>{this.props.comment}</pre>
+                <pre id={this.props.comment}>
+                    {this.props.comment}
+                </pre>
             </div>
             </div>
         )

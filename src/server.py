@@ -275,7 +275,6 @@ def loginform():
         else:
             # 세션에 id라는 키에 아이디를 저장
             session['id'] = idText
-        print(session)
         return ''
 # 헤더컴포넌트 라우팅
 @app.route('/',methods=['GET', 'POST'])
@@ -363,6 +362,19 @@ def excutedelete():
         conn.commit()
         conn.close()
     return "답변을 삭제하였습니다."
+@app.route('/update',methods=['GET', 'POST'])
+def executeupdate():
+    if request.method == "POST":
+        oldText = request.json.get("oldText")
+        updateText = request.json.get("updateText")
+        conn = sqlite3.connect('writelist.db')
+        cur = conn.cursor()
+        # comment 테이블 안 새로운 값을 set해주는데 기존에 있는 텍스트의 어트리뷰트일때
+        cur.execute("update comment set commentText=? where commentText=?",(updateText,oldText))
+        conn.commit()
+        conn.close()
+    return "수정되었습니다."
+
 
 
 if __name__ == '__main__':
