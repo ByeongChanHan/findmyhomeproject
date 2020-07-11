@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import broker from '../images/broker.png'
 import normal from '../images/normal.png'
 import '../stylesheets/division.css'
@@ -10,7 +10,7 @@ class CreateAccount extends Component{
     // 일반회원 중개사 구별 페이지
     render(){
         return(
-            <div>
+            <Fragment>
                 <Header/>
                 <div className="member_register_wrap">
                     <p className="ex_text">
@@ -38,7 +38,7 @@ class CreateAccount extends Component{
                     </div>
                 </div>
                 <Footer/>
-            </div>
+            </Fragment>
         )
     }
 }

@@ -1,5 +1,5 @@
 /*global kakao*/
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import Header from '../components/HeaderComponent'
 import '../stylesheets/askDesign.css'
 import '../stylesheets/NotoSans.css'
@@ -26,9 +26,8 @@ class Askquestion extends Component{
         kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
                 if (status === kakao.maps.services.Status.OK) {
-                    var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-                    detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-
+                    var detailAddr = '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+                    console.log(result[0].address.address_name)
                     var content = '<div class="bAddr">' +
                                     detailAddr + 
                                 '</div>';
@@ -92,8 +91,7 @@ class Askquestion extends Component{
     kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
         searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
             if (status === kakao.maps.services.Status.OK) {
-                var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-                detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+                var detailAddr = '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
 
                 var content = '<div class="bAddr">' +
                                 detailAddr + 
@@ -122,7 +120,7 @@ class Askquestion extends Component{
 }
     render(){
         return(
-            <div>
+            <Fragment>
                 <Header/>
                 <section className = "ask">
                     <h1>질문하기</h1>
@@ -179,7 +177,7 @@ class Askquestion extends Component{
                     {/* 질문하기 버튼 */}
                     <input type="button" className = "askBtn" onClick={this._sendText} value="질문하기"></input>
                 </div>
-            </div>
+            </Fragment>
         )
     }
     _sendText = () => {

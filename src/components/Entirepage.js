@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import Header from './HeaderComponent';
 import Parentbanner from './Parentbanner';
 import Description from './Description';
@@ -53,12 +53,12 @@ class Entirepage extends Component{
     }
     render(){
         return(
-            <div>
+            <Fragment>
                 <Header/>
                 <Parentbanner/>
                 <Description/>
                 <Footer/>
-            </div>
+            </Fragment>
         )
     }
 }

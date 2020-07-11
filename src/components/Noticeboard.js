@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import Header from '../components/HeaderComponent';
 import '../stylesheets/noticePage.css';
 import '../stylesheets/NotoSans.css'
@@ -138,7 +138,7 @@ class Noticeboard extends Component{
     // html에 렌더링할 코드
     render(){
         return(
-            <div>
+            <Fragment>
                 <Header/>
                 {/* 이미지 섹션 */}
                 <section className = "notice">
@@ -181,7 +181,7 @@ class Noticeboard extends Component{
                     {this.state.titleList ? this._tablePrint() :"로딩중"}
                     </tbody>
                 </table>
-            </div>
+            </Fragment>
         )
     }
     // keypress 엔터눌렀을때 charcode가 13으로 나옴

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import Header from './HeaderComponent'
 import '../stylesheets/agentRegister.css'
 import '../stylesheets/NotoSans.css'
@@ -38,7 +38,7 @@ class Agentregister extends Component{
     ]
     render(){
         return(
-            <div>
+            <Fragment>
                 <Header/>
                 <section className = 'registerForm'>
                     <div className="informationText">
@@ -59,7 +59,7 @@ class Agentregister extends Component{
                         <a href = "/login">로그인</a>
                     </p>
                 </section>
-            </div>
+            </Fragment>
         )
     }
     Sendinformation = () =>{
@@ -112,12 +112,12 @@ class Agentregister extends Component{
 class RegisterItem extends Component{
     render(){
         return(
-            <div>
+            <Fragment>
                 <div className ="information">
                     <p>{this.props.pItem}</p>
                     <input type={this.props.typeselect} placeholder={this.props.placeholderItem} onKeyPress={this.Isnum} id={this.props.id}></input>
                 </div>
-            </div>
+            </Fragment>
         )
     }
     // 숫자만 입력해야하는지 확인하는 함수

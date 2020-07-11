@@ -1,4 +1,4 @@
-import React,{ Component } from "react";
+import React,{ Component,Fragment} from "react";
 import '../stylesheets/LoginDesign.css';
 import '../stylesheets/NotoSans.css';
 import Header from './HeaderComponent';
@@ -6,7 +6,7 @@ import Header from './HeaderComponent';
 class LoginPage extends Component{
     render(){
         return(
-            <div>
+            <Fragment>
                 {/* 헤더 컴포넌트 */}
                 <Header/>
                 <h1 className = "LoginText">LOGIN</h1>
@@ -37,7 +37,7 @@ class LoginPage extends Component{
                             </label>
                     </div>
                 </div>
-            </div>
+            </Fragment>
         );
     }
     // 패스워드 확인 메소드

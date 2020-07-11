@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import '../stylesheets/PacificoFont.css';
 import '../stylesheets/RobotoFont.css';
 import '../stylesheets/Header.css'
@@ -32,17 +32,17 @@ class Header extends Component{
             </div>
             <nav className = "navigate">
                 <span className="individualMenu">
-                <a href ="/">홈</a>
+                    <a href ="/">홈</a>
                 </span>
-            <span className="individualMenu">
-                <a href ="/ask">질문하기</a>
-            </span>
-            <span className="individualMenu">
-                <a href ="/board">게시판</a>
-            </span>
-            {/* false(비로그인)일 경우 login헤더를 출력하고 아닐경우 로그아웃 헤더를 출력 */}
-            {this.state.LoginText !== false ? <LoginHeader success={this.state.LoginText}/>:<LogoutHeader logout='로그인'/>}
-        </nav>
+                <span className="individualMenu">
+                    <a href ="/ask">질문하기</a>
+                </span>
+                <span className="individualMenu">
+                    <a href ="/board">게시판</a>
+                </span>
+                {/* false(비로그인)일 경우 login헤더를 출력하고 아닐경우 로그아웃 헤더를 출력 */}
+                {this.state.LoginText !== false ? <LoginHeader success={this.state.LoginText}/>:<LogoutHeader logout='로그인'/>}
+            </nav>
         </header>
         );
     }
@@ -50,14 +50,19 @@ class Header extends Component{
 class LoginHeader extends Component{
     render(){
         return(
+            <Fragment>
             <section className="idsection">
                 <span className="individualMenu">
                     <button id="logoutbtn" onClick={this.logoutReq}>로그아웃</button>
                 </span>
                 <span className="individualMenu">
-                    <p id="idtext">{this.props.success}</p>
+                        <p id="idtext">{this.props.success}</p>
                 </span>
             </section>
+            {/* <div className ="notification">
+                <h1>알림</h1>
+            </div> */}
+            </Fragment>
         )
     }
     logoutReq = () =>{

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import Header from './HeaderComponent'
 import '../stylesheets/viewboard.css'
 import Chatimg from '../images/chat.png'
@@ -335,17 +335,17 @@ class Comments extends Component{
     }
     render(){
         return(
-            <div>
-            <div className="comment" id={this.props.commentid}>
-                <h1>{this.props.commentid}님의 답변</h1>
-                <div className = "commentinform">
-                <p>작성일 : {this.props.currentTime}</p>
+            <Fragment>
+                <div className="comment" id={this.props.commentid}>
+                    <h1>{this.props.commentid}님의 답변</h1>
+                    <div className = "commentinform">
+                    <p>작성일 : {this.props.currentTime}</p>
+                    </div>
+                    <pre id={this.props.comment}>
+                        {this.props.comment}
+                    </pre>
                 </div>
-                <pre id={this.props.comment}>
-                    {this.props.comment}
-                </pre>
-            </div>
-            </div>
+            </Fragment>
         )
     }
 }
