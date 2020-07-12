@@ -70,13 +70,6 @@
     text-align: center;
     font-size: 30px;
 }
-.select{
-    position: relative;
-    width:100px;
-    border:1px solid #999;
-    height: 30px;
-    margin-right:10px;
-}
 #title{
     padding-left: 5px;
     width: 90%;
@@ -106,7 +99,8 @@
 }
 .optionarea b{
     width: 30px;
-    margin-right: 40px;
+    margin-right: 35px;
+    line-height: 30px;
 }
 .writetext{
     display: flex;
@@ -157,7 +151,107 @@
     position: relative;
     top:2px;
 }
-.bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+.bAddr {
+    padding:5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.custom-select-wrapper {
+    position: relative;
+    user-select: none;
+    width: 150px;
+    margin: 0 3px;
+}
+.custom-select {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-width: 0 2px 0 2px;
+    border-style: solid;
+    border-color: #999;
+}
+.custom-select__trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    color: #3b3b3b;
+    height: 30px;
+    background: #ffffff;
+    cursor: pointer;
+    border-width: 2px 0 2px 0;
+    border-style: solid;
+    border-color: #999;
+}
+.custom-options {
+    position: absolute;
+    display: block;
+    top: 100%;
+    left: -2px;
+    right: -2px;
+    border: 2px solid #999;
+    border-top: 0;
+    background: #fff;
+    transition: all 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 2;
+}
+.custom-select.open .custom-options {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+.custom-option {
+    position: relative;
+    display: block;
+    padding: 0 5px 0 5px;
+    color: #3b3b3b;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.custom-option:hover {
+    cursor: pointer;
+    background-color: #b2b2b2;
+}
+.custom-option.selected {
+    color: #ffffff;
+    background-color: rgb(108, 192, 145);
+}
+.arrow {
+    position: relative;
+    height: 15px;
+    width: 15px;
+}
+.arrow::before, .arrow::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    width: 0.15rem;
+    height: 100%;
+    transition: all 0.5s;
+}
+.arrow::before {
+    left: -5px;
+    transform: rotate(45deg);
+    background-color: #999;
+}
+.arrow::after {
+    left: 5px;
+    transform: rotate(-45deg);
+    background-color: #999;
+}
+.open .arrow::before {
+    left: -5px;
+    transform: rotate(-45deg);
+}
+.open .arrow::after {
+    left: 5px;
+    transform: rotate(45deg);
+}
 @media only screen and (max-width:480px){
     .ask::after{
         width:100%;
@@ -179,10 +273,11 @@
     #title{
         width: 80%;
     }
-    .select{
-        width:80px;
+    .custom-select-wrapper{
+        width:100px;
         height: 30px;
         margin-right:5px;
+        font-size: 14px;
     }
     .writetext b{
         width: 40px;
@@ -195,6 +290,9 @@
     }
     .asktable h1{
         font-size: 25px;
+    }
+    .locsearchbtn{
+        width: 25%;
     }
 }
 @media only screen and (min-width:481px) and (max-width:767px){
@@ -218,10 +316,11 @@
     #title{
         width: 82%;
     }
-    .select{
-        width:85px;
-        height: 32px;
-        margin-right:7px;
+    .custom-select-wrapper{
+        width:100px;
+        height: 30px;
+        margin-right:5px;
+        font-size: 14px;
     }
     .writetext b{
         width: 40px;
@@ -234,6 +333,9 @@
     }
     .asktable h1{
         font-size: 27px;
+    }
+    .locsearchbtn{
+        width: 20%;
     }
 }
 @media all and (min-width:768px) and (max-width:1023px){
@@ -256,11 +358,6 @@
     }
     #title{
         width: 89%;
-    }
-    .select{
-        width:90px;
-        height: 30px;
-        margin-right:8px;
     }
     .writetext b{
         width: 40px;
@@ -295,11 +392,6 @@
     }
     #title{
         width: 90%;
-    }
-    .select{
-        width:95px;
-        height: 30px;
-        margin-right:8px;
     }
     .writetext b{
         width: 40px;

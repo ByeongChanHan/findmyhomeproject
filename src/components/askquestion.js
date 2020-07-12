@@ -8,6 +8,7 @@ import SearchImg from '../images/search.png'
 class Askquestion extends Component{
     componentDidMount(){
         this.mapRender();
+        this.selectHandle();
     }
     mapRender = () =>{
         let container = document.getElementById('map');
@@ -136,25 +137,46 @@ class Askquestion extends Component{
                         <div className="optionarea">
                             <b>옵션</b>
                             {/* 옵션선택부분 */}
-                            <select className = "select">
-                                <option defaultValue>매물종류</option>
-                                <option>매매</option>
-                                <option>전세</option>
-                                <option>월세</option>
-                            </select>
-                            <select className = "select">
-                                <option defaultValue>층수</option>
-                                <option>지상층</option>
-                                <option>반지하</option>
-                                <option>옥탑</option>
-                            </select>
-                            <select className = "select">
-                                <option defaultValue>구조</option>
-                                <option>원룸</option>
-                                <option>복층</option>
-                                <option>투룸</option>
-                                <option>쓰리룸 이상</option>
-                            </select>
+                            <div className="custom-select-wrapper select">
+                                <div className="custom-select">
+                                    <div className="custom-select__trigger"><span>매물종류</span>
+                                        <div className="arrow"></div>
+                                    </div>
+                                    <div className="custom-options">
+                                        <span className="custom-option selected">매물종류</span>
+                                        <span className="custom-option">매매</span>
+                                        <span className="custom-option">전세</span>
+                                        <span className="custom-option">월세</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="custom-select-wrapper select">
+                                <div className="custom-select">
+                                    <div className="custom-select__trigger"><span>층수</span>
+                                        <div className="arrow"></div>
+                                    </div>
+                                    <div className="custom-options">
+                                        <span className="custom-option selected">층수</span>
+                                        <span className="custom-option">지상층</span>
+                                        <span className="custom-option">반지하</span>
+                                        <span className="custom-option">옥탑</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="custom-select-wrapper select">
+                                <div className="custom-select">
+                                    <div className="custom-select__trigger"><span>구조</span>
+                                        <div className="arrow"></div>
+                                    </div>
+                                    <div className="custom-options">
+                                        <span className="custom-option selected">구조</span>
+                                        <span className="custom-option">원룸</span>
+                                        <span className="custom-option">복층</span>
+                                        <span className="custom-option">투룸</span>
+                                        <span className="custom-option">쓰리룸 이상</span>
+                                    </div>
+                                </div>
+                            </div>
                             {/* 내용부분 */}
                         </div>
                         <div className="writetext">
@@ -180,11 +202,34 @@ class Askquestion extends Component{
             </Fragment>
         )
     }
+    selectHandle = () =>{
+        for (const dropdown of document.querySelectorAll(".custom-select-wrapper")) {
+            dropdown.addEventListener('click', function () {
+                this.querySelector('.custom-select').classList.toggle('open');
+            })
+        }
+        window.addEventListener('click', function (e) {
+            for (const select of document.querySelectorAll('.custom-select')) {
+                if (!select.contains(e.target)) {
+                    select.classList.remove('open');
+                }
+            }
+        });
+        for (const option of document.querySelectorAll(".custom-option")) {
+            option.addEventListener('click', function() {
+                if (!this.classList.contains('selected')) {
+                    this.parentNode.querySelector('.custom-option.selected').classList.remove('selected');
+                    this.classList.add('selected');
+                    this.closest('.custom-select').querySelector('.custom-select__trigger span').textContent = this.textContent;
+                }
+            })
+        }
+    }
     _sendText = () => {
         // title,textarea id 불러오는 부분
         var writeTitle = document.getElementById('title').value;
         var textData = document.getElementById('textarea').value;
-        var SelectText = document.querySelectorAll('.select')
+        var SelectText = document.querySelectorAll('.custom-select__trigger span');
         var sendId;
         // 만약 로그인 되어있지 않다면 idtext라는 아이디를 찾을수가 없음
         if(document.getElementById("idtext")===null){
@@ -209,12 +254,12 @@ class Askquestion extends Component{
         var selectArray = []
         // 기본선택인 매물종류,층수,구조(아무선택도 안하고) 버튼을 누를경우
         for(var Index = 0; Index<SelectText.length; Index++){
-            if(SelectText[Index].value==='매물종류' || SelectText[Index].value==='층수' || SelectText[Index].value==='구조'){
+            if(SelectText[Index].innerText==='매물종류' || SelectText[Index].innerText==='층수' || SelectText[Index].innerText==='구조'){
                 alert('옵션을 선택해주세요')
                 return false;
             }
             // 인덱스가 증가하면서 selectArray에 추가해준다
-            selectArray.push(SelectText[Index].value)
+            selectArray.push(SelectText[Index].innerText)
         }
         // 객체의 키값에 value값 설정해준 다음
         _Data.selectoptions = selectArray
