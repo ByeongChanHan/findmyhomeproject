@@ -48,6 +48,9 @@ class Header extends Component{
     }
 }
 class LoginHeader extends Component{
+    state = {
+        isnotify : false
+    }
     render(){
         return(
             <Fragment>
@@ -56,14 +59,34 @@ class LoginHeader extends Component{
                     <button id="logoutbtn" onClick={this.logoutReq}>로그아웃</button>
                 </span>
                 <span className="individualMenu">
-                        <p id="idtext">{this.props.success}</p>
+                        <p id="idtext" onClick={this.notifyhandler}>{this.props.success}</p>
                 </span>
             </section>
-            {/* <div className ="notification">
+            <div id ="notification">
+                <div className="notifytext">
                 <h1>알림</h1>
-            </div> */}
+                <p>어후어후</p>
+                </div>
+            </div>
             </Fragment>
         )
+    }
+    notifyhandler = () =>{
+        let notify = document.getElementById("notification");
+        if(this.state.isnotify ===false){
+            notify.style.display="block";
+            this.setState({
+                isnotify: true
+            })
+            console.log(this.state.isnotify)
+        }
+        else{
+            console.log(this.state.isnotify)
+            notify.style.display="none";
+            this.setState({
+                isnotify: false
+            })
+        }
     }
     logoutReq = () =>{
         fetch("http://localhost:5000/logout",{ credentials: 'include' })

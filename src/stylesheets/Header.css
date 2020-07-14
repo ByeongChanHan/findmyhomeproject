@@ -67,9 +67,23 @@ header{
 a{
     text-decoration: none;
 }
-.notification{
-    width: 20%;
-    height: auto;
+#notification{
+    top:9%;
+    left: 82%;
+    position: fixed;
+    display: none;
+    border: 1px solid #888;
+    background-color: white;
+    width: 15%;
+    height: 80%;
+    overflow: auto;
+}
+.notifytext{
+    padding: 20px;
+    color: black;
+}
+.notifytext h1{
+    margin: 0;
 }
 @media only screen and (max-width:480px){
     header{
