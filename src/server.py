@@ -4,12 +4,15 @@ import sqlite3
 import requests
 from datetime import datetime,timedelta
 from bs4 import BeautifulSoup
+from flask_socketio import SocketIO,send,emit
 
 now = datetime.now()
 # 시크릿키가 있어야 세션유지 가능
 app = Flask(__name__)
 app.secret_key = 'secret key'
 app.permanent_session_lifetime = timedelta(minutes=15)
+
+socket_io =SocketIO(app)
 
 # 서로다른 포트에서 연결할때 cors에러 나서 cors정책을 모두 허용해주는 flask_cors라이브러리 사용
 CORS(app)
@@ -375,7 +378,15 @@ def executeupdate():
         conn.close()
     return "수정되었습니다."
 
+# @socket_io.on('connect')
+# def on_connect(data):
+#     print('user connected')
+#     user= data.get('username')
+#     emit('user_activated',{'user':user},broadcast=True)
+
+
+
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socket_io.run(app,debug=True)

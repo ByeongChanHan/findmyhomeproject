@@ -2,6 +2,9 @@ import React,{Component,Fragment} from 'react';
 import '../stylesheets/PacificoFont.css';
 import '../stylesheets/RobotoFont.css';
 import '../stylesheets/Header.css'
+// import socketio from 'socket.io-client';
+
+// const socket = socketio('http://localhost:5000');
 
 class Header extends Component{
     state = {
@@ -41,13 +44,20 @@ class Header extends Component{
                     <a href ="/board">게시판</a>
                 </span>
                 {/* false(비로그인)일 경우 login헤더를 출력하고 아닐경우 로그아웃 헤더를 출력 */}
-                {this.state.LoginText !== false ? <LoginHeader success={this.state.LoginText}/>:<LogoutHeader logout='로그인'/>}
+                {this.state.LoginText !== false ? <LoginHeader success={this.state.LoginText}/>:<LogoutHeader login='로그인'/>}
             </nav>
         </header>
         );
     }
 }
 class LoginHeader extends Component{
+    // componentDidMount(){
+    //     socket.emit('connect',{username:'chan'})
+    //     socket.on('user_activated',(data)=>{
+    //         const user = data['user']
+    //         console.log(user)
+    //     })
+    // }
     state = {
         isnotify : false
     }
@@ -55,11 +65,11 @@ class LoginHeader extends Component{
         return(
             <Fragment>
             <section className="idsection">
-                <span className="individualMenu">
-                    <button id="logoutbtn" onClick={this.logoutReq}>로그아웃</button>
+                <span className="individualMenu" onClick={this.logoutReq}>
+                    <button id="logoutbtn">로그아웃</button>
                 </span>
-                <span className="individualMenu">
-                        <p id="idtext" onClick={this.notifyhandler}>{this.props.success}</p>
+                <span className="individualMenu" onClick={this.notifyhandler}>
+                        <button id="idtext">{this.props.success}</button>
                 </span>
             </section>
             <div id ="notification">
@@ -99,8 +109,8 @@ class LogoutHeader extends Component{
     render(){
         return(
             <span className="individualMenu">
-                {/* this.props.logout은 로그아웃 텍스트라 로그아웃글자가 출력됨 */}
-                <a href ="/login">{this.props.logout}</a>
+                {/* this.props.logout은 로그인 텍스트라 로그인글자 출력됨 */}
+                <a href ="/login">{this.props.login}</a>
             </span>
         )
     }

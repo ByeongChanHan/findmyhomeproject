@@ -53,6 +53,12 @@ header{
 }
 #idtext{
     margin: 0;
+    border : 0;
+    background-color : transparent;
+    color : white;
+    font-size:20px;
+    font-weight : bold;
+    outline: none;
 }
 .title a , .individualMenu a{
     color: white;
@@ -63,6 +69,7 @@ header{
     color : white;
     font-size:20px;
     font-weight : bold;
+    outline: none;
 }
 a{
     text-decoration: none;
