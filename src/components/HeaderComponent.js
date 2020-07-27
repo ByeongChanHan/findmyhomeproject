@@ -88,10 +88,8 @@ class LoginHeader extends Component{
             this.setState({
                 isnotify: true
             })
-            console.log(this.state.isnotify)
         }
         else{
-            console.log(this.state.isnotify)
             notify.style.display="none";
             this.setState({
                 isnotify: false

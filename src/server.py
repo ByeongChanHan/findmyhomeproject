@@ -4,7 +4,7 @@ import sqlite3
 import requests
 from datetime import datetime,timedelta
 from bs4 import BeautifulSoup
-from flask_socketio import SocketIO,send,emit
+# from flask_socketio import SocketIO,send,emit
 
 now = datetime.now()
 # 시크릿키가 있어야 세션유지 가능
@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = 'secret key'
 app.permanent_session_lifetime = timedelta(minutes=15)
 
-socket_io =SocketIO(app)
+# socket_io =SocketIO(app)
 
 # 서로다른 포트에서 연결할때 cors에러 나서 cors정책을 모두 허용해주는 flask_cors라이브러리 사용
 CORS(app)
@@ -34,6 +34,7 @@ def showclass():
         flooroption = request.json.get('selectoptions')[1]
         structureoption = request.json.get('selectoptions')[2]
         reqid = request.json.get('writeid')
+        addressNode = request.json.get('address')
         # 현재 시간 변수
         currentDatetime = "{}-{}-{}".format(now.year, now.month, now.day)
         # db연결
@@ -41,7 +42,7 @@ def showclass():
         # 커서 셋팅
         cur = conn.cursor()
         # insert로 가져온 데이터를 삽입
-        cur.execute("insert into writeDB(title,userwrote,wrotedate,categoryoption,flooroption,structureoption,writeid) values(?,?,?,?,?,?,?)",(titleData,textareaplace,currentDatetime,categoryoption,flooroption,structureoption,reqid))
+        cur.execute("insert into writeDB(title,userwrote,wrotedate,categoryoption,flooroption,structureoption,writeid,address) values(?,?,?,?,?,?,?,?)",(titleData,textareaplace,currentDatetime,categoryoption,flooroption,structureoption,reqid,addressNode))
         conn.commit()
         conn.close()
         return '게시물 작성을 완료하였습니다.'
@@ -107,7 +108,7 @@ def selectBoard(numurl):
         conn = sqlite3.connect('writelist.db')
         cur = conn.cursor()
         # 클릭한 글의 정보를 db에서 조회
-        cur.execute("select title,userwrote,wrotedate,viewnum,categoryoption,flooroption,structureoption,writeid from writeDB where listnum=?",(numurl,))
+        cur.execute("select title,userwrote,wrotedate,viewnum,categoryoption,flooroption,structureoption,writeid,address from writeDB where listnum=?",(numurl,))
         # 하나의 데이터만 선택
         Viewdata = cur.fetchone()
         conn.close()
@@ -137,6 +138,7 @@ def selectBoard(numurl):
         flooroptionArr = []
         structureoptionArr = []
         writeidArr = []
+        addressArr = []
         # row의 0번째는 제목의 열
         titleArr.append(Viewdata[0])
         # row의 1번째는 내용의 열
@@ -153,6 +155,8 @@ def selectBoard(numurl):
         structureoptionArr.append(Viewdata[6])
         # row의 7번째는 글쓴 닉네임
         writeidArr.append(Viewdata[7])
+        # row의 8번째는 주소
+        addressArr.append(Viewdata[8])
         for rows in commentdataSet:
             commentTitleArr.append(rows[0])
             currentTimeArr.append(rows[1])
@@ -173,6 +177,7 @@ def selectBoard(numurl):
         Selectdict['flooroption'] = flooroptionArr
         Selectdict['structureoption'] = structureoptionArr
         Selectdict['selectid'] = writeidArr
+        Selectdict['address'] = addressArr
         # dictionary를 리턴
         return Selectdict
     # 글쓰고 답변달았을때는 여기로 옴
@@ -389,4 +394,4 @@ def executeupdate():
 
 
 if __name__ == '__main__':
-    socket_io.run(app,debug=True)
+    app.run(host='0.0.0.0',debug=True)

@@ -6,8 +6,14 @@ import '../stylesheets/NotoSans.css'
 import SearchImg from '../images/search.png'
 
 class Askquestion extends Component{
+    state = {
+        // 경도
+        longitude : '',
+        // 위도
+        latitude : '',
+        address : ''
+    }
     componentDidMount(){
-        this.mapRender();
         this.selectHandle();
     }
     mapRender = () =>{
@@ -16,6 +22,7 @@ class Askquestion extends Component{
             center: new kakao.maps.LatLng(37.566698, 126.979122),
             level:3
         })
+        map.relayout();
         // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
@@ -24,8 +31,18 @@ class Askquestion extends Component{
 
 
         // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-            searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+        kakao.maps.event.addListener(map, 'click', (mouseEvent)=> {
+            var latlng = mouseEvent.latLng;
+            // 위도좌표
+            let latpos = latlng.getLat();
+            // 경도좌표
+            let lonpos = latlng.getLng();
+            this.setState({
+                longitude : lonpos,
+                latitude : latpos
+            })
+            console.log(this.state)
+            searchDetailAddrFromCoords(mouseEvent.latLng, (result, status)=>{
                 if (status === kakao.maps.services.Status.OK) {
                     var detailAddr = '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
                     console.log(result[0].address.address_name)
@@ -40,6 +57,9 @@ class Askquestion extends Component{
                     // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
                     infowindow.setContent(content);
                     infowindow.open(map, marker);
+                    this.setState({
+                        address : result[0].address.address_name
+                    })
                 }   
             });
         });
@@ -89,8 +109,17 @@ class Askquestion extends Component{
 
 
     // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-        searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+    kakao.maps.event.addListener(map, 'click', (mouseEvent)=> {
+        var latlng = mouseEvent.latLng;
+            // 위도좌표
+            let latpos = latlng.getLat();
+            // 경도좌표
+            let lonpos = latlng.getLng();
+            this.setState({
+                longitude : lonpos,
+                latitude : latpos
+            })
+        searchDetailAddrFromCoords(mouseEvent.latLng, (result, status)=>{
             if (status === kakao.maps.services.Status.OK) {
                 var detailAddr = '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
 
@@ -105,6 +134,9 @@ class Askquestion extends Component{
                 // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
                 infowindow.setContent(content);
                 infowindow.open(map, marker);
+                this.setState({
+                    address : result[0].address.address_name
+                })
             }   
         });
     });
@@ -120,6 +152,11 @@ class Askquestion extends Component{
     }
 }
     render(){
+        const mapdesign = {
+            width: "100%",
+            height: "400px",
+            marginBottom:"30px",
+        } 
         return(
             <Fragment>
                 <Header/>
@@ -177,30 +214,79 @@ class Askquestion extends Component{
                                     </div>
                                 </div>
                             </div>
-                            {/* 내용부분 */}
+                            <button id="locationbtn" onClick={this.SelectLocation}>위치</button>
                         </div>
+                        {/* 내용부분 */}
                         <div className="writetext">
                             <b>내용</b>
                             <textarea type="text" id ="textarea" placeholder="내용을 입력해주세요"></textarea>
                         </div>
                     </div>
-                    <section id="locationsection">
-                        <h1>위치 선택</h1>
-                        <section id="searchsection">
-                            <input type="text" id="searchblank"></input>
-                            <button className="locsearchbtn" onClick={this.mapSearch}>
-                                <img src={SearchImg} alt="searchIcon"></img> 검색
-                            </button>
-                        </section>
-                        <p>원하는 위치를 선택해주세요 , 위치를 선정하면 좀 더 자세한 답변을 얻을수 있습니다.</p>
-                        <div className="mapdesign" id="map"></div>
-                        <hr></hr>
+                    <section id="modal">
+                        <div className="modal-content">
+                            <span className="close" onClick={this.closemodal}>&times;</span>
+                            <h1>위치 선택</h1>
+                            <section id="searchsection">
+                                <input type="text" id="searchblank"></input>
+                                <button className="locsearchbtn" onClick={this.mapSearch}>
+                                    <img src={SearchImg} alt="searchIcon"></img> 검색
+                                </button>
+                            </section>
+                            <p>원하는 위치를 선택해주세요 , 위치를 선정하면 좀 더 자세한 답변을 얻을수 있습니다.</p>
+                            <div style={mapdesign} id="map"></div>
+                            <button id="selectaddress" onClick={this._confirmpos}>확인</button>
+                        </div>
                     </section>
                     {/* 질문하기 버튼 */}
                     <input type="button" className = "askBtn" onClick={this._sendText} value="질문하기"></input>
                 </div>
             </Fragment>
         )
+    }
+    SelectLocation = () =>{
+        let addmap = document.getElementById("modal");
+        addmap.style.display="block";
+        this.mapRender();
+    }
+    closemodal = () =>{
+        let addmap = document.getElementById("modal");
+        addmap.style.display ="none";
+    }
+    _confirmpos = () =>{
+        // 주소 불러오기
+        // 글쓰기영역
+        let asktablepos = document.querySelector(".asktable");
+        // 이미 위치를 선택했을경우 3번째 배열의 id는 locationfield
+        if(asktablepos.childNodes[3].id === "locationfield"){
+            // 안에 있는 p태그
+            let getPNode = document.getElementById("addressTextNode");
+            let addmap = document.getElementById("modal");
+            // 기존에 있는 텍스트를 바뀐 state의 값으로 변경
+            getPNode.innerText = this.state.address;
+            // 모달을 닫아준다
+            addmap.style.display ="none";
+            return false;
+        }
+        // div태그인데 id가 locationfield인것을 생성
+        let addressdiv = document.createElement("div");
+        addressdiv.setAttribute("id","locationfield");
+
+        let boldTag = document.createElement("b");
+        let boldText = document.createTextNode("위치");
+        boldTag.appendChild(boldText);
+
+        let pTag = document.createElement("p");
+        pTag.setAttribute("id","addressTextNode")
+        let pTagText = document.createTextNode(this.state.address);
+        pTag.appendChild(pTagText);
+
+        addressdiv.appendChild(boldTag);
+        addressdiv.appendChild(pTag);
+
+        asktablepos.insertBefore(addressdiv,asktablepos.childNodes[3])
+
+        let addmap = document.getElementById("modal");
+        addmap.style.display ="none";
     }
     selectHandle = () =>{
         for (const dropdown of document.querySelectorAll(".custom-select-wrapper")) {
@@ -261,11 +347,22 @@ class Askquestion extends Component{
             // 인덱스가 증가하면서 selectArray에 추가해준다
             selectArray.push(SelectText[Index].innerText)
         }
+        if(document.getElementById("addressTextNode")===null){
         // 객체의 키값에 value값 설정해준 다음
-        _Data.selectoptions = selectArray
-        _Data.title = writeTitle
-        _Data.inputText = textData
-        _Data.writeid = sendId
+            _Data.selectoptions = selectArray
+            _Data.title = writeTitle
+            _Data.inputText = textData
+            _Data.writeid = sendId
+            _Data.address = "미정"
+        }
+        else{
+            _Data.selectoptions = selectArray
+            _Data.title = writeTitle
+            _Data.inputText = textData
+            _Data.writeid = sendId
+            _Data.address = document.getElementById("addressTextNode").innerText
+        }
+        console.log(_Data)
         // 요청 옵션 post방식에 데이터를 보내주는 body에는 _Data객체를 stringify
         const requestOptions = {
             method:'POST',

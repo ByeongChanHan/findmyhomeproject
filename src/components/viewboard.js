@@ -1,3 +1,4 @@
+/*global kakao*/
 import React,{Component,Fragment} from 'react';
 import Header from './HeaderComponent'
 import '../stylesheets/viewboard.css'
@@ -14,7 +15,7 @@ class Viewboard extends Component{
 
     }
     componentDidMount(){
-        this._getData()
+        this._getData();
     }
     _callUrl = () =>{
         let CurrentUrl = window.location.href;
@@ -41,7 +42,8 @@ class Viewboard extends Component{
             categoryoption : selectJSON.categoryoption,
             flooroption : selectJSON.flooroption,
             structureoption : selectJSON.structureoption,
-            selectid : selectJSON.selectid
+            selectid : selectJSON.selectid,
+            address : selectJSON.address
         })
     }
     render(){
@@ -67,6 +69,7 @@ class Viewboard extends Component{
         flooroption={this.state.flooroption}
         structureoption={this.state.structureoption}
         selectid={this.state.selectid}
+        address={this.state.address}
         />
     }
 }
@@ -74,7 +77,53 @@ class BoardRender extends Component{
     state ={
         iscomment : false
     }
+    componentDidMount(){
+        this.showmap()
+    }
+    showmap = () =>{
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        // 지도를 생성합니다    
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+        console.log(this.props)
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(this.props.address, (result, status)=>{
+            // 정상적으로 검색이 완료됐으면 
+            if (status === kakao.maps.services.Status.OK) {
+
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+
+                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: '<div style="width:250px;text-align:center;padding:6px 0;">'+this.props.address+'</div>'
+                });
+                infowindow.open(map, marker);
+
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+            }
+        });    
+    }
     render(){
+        const mapdesign = {
+            width: "inherit",
+            height: "200px",
+            padding: "20px",
+            marginBottom:"30px",
+        } 
         return(
             <section>
                 <div className="askarea">
@@ -103,6 +152,7 @@ class BoardRender extends Component{
                     </div>
                     <div className="contents">
                         <pre className="writecontent">{this.props.userwrote}</pre>
+                        <div style={mapdesign} id="map"></div>
                         <div className="iconArea">
                             <button type="button" onClick={this._Comment} className="commentimg">
                                 <img src={Comment} className ="icon" alt="commentImg"></img>
