@@ -92,9 +92,13 @@ class BoardRender extends Component{
 
         // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
-        console.log(this.props)
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(this.props.address, (result, status)=>{
+            // 검색할때 주소가 미정일 경우 지도를 지워버리는 if문
+            if(this.props.address[0] === "미정"){
+                let mapobj = document.getElementById("map");
+                mapobj.remove();
+            }
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
 
