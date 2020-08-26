@@ -296,16 +296,11 @@ class Ranking extends Component{
 class Comments extends Component{
     componentDidMount(){
         this.enableupdate()
-        // console.log(document.getElementById("idtext").innerText)
     }
     enableupdate = () =>{
         if(document.getElementById("idtext")===null){
-            const callid = setTimeout(() => {
-                window.location.reload(true)
-            }, 3000);
-            if(document.getElementById("idtext")!==null){
-                clearInterval(callid)
-            }
+            alert("로그인 후 이용해주세요")
+            window.location.href = '/login'
         }
         else{
             if(document.getElementById("idtext").innerText === this.props.commentid){
