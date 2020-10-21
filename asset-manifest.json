@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/FindMyHomeProject/static/css/main.91aa5493.chunk.css",
-    "main.js": "/FindMyHomeProject/static/js/main.4685bd76.chunk.js",
-    "main.js.map": "/FindMyHomeProject/static/js/main.4685bd76.chunk.js.map",
+    "main.css": "/FindMyHomeProject/static/css/main.4a3deb1e.chunk.css",
+    "main.js": "/FindMyHomeProject/static/js/main.6cfe603c.chunk.js",
+    "main.js.map": "/FindMyHomeProject/static/js/main.6cfe603c.chunk.js.map",
     "runtime-main.js": "/FindMyHomeProject/static/js/runtime-main.d1b0d906.js",
     "runtime-main.js.map": "/FindMyHomeProject/static/js/runtime-main.d1b0d906.js.map",
-    "static/js/2.9c9a4f57.chunk.js": "/FindMyHomeProject/static/js/2.9c9a4f57.chunk.js",
-    "static/js/2.9c9a4f57.chunk.js.map": "/FindMyHomeProject/static/js/2.9c9a4f57.chunk.js.map",
+    "static/js/2.fdf0780c.chunk.js": "/FindMyHomeProject/static/js/2.fdf0780c.chunk.js",
+    "static/js/2.fdf0780c.chunk.js.map": "/FindMyHomeProject/static/js/2.fdf0780c.chunk.js.map",
     "index.html": "/FindMyHomeProject/index.html",
-    "precache-manifest.00215122aaeeeecd1cee982e569ccbb8.js": "/FindMyHomeProject/precache-manifest.00215122aaeeeecd1cee982e569ccbb8.js",
+    "precache-manifest.271b8bb62a806d19d3b9bf91ecf4ef19.js": "/FindMyHomeProject/precache-manifest.271b8bb62a806d19d3b9bf91ecf4ef19.js",
     "service-worker.js": "/FindMyHomeProject/service-worker.js",
-    "static/css/main.91aa5493.chunk.css.map": "/FindMyHomeProject/static/css/main.91aa5493.chunk.css.map",
-    "static/js/2.9c9a4f57.chunk.js.LICENSE.txt": "/FindMyHomeProject/static/js/2.9c9a4f57.chunk.js.LICENSE.txt",
-    "static/media/mainDesign.css": "/FindMyHomeProject/static/media/MainImage.e673eb98.jpg",
+    "static/css/main.4a3deb1e.chunk.css.map": "/FindMyHomeProject/static/css/main.4a3deb1e.chunk.css.map",
+    "static/js/2.fdf0780c.chunk.js.LICENSE.txt": "/FindMyHomeProject/static/js/2.fdf0780c.chunk.js.LICENSE.txt",
+    "static/media/banner.css": "/FindMyHomeProject/static/media/MainImage.e673eb98.jpg",
     "static/media/askDesign.css": "/FindMyHomeProject/static/media/askquestion.09d6ccae.jpg",
     "static/media/noticePage.css": "/FindMyHomeProject/static/media/communication.cf94dd95.jpg",
     "static/media/mainvideo.mp4": "/FindMyHomeProject/static/media/mainvideo.eed2345f.mp4"
   },
   "entrypoints": [
     "static/js/runtime-main.d1b0d906.js",
-    "static/js/2.9c9a4f57.chunk.js",
-    "static/css/main.91aa5493.chunk.css",
-    "static/js/main.4685bd76.chunk.js"
+    "static/js/2.fdf0780c.chunk.js",
+    "static/css/main.4a3deb1e.chunk.css",
+    "static/js/main.6cfe603c.chunk.js"
   ]
 }
