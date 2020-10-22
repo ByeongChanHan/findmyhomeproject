@@ -7,7 +7,8 @@ import styled, { keyframes } from 'styled-components';
 // 메인페이지 글씨 페이드인 Animation
 const fadeInAnimation = keyframes`${fadeIn}`;
 const FadeIn = styled.div`
-animation : 2s ${fadeInAnimation}`;
+animation : 2s ${fadeInAnimation};
+width: inherit`;
 
 class Parentbanner extends Component{
     render(){

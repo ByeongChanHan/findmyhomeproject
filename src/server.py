@@ -4,7 +4,8 @@ import sqlite3
 import requests
 from datetime import datetime,timedelta
 from bs4 import BeautifulSoup
-# from flask_socketio import SocketIO,send,emit
+from subprocess import call
+# from flask_socketio import SocketIO,send
 
 now = datetime.now()
 # 시크릿키가 있어야 세션유지 가능
@@ -265,7 +266,6 @@ def loginform():
         if isagent == False:
             conn = sqlite3.connect('writelist.db')
             cur = conn.cursor()
-            # id와 패스워드를 찾는 쿼리(수정요망)
             cur.execute('select ID,password from normalUser where ID=? and password=?',(idText,pwdText))
             IdData = cur.fetchone()
             conn.close()
@@ -273,7 +273,6 @@ def loginform():
         else:
             connectdb = sqlite3.connect('writelist.db')
             cursorlocation = connectdb.cursor()
-            # id와 패스워드를 찾는 쿼리(수정요망)
             cursorlocation.execute('select ID,password from userInformation where ID=? and password=?',(idText,pwdText))
             IdData = cursorlocation.fetchone()
             connectdb.close()
@@ -330,7 +329,6 @@ def main():
         # conn.close()
         Islogin = dict()
         if 'id' in session:
-            print(session)
             sessionID = session['id']
             Islogin['loginresult'] = sessionID
             return Islogin
@@ -383,15 +381,16 @@ def executeupdate():
         conn.close()
     return "수정되었습니다."
 
-# @socket_io.on('connect')
-# def on_connect(data):
-#     print('user connected')
-#     user= data.get('username')
-#     emit('user_activated',{'user':user},broadcast=True)
-
-
-
+# @socket_io.on("message")
+# def requestmsg(message):
+#     print("message : " + message)
+#     to_client = dict()
+#     if message == 'new_connect' :
+#         to_client['message'] = "접속 성공"
+#         to_client['type'] = 'connect'
+#     send(to_client, broadcast = True)
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True)
+    # socket_io.run(app, debug = True, port = 7000)

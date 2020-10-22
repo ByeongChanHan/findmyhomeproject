@@ -35,13 +35,16 @@ class Header extends Component{
             </div>
             <nav className = "navigate">
                 <span className="individualMenu">
-                    <a href ="/">홈</a>
+                    <a href = "/">홈</a>
                 </span>
                 <span className="individualMenu">
-                    <a href ="/ask">질문하기</a>
+                    <a href = "/ask">질문하기</a>
                 </span>
                 <span className="individualMenu">
-                    <a href ="/board">게시판</a>
+                    <a href = "/board">게시판</a>
+                </span>
+                <span className="individualMenu">
+                    <a href = "/deal">실거래가 조회</a>
                 </span>
                 {/* false(비로그인)일 경우 login헤더를 출력하고 아닐경우 로그아웃 헤더를 출력 */}
                 {this.state.LoginText !== false ? <LoginHeader success={this.state.LoginText}/>:<LogoutHeader login='로그인'/>}

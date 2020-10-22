@@ -42,15 +42,17 @@
         height: 100%;
     }
     .DescExplain{
-        top:45%;
-        font-size: 12px;
+        top:700px;
+        font-size: 19px;
+        opacity: 1;
     }
     .golink{
         margin-top: 5%;
         padding: 3px;
+        width: 180px;
     }
     .golink a{
-        font-size: 12px;
+        font-size: 20px;
     }
 }
 @media only screen and (min-width:481px) and (max-width:767px){

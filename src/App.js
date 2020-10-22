@@ -7,6 +7,7 @@ import Askquestion from './components/askquestion'
 import Agentregister from './components/agentregister'
 import Register from './components/register'
 import Viewboard from './components/viewboard'
+import Dealpage from './components/Dealpage'
 import { Switch,BrowserRouter as Router,Route } from 'react-router-dom';
 
 class App extends React.Component {
@@ -22,6 +23,7 @@ class App extends React.Component {
         <Route exact path = "/board" component={Noticeboard}/>
         <Route exact path = "/agentregister" component={Agentregister}/>
         <Route exact path = "/register" component={Register}/>
+        <Route exact path = "/deal" component={Dealpage}/>
         </Switch>
         </Router>
       )

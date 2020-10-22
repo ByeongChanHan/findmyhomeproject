@@ -1,0 +1,73 @@
+.area{
+    position: absolute;
+    top: 12%;
+    width: 15%;
+    height: 88%;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+}
+.area h3{
+    margin: 0;
+    font-size: 22px;
+    margin-right: 5%;
+}
+.area div{
+    margin: 10% 0 0 15%;
+    display: flex;
+}
+/* 콤보박스 */
+.area div select{
+    width: 140px;
+    padding-left: 10%;
+}
+/* 검색버튼 */
+.locsearch{
+    margin: 10% 0 8% 15%;
+    width: 60%;
+    font-size: 20px;
+    color:white;
+    background: #258fff;
+    border: 1px solid #999;
+    transition-duration: 0.7s;
+}
+.locsearch:hover{
+    box-shadow: 0 0 0 1px #258fff;
+}
+/* 헤드라인 부분 */
+.area article{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #258fff;
+    background: rgba(4,117,244,.05);
+    padding: 10px 0 10px 10px;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+}
+.address{
+    position: relative;
+}
+.Addressinput{
+    width: 60%;
+    font-size: 20px;
+    margin: 5% 10px 0 10%;
+    padding-left: 5px;
+}
+/* 주소검색 */
+.addressSerachbtn{
+    border:1px solid #999;
+    color: white;
+    background: #258fff;
+    transition-duration: 0.7s;
+    font-size: 20px;
+}
+.addressSerachbtn:hover{
+    box-shadow: 0 0 0 1px #258fff;
+}
+#map{
+    margin-left: 15.1%;
+    position: absolute;
+    top: 12%;
+    width: 84%;
+    height: 88%;
+}

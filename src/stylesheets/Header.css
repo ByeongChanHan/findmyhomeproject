@@ -94,7 +94,7 @@ a{
 }
 @media only screen and (max-width:480px){
     header{
-        height: 7%;
+        height: 10%;
         padding: 5px;
     }
     .title{
@@ -102,12 +102,12 @@ a{
         right: 75%;
     }
     .navigate{
-        right: 0;
+        right: 15px;
     }
     .individualMenu{
         margin-left: 5px;
         margin-right: 5px;
-        font-size: 10px;
+        font-size: 17px;
         position: relative;
     }
     #logoutbtn{

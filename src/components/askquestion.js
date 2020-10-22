@@ -41,7 +41,6 @@ class Askquestion extends Component{
                 longitude : lonpos,
                 latitude : latpos
             })
-            console.log(this.state)
             searchDetailAddrFromCoords(mouseEvent.latLng, (result, status)=>{
                 if (status === kakao.maps.services.Status.OK) {
                     var detailAddr = '<div>지번 주소 : ' + result[0].address.address_name + '</div>';

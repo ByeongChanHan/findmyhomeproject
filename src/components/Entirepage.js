@@ -5,13 +5,14 @@ import Description from './Description';
 import Footer from './footer'
 import $ from "jquery";
 import jQuery from 'jquery'
+// import io from "socket.io-client";
 window.$ = window.jQuery = jQuery;
 
 
 class Entirepage extends Component{
     // 메인페이지 전체 구성
     componentDidMount(){
-        window.addEventListener("scroll",this._scrollToggle(),true)
+        window.addEventListener("scroll",this._scrollToggle(),true);
     }
     _scrollToggle = () =>{
         $('html,body').on('mousewheel',(e)=>{

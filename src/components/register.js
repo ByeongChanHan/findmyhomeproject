@@ -129,8 +129,26 @@ class Printregister extends Component{
             // 불러온게 전화번호 칸일경우
             let PhoneNumvalues = document.getElementById('PhoneNumber').value;
             if(inputCheck === "PhoneNumber"){
-                    if((_keycode >=48)&&(_keycode<=57)){
-                        let PhoneNum = ""
+                console.log(event.keyCode)
+                    if((_keycode>=48)&&(_keycode<=57)){
+                        this._checkPhoneNumber(PhoneNumvalues);
+                    }
+                    else if((_keycode>=96)&&(_keycode<=105)){
+                        this._checkPhoneNumber(PhoneNumvalues);
+                    }
+                    // 모바일은 키코드가 229
+                    else if(_keycode===229){
+                        this._checkPhoneNumber(PhoneNumvalues);
+                    }
+                    // 아닐경우 빈칸으로 초기화
+                    else{
+                        document.getElementById('PhoneNumber').value = ""
+                        return false;
+                    }
+                }
+            }
+            _checkPhoneNumber = (PhoneNumvalues) =>{
+                let PhoneNum = ""
                         if(PhoneNumvalues.length < 4) {
                             return PhoneNumvalues;
                         } else if(PhoneNumvalues.length < 8) {
@@ -154,13 +172,6 @@ class Printregister extends Component{
                         PhoneNumvalues = PhoneNum;
                         console.log(PhoneNumvalues)
                         return true;
-                    }
-                    // 아닐경우 빈칸으로 초기화
-                    else{
-                        document.getElementById('PhoneNumber').value = ""
-                        return false;
-                    }
-                }
             }
         }
 export default Register
