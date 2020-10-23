@@ -5,6 +5,7 @@ import '../stylesheets/Dealpage.css'
 import '../stylesheets/RobotoFont.css';
 
 class Dealpage extends Component{
+    // 페이지 로드했을때 지도를 보여주고
     componentDidMount(){
         this.mapRender();
     }
@@ -15,54 +16,36 @@ class Dealpage extends Component{
             level:3
         })
         map.relayout();
-        // 주소-좌표 변환 객체를 생성합니다
-        var geocoder = new kakao.maps.services.Geocoder();
-
-        var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
-            infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
-
-
-        // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-        kakao.maps.event.addListener(map, 'click', (mouseEvent)=> {
-            var latlng = mouseEvent.latLng;
-            // 위도좌표
-            let latpos = latlng.getLat();
-            // 경도좌표
-            let lonpos = latlng.getLng();
-            this.setState({
-                longitude : lonpos,
-                latitude : latpos
-            })
-            searchDetailAddrFromCoords(mouseEvent.latLng, (result, status)=>{
-                if (status === kakao.maps.services.Status.OK) {
-                    var detailAddr = '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-                    // console.log(result[0].address.address_name)
-                    var content = '<div class="bAddr">' +
-                                    detailAddr + 
-                                '</div>';
-                
-                    // 마커를 클릭한 위치에 표시합니다 
-                    marker.setPosition(mouseEvent.latLng);
-                    marker.setMap(map);
-                
-                    // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-                    infowindow.setContent(content);
-                    infowindow.open(map, marker);
-                    this.setState({
-                        address : result[0].address.address_name
-                    })
-                }   
-            });
-        });
-        searchAddrFromCoords(map.getCenter());
-        function searchAddrFromCoords(coords, callback) {
-            // 좌표로 행정동 주소 정보를 요청합니다
-            geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
-        }
-
-        function searchDetailAddrFromCoords(coords, callback) {
-            // 좌표로 법정동 상세 주소 정보를 요청합니다
-            geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+    }
+    // 장소 검색했을때 호출하는 함수
+    AddressSearch = () =>{
+        let container = document.getElementById('map');
+		let map = new kakao.maps.Map(container,{
+            center: new kakao.maps.LatLng(37.566698, 126.979122),
+            level:3
+        })
+        map.relayout();
+        let searchText = document.getElementById("Addressinput").value;
+        console.log(searchText)
+        // 장소 검색 객체를 생성
+        var ps = new kakao.maps.services.Places(); 
+        
+        // 키워드로 장소를 검색합니다
+        ps.keywordSearch(searchText, placesSearchCB); 
+        
+        // 키워드 검색 완료 시 호출되는 콜백함수
+        function placesSearchCB (data, status, pagination) {
+            if (status === kakao.maps.services.Status.OK) {
+                // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+                // LatLngBounds 객체에 좌표를 추가
+                var bounds = new kakao.maps.LatLngBounds();
+            
+                for (var i=0; i<data.length; i++) {
+                    bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                }
+                // 검색된 장소 위치를 기준으로 지도 범위를 재설정
+                map.setBounds(bounds);
+            } 
         }
     }
     GuChange = () =>{
@@ -121,6 +104,8 @@ class Dealpage extends Component{
         else if(currentvalue ==="songpa")  selectedgu = songpa;
         else if(currentvalue ==="gangdong")  selectedgu = gangdong;
 
+        target.length = 0;
+
         for(var idx in selectedgu){
             var opt = document.createElement("option");
             opt.value = selectedgu[idx];
@@ -129,6 +114,13 @@ class Dealpage extends Component{
         }
     }
     render(){
+        const mapsize = {
+            marginLeft: "15.1%",
+            position: "absolute",
+            top: "12%",
+            width: "84%",
+            height: "88%"
+        }
         return(
             <Fragment>
             <Header/>
@@ -184,12 +176,12 @@ class Dealpage extends Component{
                     </section>
                     <form className="address">
                         <article>주소로 찾기</article>
-                        <input type="text" className="Addressinput"></input>
-                        <button className="addressSerachbtn">검색</button>
+                        <input type="text" id="Addressinput"></input>
+                        <button type="button" className="addressSerachbtn" onClick={this.AddressSearch}>검색</button>
                     </form>
                 </div>
             </section>
-            <div id="map"></div>
+            <div id="map" style={mapsize}></div>
             </Fragment>
         )
     }

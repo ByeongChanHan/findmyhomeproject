@@ -7,10 +7,6 @@ import SearchImg from '../images/search.png'
 
 class Askquestion extends Component{
     state = {
-        // 경도
-        longitude : '',
-        // 위도
-        latitude : '',
         address : ''
     }
     componentDidMount(){
@@ -32,19 +28,9 @@ class Askquestion extends Component{
 
         // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
         kakao.maps.event.addListener(map, 'click', (mouseEvent)=> {
-            var latlng = mouseEvent.latLng;
-            // 위도좌표
-            let latpos = latlng.getLat();
-            // 경도좌표
-            let lonpos = latlng.getLng();
-            this.setState({
-                longitude : lonpos,
-                latitude : latpos
-            })
             searchDetailAddrFromCoords(mouseEvent.latLng, (result, status)=>{
                 if (status === kakao.maps.services.Status.OK) {
                     var detailAddr = '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-                    console.log(result[0].address.address_name)
                     var content = '<div class="bAddr">' +
                                     detailAddr + 
                                 '</div>';
@@ -109,15 +95,6 @@ class Askquestion extends Component{
 
     // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
     kakao.maps.event.addListener(map, 'click', (mouseEvent)=> {
-        var latlng = mouseEvent.latLng;
-            // 위도좌표
-            let latpos = latlng.getLat();
-            // 경도좌표
-            let lonpos = latlng.getLng();
-            this.setState({
-                longitude : lonpos,
-                latitude : latpos
-            })
         searchDetailAddrFromCoords(mouseEvent.latLng, (result, status)=>{
             if (status === kakao.maps.services.Status.OK) {
                 var detailAddr = '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
@@ -361,7 +338,6 @@ class Askquestion extends Component{
             _Data.writeid = sendId
             _Data.address = document.getElementById("addressTextNode").innerText
         }
-        console.log(_Data)
         // 요청 옵션 post방식에 데이터를 보내주는 body에는 _Data객체를 stringify
         const requestOptions = {
             method:'POST',
