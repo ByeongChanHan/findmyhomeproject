@@ -17,8 +17,35 @@ class Dealpage extends Component{
         })
         map.relayout();
     }
-    // 장소 검색했을때 호출하는 함수
+    // 지역검색 호출함수
+    AreaSearch = () =>{
+        let container = document.getElementById('map');
+		let map = new kakao.maps.Map(container,{
+            center: new kakao.maps.LatLng(37.566698, 126.979122),
+            level:3
+        })
+        map.relayout();
+        let dongValue = document.getElementById("dongselect");
+        let selectedValue = dongValue.options[document.getElementById("dongselect").selectedIndex].value;
+        var searchvalue = {}
+        searchvalue.dongValue = selectedValue;
+        const requestOptions = {
+            method:'POST',
+            headers:{
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body : JSON.stringify(searchvalue)
+        }
+        fetch("http://localhost:5000/deal",requestOptions)
+        .then(res => res.text())
+        .then(response=>{
+            console.log(response)
+        })
+    }
+    // 장소 검색 호출 함수
     AddressSearch = () =>{
+        var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
         let container = document.getElementById('map');
 		let map = new kakao.maps.Map(container,{
             center: new kakao.maps.LatLng(37.566698, 126.979122),
@@ -26,7 +53,6 @@ class Dealpage extends Component{
         })
         map.relayout();
         let searchText = document.getElementById("Addressinput").value;
-        console.log(searchText)
         // 장소 검색 객체를 생성
         var ps = new kakao.maps.services.Places(); 
         
@@ -40,12 +66,27 @@ class Dealpage extends Component{
                 // LatLngBounds 객체에 좌표를 추가
                 var bounds = new kakao.maps.LatLngBounds();
             
-                for (var i=0; i<data.length; i++) {
-                    bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-                }
+                displayMarker(data[0]);
+                bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정
                 map.setBounds(bounds);
             } 
+        }
+        // 지도에 마커를 표시하는 함수입니다
+        function displayMarker(place) {
+
+            // 마커를 생성하고 지도에 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: new kakao.maps.LatLng(place.y, place.x) 
+            });
+        
+            // 마커에 클릭이벤트를 등록합니다
+            kakao.maps.event.addListener(marker, 'click', function() {
+                // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                infowindow.open(map, marker);
+            });
         }
     }
     GuChange = () =>{
@@ -129,7 +170,7 @@ class Dealpage extends Component{
                         <article>지역으로 찾기</article>
                     <div>
                         <h3>시</h3>
-                        <select name="si">
+                        <select name="si" id="siselect">
                             <option>===선택===</option>
                             <option value ="seoul">서울특별시</option>
                         </select>
@@ -172,7 +213,7 @@ class Dealpage extends Component{
                         </select>
                     </div>
                     <section>
-                        <button className="locsearch">검색</button>
+                        <button className="locsearch" onClick={this.AreaSearch}>검색</button>
                     </section>
                     <form className="address">
                         <article>주소로 찾기</article>

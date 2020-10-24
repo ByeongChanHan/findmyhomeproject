@@ -380,6 +380,14 @@ def executeupdate():
         conn.commit()
         conn.close()
     return "수정되었습니다."
+# 실거래가조회 페이지를 불러올때
+@app.route('/deal',methods=['GET','POST'])
+def selectedValue():
+    if request.method == "POST":
+        # 여기에 ~~동 값이 저장
+        dongValue = request.json.get('dongValue')
+        print(dongValue)
+    return dongValue
 
 # @socket_io.on("message")
 # def requestmsg(message):
