@@ -272,7 +272,7 @@ class Ranking extends Component{
         )
     }
     _moveUrl = () =>{
-        let CurrentUrl = "http://localhost:5000/ranking"
+        let CurrentUrl = "/ranking"
         // prop의 ranking은 인기조회수 숫자 옆에있는 제목을 뜻함
         let sendrankingData= this.props.ranking
         var rankingdataSet = {}
@@ -321,7 +321,7 @@ class Comments extends Component{
                         },
                         body: JSON.stringify(commentReqdict)
                     }
-                    fetch("http://localhost:5000/delete",deletereq)
+                    fetch("/delete",deletereq)
                     .then(res=>res.text())
                     .then(response=>{
                         alert(response)
@@ -357,7 +357,7 @@ class Comments extends Component{
                         },
                         body: JSON.stringify(commentdict)
                     }
-                    fetch("http://localhost:5000/update",updatereq)
+                    fetch("/update",updatereq)
                     .then(res=>res.text())
                     .then(updateSuccess=>{
                         alert(updateSuccess);

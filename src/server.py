@@ -284,7 +284,7 @@ def loginform():
             session['id'] = idText
         return ''
 # 헤더컴포넌트 라우팅
-@app.route('/',methods=['GET', 'POST'])
+@app.route('/header',methods=['GET', 'POST'])
 @cross_origin(supports_credentials=True)
 def main():
     if request.method == 'GET':

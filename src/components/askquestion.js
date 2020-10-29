@@ -128,11 +128,6 @@ class Askquestion extends Component{
     }
 }
     render(){
-        const mapdesign = {
-            width: "100%",
-            height: "400px",
-            marginBottom:"30px",
-        } 
         return(
             <Fragment>
                 <Header/>
@@ -209,7 +204,7 @@ class Askquestion extends Component{
                                 </button>
                             </section>
                             <p>원하는 위치를 선택해주세요 , 위치를 선정하면 좀 더 자세한 답변을 얻을수 있습니다.</p>
-                            <div style={mapdesign} id="map"></div>
+                            <div id="map" className="selectmap"></div>
                             <button id="selectaddress" onClick={this._confirmpos}>확인</button>
                         </div>
                     </section>
@@ -347,7 +342,7 @@ class Askquestion extends Component{
             body : JSON.stringify(_Data)
         }
         // 파이썬 플라스크 포트 5000번 write파라미터에 요청옵션 맞춰서 보냄
-        fetch("http://localhost:5000/write",requestOptions)
+        fetch("/write",requestOptions)
         // 데이터베이스 입력완료후 return으로 게시물 작성을 완료하였습니다를 받으면 text로 바꾸고
         .then(response => response.text())
         // 그 텍스트를 alert로 경고창에 띄움

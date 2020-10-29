@@ -36,7 +36,7 @@ class Dealpage extends Component{
             },
             body : JSON.stringify(searchvalue)
         }
-        fetch("http://localhost:5000/deal",requestOptions)
+        fetch("/deal",requestOptions)
         .then(res => res.text())
         .then(response=>{
             console.log(response)
@@ -155,13 +155,6 @@ class Dealpage extends Component{
         }
     }
     render(){
-        const mapsize = {
-            marginLeft: "15.1%",
-            position: "absolute",
-            top: "12%",
-            width: "84%",
-            height: "88%"
-        }
         return(
             <Fragment>
             <Header/>
@@ -171,14 +164,14 @@ class Dealpage extends Component{
                     <div>
                         <h3>시</h3>
                         <select name="si" id="siselect">
-                            <option>===선택===</option>
+                            <option>===선택하세요===</option>
                             <option value ="seoul">서울특별시</option>
                         </select>
                     </div>
                     <div>
                         <h3>구</h3>
                         <select name="gu" id="guselect"onChange={this.GuChange}>
-                            <option>===선택===</option>
+                            <option>===선택하세요===</option>
                             <option value ="gangnam">강남구</option>
                             <option value ="gangdong">강동구</option>
                             <option value ="gangbuk">강북구</option>
@@ -209,7 +202,7 @@ class Dealpage extends Component{
                     <div>
                         <h3>동</h3>
                         <select name="dong" id="dongselect">
-                            <option>===선택===</option>
+                            <option>===선택하세요===</option>
                         </select>
                     </div>
                     <section>
@@ -222,7 +215,7 @@ class Dealpage extends Component{
                     </form>
                 </div>
             </section>
-            <div id="map" style={mapsize}></div>
+            <div id="map" className="dealpagemap"></div>
             </Fragment>
         )
     }

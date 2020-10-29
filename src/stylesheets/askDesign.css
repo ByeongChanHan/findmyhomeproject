@@ -99,7 +99,6 @@
 .optionarea b{
     width: 30px;
     margin-right: 35px;
-    line-height: 30px;
 }
 .writetext{
     display: flex;
@@ -308,29 +307,35 @@
     font-size: 15px;
     background-color: white;
 }
+.selectmap{
+    width: 100%;
+    height: 400px;
+    margin-bottom: 30px;
+}
 @media only screen and (max-width:480px){
     .ask::after{
         width:100%;
-        top:6%;
-        height: 270px;
+        top:8%;
+        height: 300px;
     }
     .ask{
         width: 100%;
-        height: 270px;
-        margin-top: 12%;
+        height: 300px;
+        margin-top: 15%;
     }
     .ask h1{
-        top: 35%;
+        top: 50%;
         font-size: 30px;
     }
     .askcontainer{
+        margin-top: 0;
         width: 400px;
     }
     #title{
         width: 80%;
     }
     .custom-select-wrapper{
-        width:100px;
+        width:200px;
         height: 30px;
         margin-right:5px;
         font-size: 14px;
@@ -347,8 +352,37 @@
     .asktable h1{
         font-size: 25px;
     }
+    #locationbtn{
+        width: 100px;
+        height: 34px;
+        padding: 0;
+    }
+    .optionarea b{
+        width: 70px;
+    }
+    .modal-content{
+        margin: 35% auto;
+        width: 300px;
+    }
     .locsearchbtn{
-        width: 25%;
+        width: 30%;
+    }
+    #modal p{
+        font-size: 15px;
+    }
+    .selectmap{
+        width: 100%;
+        height: 250px;
+        margin-bottom: 30px;
+    }
+    #selectaddress{
+        position: relative;
+        float: none;
+        left: 20%;
+        width: 200px;
+    }
+    #locationfield b{
+        width: 35px;
     }
 }
 @media only screen and (min-width:481px) and (max-width:767px){

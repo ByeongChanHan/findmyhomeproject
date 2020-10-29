@@ -15,7 +15,7 @@ class Header extends Component{
     }
     // 아이디를 불러오기
     callLogin = () =>{
-        return fetch("http://localhost:5000/",{ credentials: 'include' })
+        return fetch("/header",{ credentials: 'include' })
         .then(res=>{
             let _Idtext = res.json()
             return _Idtext
@@ -100,7 +100,7 @@ class LoginHeader extends Component{
         }
     }
     logoutReq = () =>{
-        fetch("http://localhost:5000/logout",{ credentials: 'include' })
+        fetch("/logout",{ credentials: 'include' })
         .then(res => res.text())
         // 페이지를 새로고침
         window.location.reload(true);

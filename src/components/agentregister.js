@@ -99,7 +99,7 @@ class Agentregister extends Component{
             },
             body : JSON.stringify(RegisterData)
         }
-        fetch("http://localhost:5000/signupagent",sendOptions)
+        fetch("/signupagent",sendOptions)
         .then(res => res.text())
         .then(printer => {
             alert(printer)

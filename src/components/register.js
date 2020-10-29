@@ -99,7 +99,7 @@ class Register extends Component{
             },
             body : JSON.stringify(RegisterData)
         }
-        fetch("http://localhost:5000/signup",sendOptions)
+        fetch("/signup",sendOptions)
         .then(res => res.text())
         .then(printer =>{
             alert(printer)

@@ -29,7 +29,7 @@ class Noticeboard extends Component{
 
     // db포트 5000번에있는 board파라미터를 return해주는 함수
     _callData = () =>{
-        return fetch('http://localhost:5000/board')
+        return fetch('/board')
         // fetch에서 불러온데이터를 res(임의로 정한 변수)에 받고
         // json으로 변환
         .then(res=>{
@@ -323,7 +323,7 @@ class WriteList extends Component{
             },
             body : JSON.stringify(SelectedObject)
         }
-        fetch("http://localhost:5000/board",ClickSave)
+        fetch("/board",ClickSave)
         .then(showList => console.log(showList.text()))
         // 조회수가 저장되는 시간을 고려해서 1초 후에 페이지가 넘어감
         // 페이지는 board 뒤에 글번호를 붙여서 이동

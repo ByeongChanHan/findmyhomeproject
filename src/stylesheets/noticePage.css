@@ -109,25 +109,27 @@ tbody tr:hover{
         font-size: 20px;
     }
     .boardform{
-        margin-left: 120px;
+        margin-left: 40px;
     }
     .boardform button{
         width: 60px;
-        font-size: 13px;
+        font-size: 15px;
+        height: 30px;
     }
     .selector{
         position: relative;
         width: 60px;
-        height: 25px;
+        height: 28px;
     }
     .searchText{
         width: 100px;
-        height: 23px;
+        height: 28px;
         padding: 0;
     }
     .searchBtn{
-        width: 40px;
-        height: 25px;
+        width: 50px;
+        font-size: 15px;
+        height: 30px;
     }
 }
 @media only screen and (min-width:481px) and (max-width:767px){

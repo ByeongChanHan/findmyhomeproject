@@ -71,7 +71,7 @@ class LoginPage extends Component{
             body : JSON.stringify(loginData),
             credentials: 'include'
         }
-        fetch("http://localhost:5000/login",loginsend)
+        fetch("/login",loginsend)
         .then(resLogin=>resLogin.text())
         .then(res=>{
             if(res === "존재하지 않는 ID이거나 비밀번호가 틀립니다"){

@@ -94,24 +94,27 @@ a{
 }
 @media only screen and (max-width:480px){
     header{
-        height: 10%;
+        height: 18%;
         padding: 5px;
     }
     .title{
-        font-size:15px;
-        right: 75%;
+        font-size:30px;
+        right: 30%;
     }
     .navigate{
-        right: 15px;
+        top:50px;
+        right: 0;
     }
     .individualMenu{
-        margin-left: 5px;
-        margin-right: 5px;
-        font-size: 17px;
+        margin: 0 5px 0 5px;
+        font-size: 15px;
         position: relative;
     }
     #logoutbtn{
-        font-size:10px;
+        font-size:15px;
+    }
+    #idtext{
+        font-size:15px;
     }
 }
 @media only screen and (min-width:481px) and (max-width:767px){
