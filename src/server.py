@@ -5,6 +5,8 @@ import requests
 from datetime import datetime,timedelta
 from bs4 import BeautifulSoup
 from subprocess import call
+import xmltodict
+import json
 # from flask_socketio import SocketIO,send
 
 now = datetime.now()
@@ -386,8 +388,33 @@ def selectedValue():
     if request.method == "POST":
         # 여기에 ~~동 값이 저장
         dongValue = request.json.get('dongValue')
-        print(dongValue)
-    return dongValue
+        connectionDB = sqlite3.connect('goods.db')
+        cursor= connectionDB.cursor()
+        cursor.execute('select * from goods_detail where dong=?',(dongValue,))
+        selectDongvalue = cursor.fetchall()
+        connectionDB.close()
+        AddressDict = dict()
+        resultAddressarr=[]
+        pricearr=[]
+        buildyeararr=[]
+        apartnamearr=[]
+        areaArr=[]
+        floorArr=[]
+        for rows in selectDongvalue:
+            resultAddress = rows[3]+' '+rows[8]
+            resultAddressarr.append(resultAddress)
+            pricearr.append(rows[0])
+            buildyeararr.append(rows[1])
+            apartnamearr.append(rows[4])
+            areaArr.append(rows[7])
+            floorArr.append(rows[10])
+        AddressDict['fulladdress'] = resultAddressarr
+        AddressDict['price'] = pricearr
+        AddressDict['buildyear'] = buildyeararr
+        AddressDict['apartname'] = apartnamearr
+        AddressDict['area'] = areaArr
+        AddressDict['floor'] = floorArr
+    return AddressDict
 
 # @socket_io.on("message")
 # def requestmsg(message):
