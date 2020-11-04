@@ -400,9 +400,12 @@ def selectedValue():
         apartnamearr=[]
         areaArr=[]
         floorArr=[]
+        monthDayArr=[]
         for rows in selectDongvalue:
             resultAddress = rows[3]+' '+rows[8]
             resultAddressarr.append(resultAddress)
+            monthday = rows[2]+'.'+rows[5]+'.'+rows[6]
+            monthDayArr.append(monthday)
             pricearr.append(rows[0])
             buildyeararr.append(rows[1])
             apartnamearr.append(rows[4])
@@ -414,6 +417,7 @@ def selectedValue():
         AddressDict['apartname'] = apartnamearr
         AddressDict['area'] = areaArr
         AddressDict['floor'] = floorArr
+        AddressDict['monthday'] = monthDayArr
     return AddressDict
 
 # @socket_io.on("message")

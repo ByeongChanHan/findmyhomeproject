@@ -42,9 +42,9 @@ class Dealpage extends Component{
                 buildyear : response.buildyear,
                 apartname : response.apartname,
                 area : response.area,
-                floor : response.floor
+                floor : response.floor,
+                monthday : response.monthday
             })
-            console.log(this.state)
             let _data = this.state
             this.ShowArea(_data)
         })
@@ -55,59 +55,73 @@ class Dealpage extends Component{
         // 장소 검색 객체를 생성
         this.ShowArea(searchText)
     }
+    // 주소를 받는 ShowArea메소드
     ShowArea = (address) =>{
         var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-
+        // 처음 맵이 뜰때 위치 설정
         let container = document.getElementById('map');
 		let map = new kakao.maps.Map(container,{
             center: new kakao.maps.LatLng(37.566698, 126.979122),
             level:3
         })
+        // 레벨을 가져와서
+        var level = map.getLevel();
+        // 2단계 당겨준다(더 넓은 범위로 볼수 있게끔)
+        map.setLevel(level + 2);
         map.relayout();
-        var ps = new kakao.maps.services.Places(); 
-        
-        // 키워드로 장소를 검색합니다
-        for(var idx=0; idx <= address.fulladdressname.length; idx++){
-            // var content = "<div>"+address.price[idx]+"<div>"
-            ps.keywordSearch(address.fulladdressname[idx], placesSearchCB);
+        // 장소 검색 할 수 있는 geocoder
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        // 키워드로 장소를 검색
+        // 장소 배열의 길이만큼 idx를 증가시켜서 displayMarker를 호출
+        for(var idx=0; idx < address.fulladdressname.length; idx++){
+            // idx 인덱스 하나하나 주소를 검색하면서 인덱스 값도 같이 넣어준다
+            displayMarker(address.fulladdressname[idx],idx)
         } 
-        
-        // 키워드 검색 완료 시 호출되는 콜백함수
-        function placesSearchCB (data, status, pagination) {
-            if (status === kakao.maps.services.Status.OK) {
-                // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-                // LatLngBounds 객체에 좌표를 추가
-                var bounds = new kakao.maps.LatLngBounds();
-                displayMarker(data[0]);    
-                bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
-                // 검색된 장소 위치를 기준으로 지도 범위를 재설정
-                map.setBounds(bounds);
-                // 현재 지도의 레벨을 얻어옵니다
-                var level = map.getLevel();
-    
-                // 지도를 1레벨 내립니다 (지도가 확대됩니다)
-                map.setLevel(level + 2);
-            } 
-        }
-        var imageSrc = 'https://www.flaticon.com/svg/static/icons/svg/619/619153.svg', // 마커이미지의 주소입니다    
-        imageSize = new kakao.maps.Size(25, 25), // 마커이미지의 크기입니다
-        imageOption = {offset: new kakao.maps.Point(10, 50)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-        // 지도에 마커를 표시하는 함수입니다
+        // 마커 이미지의 주소
+        var imageSrc = 'https://www.flaticon.com/svg/static/icons/svg/619/619153.svg',
+        // 마커 이미지의 크기
+        imageSize = new kakao.maps.Size(25, 25),
+        // 마커이미지의 옵션 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정
+        imageOption = {offset: new kakao.maps.Point(10, 50)};
+        // 지도에 마커를 표시하는 함수
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-        function displayMarker(place) {
-            // 마커를 생성하고 지도에 표시합니다
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: new kakao.maps.LatLng(place.y, place.x),
-                image: markerImage
-            });
-        
-            // 마커에 클릭이벤트를 등록합니다
-            kakao.maps.event.addListener(marker, 'click', function() {
-                // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-                infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-                infowindow.open(map, marker);
-            });
+        function displayMarker(place,idx) {
+            geocoder.addressSearch(place, function(result, status) {
+                // 콜백 함수로 받은 주소의 좌표인 coords
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                // 마커 선언문
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords,
+                    image: markerImage
+                });
+                // 중앙으로 맵을 이동
+                map.setCenter(coords);
+                // 만약 display에서 받은 매개변수로 받은 주소(place)와 showArea에서 받은 주소가 같다면
+                // content는 해당 집의 세부 정보(가격,평수) 저장
+                if(place === address.fulladdressname[idx]){
+                    console.log(address.fulladdressname[idx])
+                    var content = '<div class="content">'
+                    +'<div class="info">'
+                    + address.apartname[idx]+'아파트'
+                    + '</div>'
+                    +'<div class="details">'
+                    + '<div> 실거래가: '+address.price[idx]+' (만 원)</div>'
+                    + '<div> 면적: '+address.area[idx]+' (㎡)</div>'
+                    + '<div> 최초게재: '+address.monthday[idx]+'</div>'
+                    + '<div> 층수: '+address.floor[idx]+'층</div>'
+                    + '</div>'
+                    + '</div>'
+                }
+                // 마커를 클릭하면 장소명이 인포윈도우에 표출
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    // 컨텐트 설정
+                    infowindow.setContent(content);
+                    // 인포윈도우 열기
+                    infowindow.open(map, marker);
+                });
+            })
         }
     }
     GuChange = () =>{
@@ -117,7 +131,7 @@ class Dealpage extends Component{
         var sungdong =["왕십리도선동","왕십리2동","마장동","사근동","행당1동","행당2동","응봉동","금호1가동","금호2","3가동","금호4가동","옥수동","성수1가1동","성수1가2동","성수2가1동","성수2가3동","송정동","용답동"];
         var gwangjin =["중곡1동","중곡2동","중곡3동","중곡4동","능동","구의1동","구의2동","구의3동","광장동","자양1동","자양2동","자양3동","자양4동","화양동","군자동"]
         var dongdaemun=["용신동","제기동","전농1동","전농2동","답십리1동","답십리2동","장안1동","장안2동","청량리동","회기동","휘경1동","휘경2동","이문1동","이문2동"]
-        var jungnang=["면목본동","면목2동","면목3","8동","면목4동","면목5동","면목7동","상봉1동","상봉2동","중화1동","중화2동","묵1동","묵2동","망우본동","망우3동","신내1동","신내2동"]
+        var jungnang=["면목동","면목2동","면목3","8동","면목4동","면목5동","면목7동","상봉1동","상봉2동","중화1동","중화2동","묵1동","묵2동","망우본동","망우3동","신내1동","신내2동"]
         var sungbuk=["성북동","삼선동","동선동","돈암1동","돈암2동","안암동","보문동","정릉1동","정릉2동"," 정릉3동","정릉4동","길음1동","길음2동","종암동","월곡1동","월곡2동","장위1동","장위2동","장위3동","석관동"]
         var gangbuk=["삼양동","미아동","송중동","송천동","삼각산동","번1동","번2동","번3동","수유1동","수유2동","수유3동","우이동","인수동"]
         var dobong=["쌍문1동","쌍문2동","쌍문3동","쌍문4동","방학1동","방학2동","방학3동","창1동","창2동","창3동","창4동","창5동","도봉1동","도봉2동"]

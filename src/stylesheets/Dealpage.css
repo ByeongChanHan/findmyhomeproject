@@ -71,6 +71,28 @@
     width: 84%;
     height: 88%;
 }
+.content{
+    font-size:20px;
+    width: 270px;
+    height: 170px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+.info{
+    width: 260px;
+    height: 20%;
+    border-bottom: 2px solid #ccc;
+    overflow: hidden;
+    background-color: #eee;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.details{
+    display: block;
+    padding-left: 5px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
 @media only screen and (max-width:480px){
     .area{
         width: 100%;
