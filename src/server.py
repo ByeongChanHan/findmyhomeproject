@@ -390,7 +390,7 @@ def selectedValue():
         dongValue = request.json.get('dongValue')
         connectionDB = sqlite3.connect('goods.db')
         cursor= connectionDB.cursor()
-        cursor.execute('select * from goods_detail where dong=?',(dongValue,))
+        cursor.execute('select distinct * from goods_detail where dong=?',(dongValue,))
         selectDongvalue = cursor.fetchall()
         connectionDB.close()
         AddressDict = dict()
@@ -418,7 +418,72 @@ def selectedValue():
         AddressDict['area'] = areaArr
         AddressDict['floor'] = floorArr
         AddressDict['monthday'] = monthDayArr
+    # elif request.method == "GET":
+    #     today = datetime.now()
+    #     ymd = today.strftime('%Y%m')
+    #     conn = sqlite3.connect('goods.db',isolation_level=None)
+    #     # 커서생성(커서 = SQL 문을 실행하거나 실행된 결과를 돌려받는 통로)
+    #     cur = conn.cursor()
+    #     cur.execute("CREATE TABLE IF NOT EXISTS goods_detail(price text , byear TEXT, cyear text , dong text , apart text , month text , day text , area text , number text , code text , floor text )")
+    #     # 법정동코드 : 매물수
+    #     lawd_cd = [11110  , 11140  , 11170  , 11200  , 11215 ,
+    #     11230  , 11260 , 11290  , 11305  , 11320 ,
+    #     11350  , 11380 , 11410  , 11440 , 11470 ,
+    #     11500  , 11530 , 11545  , 11560 , 11590 ,
+    #     11620  , 11650 , 11680   , 11710  , 11740 ]
+    #     zero,one,two,three,four,five,six,seven,eight,nine,ten = 0,1,2,3,4,5,6,7,8,9,10
+    #     k = 0
+    #     for cd in lawd_cd:
+    #         url='http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade?LAWD_CD='+str(cd)+'&DEAL_YMD='+str(ymd)+'&serviceKey=XTDz8ti4bOcnPhKVo8yqLaDuVoNqv0bU18d0BwGj6jhNAT4N5ZSHgoH1%2BKTsssm6aip9O5Fi1VjoGJVwAQ%2Fy1g%3D%3D'
+    #         my_list = []
+    #         count_array = []
+    #         # HTTP GET Request
+    #         req = requests.get(url)
+    #         # html 소스 가져오기
+    #         html = req.text
+    #         xml_parse = xmltodict.parse(html)
+    #         xml_dict = json.loads(json.dumps(xml_parse))
+    #         print(xml_dict)
+    #         item = xml_dict['response']['body']['items']['item']
+    #         count = xml_dict['response']['body']['totalCount'] 
+    #         count_array.append(count) #매물수를 배열에 삽입
+    #         int_con =list(map(int, count_array)) #구 마다 매물수를 integer로 변환
+    #         if k < 25:
+    #             for j in range(0,int_con[k]):  # 매물수를 range로 저장
+    #                 my_list.append(list(item[j].values()))
+    #                 cur.execute("INSERT INTO goods_detail(price,byear,cyear,dong,apart,month,day,area,number,code,floor) VALUES(?,?,?,?,?,?,?,?,?,?,?)",(my_list[j][zero],my_list[j][one],my_list[j][two],my_list[j][three],my_list[j][four],my_list[j][five],my_list[j][six],my_list[j][seven],my_list[j][eight],my_list[j][nine],my_list[j][ten],))
+    #                 conn.commit()
+    #     k += 1
+    #     conn.close()
     return AddressDict
+@app.route('/info',methods=['GET','POST'])
+def infos():
+    if request.method == "POST":
+        infovalue = request.json.get('info')
+        conn = sqlite3.connect('goods.db')
+        cur = conn.cursor()
+        cur.execute("select distinct area,floor,price,cyear,month,day from goods_detail where apart=?",(infovalue,))
+        selectinfo = cur.fetchall()
+        conn.close()
+        detail_dict = dict()
+        areaArr=[]
+        floorArr=[]
+        monthDayArr=[]
+        priceArr=[]
+        for infos in selectinfo:
+            areaArr.append(infos[0])
+            floorArr.append(infos[1])
+            priceArr.append(infos[2])
+            monthday = infos[3]+'.'+infos[4]+'.'+infos[5]
+            monthDayArr.append(monthday)
+        detail_dict['area'] = areaArr
+        detail_dict['floor'] = floorArr
+        detail_dict['price'] = priceArr
+        detail_dict['monthday'] = monthDayArr
+        return detail_dict
+
+            
+            
 
 # @socket_io.on("message")
 # def requestmsg(message):

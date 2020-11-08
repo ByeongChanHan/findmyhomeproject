@@ -324,7 +324,7 @@ class WriteList extends Component{
             body : JSON.stringify(SelectedObject)
         }
         fetch("/board",ClickSave)
-        .then(showList => console.log(showList.text()))
+        .then(showList => showList.text())
         // 조회수가 저장되는 시간을 고려해서 1초 후에 페이지가 넘어감
         // 페이지는 board 뒤에 글번호를 붙여서 이동
         setTimeout(()=>{

@@ -52,8 +52,7 @@ class Dealpage extends Component{
     // 장소 검색 호출 함수
     AddressSearch = () =>{
         let searchText = document.getElementById("Addressinput").value;
-        // 장소 검색 객체를 생성
-        this.ShowArea(searchText)
+        // this.ShowArea(searchText)
     }
     // 주소를 받는 ShowArea메소드
     ShowArea = (address) =>{
@@ -72,12 +71,6 @@ class Dealpage extends Component{
         // 장소 검색 할 수 있는 geocoder
         var geocoder = new kakao.maps.services.Geocoder();
 
-        // 키워드로 장소를 검색
-        // 장소 배열의 길이만큼 idx를 증가시켜서 displayMarker를 호출
-        for(var idx=0; idx < address.fulladdressname.length; idx++){
-            // idx 인덱스 하나하나 주소를 검색하면서 인덱스 값도 같이 넣어준다
-            displayMarker(address.fulladdressname[idx],idx)
-        } 
         // 마커 이미지의 주소
         var imageSrc = 'https://www.flaticon.com/svg/static/icons/svg/619/619153.svg',
         // 마커 이미지의 크기
@@ -86,8 +79,8 @@ class Dealpage extends Component{
         imageOption = {offset: new kakao.maps.Point(10, 50)};
         // 지도에 마커를 표시하는 함수
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-        function displayMarker(place,idx) {
-            geocoder.addressSearch(place, function(result, status) {
+        const displayMarker = (place,idx) => {
+            geocoder.addressSearch(place, (result, status) => {
                 // 콜백 함수로 받은 주소의 좌표인 coords
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                 // 마커 선언문
@@ -96,33 +89,67 @@ class Dealpage extends Component{
                     position: coords,
                     image: markerImage
                 });
-                // 중앙으로 맵을 이동
-                map.setCenter(coords);
+                // 함수를 호출할때마다 중앙을 설정하면 정신없어보여서
+                // idx 가 증가하면서 state값의 마지막 인덱스랑 동일할때 중앙을 설정
+                if(idx === address.fulladdressname.length-1){
+                    map.setCenter(coords);
+                }
                 // 만약 display에서 받은 매개변수로 받은 주소(place)와 showArea에서 받은 주소가 같다면
                 // content는 해당 집의 세부 정보(가격,평수) 저장
                 if(place === address.fulladdressname[idx]){
-                    console.log(address.fulladdressname[idx])
                     var content = '<div class="content">'
                     +'<div class="info">'
-                    + address.apartname[idx]+'아파트'
+                    + address.apartname[idx]
                     + '</div>'
                     +'<div class="details">'
                     + '<div> 실거래가: '+address.price[idx]+' (만 원)</div>'
                     + '<div> 면적: '+address.area[idx]+' (㎡)</div>'
                     + '<div> 최초게재: '+address.monthday[idx]+'</div>'
                     + '<div> 층수: '+address.floor[idx]+'층</div>'
+                    + '<button id="etc">매물 더보기</button>'
                     + '</div>'
                     + '</div>'
                 }
                 // 마커를 클릭하면 장소명이 인포윈도우에 표출
-                kakao.maps.event.addListener(marker, 'click', function() {
+                kakao.maps.event.addListener(marker, 'click', ()=> {
                     // 컨텐트 설정
                     infowindow.setContent(content);
                     // 인포윈도우 열기
                     infowindow.open(map, marker);
+                    var etcshow = document.getElementById("etc");
+                    etcshow.addEventListener("click",()=>{
+                        let more_goods = document.getElementById("goods_modal");
+                        more_goods.style.display="block";
+                        let apartinfo = document.getElementsByClassName("info")[0].innerHTML;
+                        let apartdict = {}
+                        apartdict.info = apartinfo
+                        const reqoption = {
+                            method:'POST',
+                            headers:{
+                                "Content-Type": "application/json; charset=utf-8"
+                            },
+                            body : JSON.stringify(apartdict)
+                        }
+                        fetch("info",reqoption)
+                        .then(res=>res.json())
+                        .then(responsejson=>{
+                            this.setState({
+                                detailarea : responsejson.area,
+                                detailfloor : responsejson.floor,
+                                detailmonthday : responsejson.monthday,
+                                detailprice : responsejson.price
+                            })
+                        })
+                    })
                 });
             })
         }
+        // 키워드로 장소를 검색
+        // 장소 배열의 길이만큼 idx를 증가시켜서 displayMarker를 호출
+        for(var idx=0; idx < address.fulladdressname.length; idx++){
+            // idx 인덱스 하나하나 주소를 검색하면서 인덱스 값도 같이 넣어준다
+            displayMarker(address.fulladdressname[idx],idx)
+        } 
     }
     GuChange = () =>{
         var jongno = ["청운효자동","사직동","삼청동","부암동","평창동","무악동","교남동","가회동","종로1가","종로2가","종로3가"];
@@ -189,6 +216,20 @@ class Dealpage extends Component{
             target.appendChild(opt);
         }
     }
+    closemodal = () =>{
+        let more_goods = document.getElementById("goods_modal");
+        more_goods.style.display="none"
+    }
+    _detailRender = () =>{
+        const detailList = this.state.detailarea.map((detailarr,index)=>{
+            return <Detailrender detailarea={detailarr}
+            detailfloor={this.state.detailfloor[index]}
+            detailmonthday={this.state.detailmonthday[index]}
+            detailprice={this.state.detailprice[index]}
+            key={index}/>
+        })
+        return detailList
+    }
     render(){
         return(
             <Fragment>
@@ -251,7 +292,33 @@ class Dealpage extends Component{
                 </div>
             </section>
             <div id="map" className="dealpagemap"></div>
+
+            <div id="goods_modal">
+                <div id="goods_content">
+                    <span className="close" onClick={this.closemodal}>&times;</span>
+                    <h1 className="apart_detail">{this.state.detailarea ? document.getElementsByClassName("info")[0].innerHTML : ''}</h1>
+                    <div className="goods_headline">
+                        <h3 className="headline_item">최초게재</h3>
+                        <h3 className="headline_item">가격(만 원)</h3>
+                        <h3 className="headline_item">면적(㎡)</h3>
+                        <h3 className="headline_item">층</h3>
+                    </div>
+                    {this.state.detailarea ? this._detailRender() : ''}
+                </div>
+            </div>
             </Fragment>
+        )
+    }
+}
+class Detailrender extends Component{
+    render(){
+        return(
+            <div className="renderdetail">
+                    <div className="item">{this.props.detailmonthday}</div>
+                    <div className="item">{this.props.detailprice}</div>
+                    <div className="item">{this.props.detailarea}</div>
+                    <div className="item">{this.props.detailfloor}</div>
+            </div>
         )
     }
 }
