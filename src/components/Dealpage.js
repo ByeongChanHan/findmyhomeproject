@@ -1,8 +1,9 @@
 /*global kakao*/
 import React,{Component, Fragment} from "react"
 import Header from "./HeaderComponent"
-import '../stylesheets/Dealpage.css'
+import '../stylesheets/Dealpage.css';
 import '../stylesheets/RobotoFont.css';
+import '../stylesheets/NotoSans.css';
 
 class Dealpage extends Component{
     state = {
@@ -105,6 +106,7 @@ class Dealpage extends Component{
                     + '<div> 실거래가: '+address.price[idx]+' (만 원)</div>'
                     + '<div> 면적: '+address.area[idx]+' (㎡)</div>'
                     + '<div> 최초게재: '+address.monthday[idx]+'</div>'
+                    + '<div> 건축년도: '+address.buildyear[idx]+'년</div>'
                     + '<div> 층수: '+address.floor[idx]+'층</div>'
                     + '<button id="etc">매물 더보기</button>'
                     + '</div>'
