@@ -20,9 +20,14 @@ class Dealpage extends Component{
             level:3
         })
         map.relayout();
+        console.log(map)
     }
     // 지역검색 호출함수
     AreaSearch = () =>{
+        var infowindow = new kakao.maps.InfoWindow({
+            zIndex:1,
+            removable:true
+        });
         let dongValue = document.getElementById("dongselect");
         let selectedValue = dongValue.options[document.getElementById("dongselect").selectedIndex].value;
         var searchvalue = {}
@@ -47,7 +52,7 @@ class Dealpage extends Component{
                 monthday : response.monthday
             })
             let _data = this.state
-            this.ShowArea(_data)
+            this.ShowArea(_data,infowindow)
         })
     }
     // 장소 검색 호출 함수
@@ -56,14 +61,15 @@ class Dealpage extends Component{
         // this.ShowArea(searchText)
     }
     // 주소를 받는 ShowArea메소드
-    ShowArea = (address) =>{
-        var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+    ShowArea = (address,infowindow) =>{
         // 처음 맵이 뜰때 위치 설정
+        console.log("호출")
         let container = document.getElementById('map');
 		let map = new kakao.maps.Map(container,{
             center: new kakao.maps.LatLng(37.566698, 126.979122),
             level:3
         })
+        console.log(map)
         // 레벨을 가져와서
         var level = map.getLevel();
         // 2단계 당겨준다(더 넓은 범위로 볼수 있게끔)
@@ -99,10 +105,8 @@ class Dealpage extends Component{
                 // content는 해당 집의 세부 정보(가격,평수) 저장
                 if(place === address.fulladdressname[idx]){
                     var content = '<div class="content">'
-                    +'<div class="info">'
-                    + address.apartname[idx]
-                    + '</div>'
-                    +'<div class="details">'
+                    +'<div class="info">'+ address.apartname[idx]+'</div>'
+                    +'<div class="goods_detail">'
                     + '<div> 실거래가: '+address.price[idx]+' (만 원)</div>'
                     + '<div> 면적: '+address.area[idx]+' (㎡)</div>'
                     + '<div> 최초게재: '+address.monthday[idx]+'</div>'
@@ -119,7 +123,9 @@ class Dealpage extends Component{
                     // 인포윈도우 열기
                     infowindow.open(map, marker);
                     var etcshow = document.getElementById("etc");
-                    etcshow.addEventListener("click",()=>{
+                    console.log("여기")
+                    etcshow.addEventListener("click",(e)=>{
+                        console.log(infowindow)
                         let more_goods = document.getElementById("goods_modal");
                         more_goods.style.display="block";
                         let apartinfo = document.getElementsByClassName("info")[0].innerHTML;
@@ -299,6 +305,7 @@ class Dealpage extends Component{
                 <div id="goods_content">
                     <span className="close" onClick={this.closemodal}>&times;</span>
                     <h1 className="apart_detail">{this.state.detailarea ? document.getElementsByClassName("info")[0].innerHTML : ''}</h1>
+                    {/* document.getElementsByClassName("info")[0].innerHTML */}
                     <div className="goods_headline">
                         <h3 className="headline_item">최초게재</h3>
                         <h3 className="headline_item">가격(만 원)</h3>

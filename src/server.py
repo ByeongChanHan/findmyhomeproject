@@ -462,7 +462,7 @@ def infos():
         infovalue = request.json.get('info')
         conn = sqlite3.connect('goods.db')
         cur = conn.cursor()
-        cur.execute("select distinct area,floor,price,cyear,month,day,byear from goods_detail where apart=?",(infovalue,))
+        cur.execute("select distinct area,floor,price,cyear,month,day from goods_detail where apart=?",(infovalue,))
         selectinfo = cur.fetchall()
         conn.close()
         detail_dict = dict()
@@ -470,19 +470,16 @@ def infos():
         floorArr=[]
         monthDayArr=[]
         priceArr=[]
-        byearArr=[]
         for infos in selectinfo:
             areaArr.append(infos[0])
             floorArr.append(infos[1])
             priceArr.append(infos[2])
             monthday = infos[3]+'.'+infos[4]+'.'+infos[5]
             monthDayArr.append(monthday)
-            byearArr.append(infos[6])
         detail_dict['area'] = areaArr
         detail_dict['floor'] = floorArr
         detail_dict['price'] = priceArr
         detail_dict['monthday'] = monthDayArr
-        detail_dict['buildyear'] = byearArr
         return detail_dict
 
             
