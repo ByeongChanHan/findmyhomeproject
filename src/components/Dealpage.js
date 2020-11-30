@@ -9,18 +9,24 @@ class Dealpage extends Component{
     state = {
 
     }
+    // 맵을 전역변수로 사용
+    map;
+    // 마커위치 전역변수로 사용
+    markerpoint = [];
+    // 인포윈도우 위치 전역변수로 사용
+    infowindowpoint = [];
     // 페이지 로드했을때 지도를 보여주고
     componentDidMount(){
         this.mapRender();
     }
     mapRender = () =>{
-        let container = document.getElementById('map');
-		let map = new kakao.maps.Map(container,{
+        let container = document.getElementById("map");
+        let options = {
             center: new kakao.maps.LatLng(37.566698, 126.979122),
-            level:3
-        })
-        map.relayout();
-        console.log(map)
+            level:5
+        };
+        this.map = new window.kakao.maps.Map(container, options);
+        this.map.relayout();
     }
     // 지역검색 호출함수
     AreaSearch = () =>{
@@ -31,6 +37,7 @@ class Dealpage extends Component{
         let dongValue = document.getElementById("dongselect");
         let selectedValue = dongValue.options[document.getElementById("dongselect").selectedIndex].value;
         var searchvalue = {}
+        // dongValue 키에 선택한 값을 넣어서 /deal url에 post 형식으로 통신요청
         searchvalue.dongValue = selectedValue;
         const requestOptions = {
             method:'POST',
@@ -52,6 +59,7 @@ class Dealpage extends Component{
                 monthday : response.monthday
             })
             let _data = this.state
+            // state의 값을 첫번째 인자로 넣고 인포윈도우를 2번째 인자로 넣는다
             this.ShowArea(_data,infowindow)
         })
     }
@@ -62,22 +70,11 @@ class Dealpage extends Component{
     }
     // 주소를 받는 ShowArea메소드
     ShowArea = (address,infowindow) =>{
-        // 처음 맵이 뜰때 위치 설정
-        console.log("호출")
-        let container = document.getElementById('map');
-		let map = new kakao.maps.Map(container,{
-            center: new kakao.maps.LatLng(37.566698, 126.979122),
-            level:3
-        })
-        console.log(map)
-        // 레벨을 가져와서
-        var level = map.getLevel();
-        // 2단계 당겨준다(더 넓은 범위로 볼수 있게끔)
-        map.setLevel(level + 2);
+        // 전역으로 정의한 map 변수
+        const map = this.map;
         map.relayout();
         // 장소 검색 할 수 있는 geocoder
         var geocoder = new kakao.maps.services.Geocoder();
-
         // 마커 이미지의 주소
         var imageSrc = 'https://www.flaticon.com/svg/static/icons/svg/619/619153.svg',
         // 마커 이미지의 크기
@@ -87,6 +84,21 @@ class Dealpage extends Component{
         // 지도에 마커를 표시하는 함수
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
         const displayMarker = (place,idx) => {
+            // 마커 배열이 정의 됐을때
+            if(this.markerpoint !== undefined){
+                // 마커 배열의 길이만큼 순회하면서
+                for(var markeridx=0; markeridx<this.markerpoint.length; markeridx++){
+                    // 기존에있는 마커들을 제거
+                    this.markerpoint[markeridx].setMap(null);
+                }
+            }
+            // 만약 인포윈도우가 이미 1개 띄워져있을때는
+            if(this.infowindowpoint.length > 0){
+                // 띄운 인포윈도우를 닫고
+                this.infowindowpoint[0].close();
+                // 인포윈도우 배열 초기화
+                this.infowindowpoint = [];
+            }
             geocoder.addressSearch(place, (result, status) => {
                 // 콜백 함수로 받은 주소의 좌표인 coords
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -96,6 +108,7 @@ class Dealpage extends Component{
                     position: coords,
                     image: markerImage
                 });
+                this.markerpoint.push(marker)
                 // 함수를 호출할때마다 중앙을 설정하면 정신없어보여서
                 // idx 가 증가하면서 state값의 마지막 인덱스랑 동일할때 중앙을 설정
                 if(idx === address.fulladdressname.length-1){
@@ -122,10 +135,10 @@ class Dealpage extends Component{
                     infowindow.setContent(content);
                     // 인포윈도우 열기
                     infowindow.open(map, marker);
+                    // 인포윈도우 좌표를 배열에 추가
+                    this.infowindowpoint.push(infowindow)
                     var etcshow = document.getElementById("etc");
-                    console.log("여기")
                     etcshow.addEventListener("click",(e)=>{
-                        console.log(infowindow)
                         let more_goods = document.getElementById("goods_modal");
                         more_goods.style.display="block";
                         let apartinfo = document.getElementsByClassName("info")[0].innerHTML;
@@ -160,7 +173,7 @@ class Dealpage extends Component{
         } 
     }
     GuChange = () =>{
-        var jongno = ["청운효자동","사직동","삼청동","부암동","평창동","무악동","교남동","가회동","종로1가","종로2가","종로3가"];
+        var jongno = ["익선동","효제동","연건동","충신동","창신동","숭인동","평창동","교남동","가회동","종로1가","종로2가","종로3가"];
         var jung = ["소공동","회현동","명동","필동","장충동","광희동","을지로동","신당동","다산동","약수동","청구동","신당5동","동화동","황학동","중림동"];
         var yongsan = ["후암동","용산2가동","남영동","청파동","원효로1동","원효로2동","효창동","용문동","한강로동","이촌1동","이촌2동","이태원1동","이태원2동","한남동","서빙고동","보광동"];
         var sungdong =["왕십리도선동","왕십리2동","마장동","사근동","행당1동","행당2동","응봉동","금호1가동","금호2","3가동","금호4가동","옥수동","성수1가1동","성수1가2동","성수2가1동","성수2가3동","송정동","용답동"];
@@ -304,7 +317,7 @@ class Dealpage extends Component{
             <div id="goods_modal">
                 <div id="goods_content">
                     <span className="close" onClick={this.closemodal}>&times;</span>
-                    <h1 className="apart_detail">{this.state.detailarea ? document.getElementsByClassName("info")[0].innerHTML : ''}</h1>
+                    <h1 className="apart_detail">{this.state.detailarea ? '매물 상세정보' : ''}</h1>
                     {/* document.getElementsByClassName("info")[0].innerHTML */}
                     <div className="goods_headline">
                         <h3 className="headline_item">최초게재</h3>
