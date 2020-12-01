@@ -460,29 +460,51 @@ def selectedValue():
 def infos():
     if request.method == "POST":
         infovalue = request.json.get('info')
-        conn = sqlite3.connect('goods.db')
-        cur = conn.cursor()
-        cur.execute("select distinct area,floor,price,cyear,month,day from goods_detail where apart=?",(infovalue,))
-        selectinfo = cur.fetchall()
-        conn.close()
+        if infovalue != None:
+            conn = sqlite3.connect('goods.db')
+            cur = conn.cursor()
+            cur.execute("select distinct * from goods_detail where apart=?",(infovalue,))
+            selectinfo = cur.fetchall()
+            conn.close()
+        else:
+            resultname = request.json.get('resultname')
+            # 만약 벽산라이브파크 데이터가 db에 있는데 벽산라이브파크아파트로 검색할경우
+            # 검색이 안되므로 문자를 잘라줘서 뒤에 % 붙이고 검색
+            slice_string = resultname[0:2]+'%'
+            print(slice_string)
+            conn = sqlite3.connect('goods.db')
+            cur = conn.cursor()
+            cur.execute("select distinct * from goods_detail where apart like ?",(slice_string,))
+            selectinfo = cur.fetchall()
+            conn.close()
         detail_dict = dict()
+        AddressArr=[]
+        buildyeararr=[]
         areaArr=[]
         floorArr=[]
         monthDayArr=[]
         priceArr=[]
+        apartArr=[]
         for infos in selectinfo:
-            areaArr.append(infos[0])
-            floorArr.append(infos[1])
-            priceArr.append(infos[2])
-            monthday = infos[3]+'.'+infos[4]+'.'+infos[5]
+            resultAddress = infos[3]+' '+infos[8]
+            AddressArr.append(resultAddress)
+            areaArr.append(infos[7])
+            floorArr.append(infos[10])
+            priceArr.append(infos[0])
+            monthday = infos[2]+'.'+infos[5]+'.'+infos[6]
             monthDayArr.append(monthday)
+            apartArr.append(infos[4])
+            buildyeararr.append(infos[1])
+        
+        detail_dict['address'] = AddressArr
+        detail_dict['buildyear'] = buildyeararr
         detail_dict['area'] = areaArr
         detail_dict['floor'] = floorArr
         detail_dict['price'] = priceArr
         detail_dict['monthday'] = monthDayArr
-        return detail_dict
+        detail_dict['apartname'] = apartArr
 
-            
+        return detail_dict
             
 
 # @socket_io.on("message")

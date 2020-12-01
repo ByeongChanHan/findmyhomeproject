@@ -65,9 +65,59 @@ class Dealpage extends Component{
     }
     // 장소 검색 호출 함수
     AddressSearch = () =>{
-        let searchText = document.getElementById("Addressinput").value;
-        // this.ShowArea(searchText)
+        var searchText = document.getElementById("Addressinput").value;
+        var ps = new kakao.maps.services.Places();
+
+        ps.keywordSearch(searchText, this.placesSearchCB);
     }
+    placesSearchCB = (data,status,pagination) => {
+        if (status === kakao.maps.services.Status.OK) {
+            for(var apart_idx=0; apart_idx<data.length; apart_idx++){
+                if(data[apart_idx].category_name==="부동산 > 주거시설 > 아파트"){
+                    // 동 선택하고 검색하는 기능이 필요
+                    this.displayPlaces(data[apart_idx]);
+                }
+            }
+        } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+            alert('검색 결과가 존재하지 않습니다.');
+            return;
+        } else if (status === kakao.maps.services.Status.ERROR) {
+            alert('검색 결과 중 오류가 발생했습니다.');
+            return;
+        }
+    }
+    displayPlaces = (places) =>{
+        var infowindow = new kakao.maps.InfoWindow({
+            zIndex:1,
+            removable:true
+        });
+        var apartnameArr = {}
+        this.map.setLevel(1)
+        apartnameArr.resultname = places.place_name;
+        const reqOption = {
+            method:'POST',
+            headers:{
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body : JSON.stringify(apartnameArr)
+        }
+        fetch("/info",reqOption)
+        .then(res => res.json())
+        .then(resText=>{
+            this.setState({
+                fulladdressname : resText.address,
+                price : resText.price,
+                buildyear : resText.buildyear,
+                apartname : resText.apartname,
+                area : resText.area,
+                floor : resText.floor,
+                monthday : resText.monthday
+            })
+            let resdata = this.state;
+            this.ShowArea(resdata,infowindow)
+        })
+    }
+
     // 주소를 받는 ShowArea메소드
     ShowArea = (address,infowindow) =>{
         // 전역으로 정의한 map 변수
@@ -155,6 +205,7 @@ class Dealpage extends Component{
                         .then(res=>res.json())
                         .then(responsejson=>{
                             this.setState({
+                                detailapartname : responsejson.apartname,
                                 detailarea : responsejson.area,
                                 detailfloor : responsejson.floor,
                                 detailmonthday : responsejson.monthday,
@@ -317,7 +368,7 @@ class Dealpage extends Component{
             <div id="goods_modal">
                 <div id="goods_content">
                     <span className="close" onClick={this.closemodal}>&times;</span>
-                    <h1 className="apart_detail">{this.state.detailarea ? '매물 상세정보' : ''}</h1>
+                    <h1 className="apart_detail">{this.state.detailarea ? this.state.detailapartname[0] : ''}</h1>
                     {/* document.getElementsByClassName("info")[0].innerHTML */}
                     <div className="goods_headline">
                         <h3 className="headline_item">최초게재</h3>
