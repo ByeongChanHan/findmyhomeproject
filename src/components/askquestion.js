@@ -136,7 +136,7 @@ class Askquestion extends Component{
                 </section>
                 <div className ="askcontainer">
                     <div className="asktable">
-                        <h1>글쓰기</h1>
+                        <h1>질문하기</h1>
                         {/* 제목부분 */}
                         <div className="titlearea">
                             <b>제목</b>
@@ -209,7 +209,7 @@ class Askquestion extends Component{
                         </div>
                     </section>
                     {/* 질문하기 버튼 */}
-                    <input type="button" className = "askBtn" onClick={this._sendText} value="질문하기"></input>
+                    <input type="button" className = "askBtn" onClick={this._sendText} value="확인"></input>
                 </div>
             </Fragment>
         )
