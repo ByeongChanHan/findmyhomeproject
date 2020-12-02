@@ -186,7 +186,7 @@
     border :1px solid lightgray;
     margin-bottom: 10px;
     font-family: 'Noto Sans KR', sans-serif;
-    height: auto;
+    height: inherit;
 }
 .rankingTitle{
     font-size: 20px;
@@ -258,10 +258,10 @@
 }
 @media only screen and (max-width:480px){
     .askarea{
-        padding-top: 15%;
+        padding-top: 40%;
     }
     .boardheader{
-        margin:0 10%;
+        margin:0 5%;
     }
     .chat{
         width:30px;
@@ -277,14 +277,14 @@
         width:0;
     }
     .boardinformation p{
-        font-size: 10px;
+        font-size: 13px;
     }
     .option{
-        font-size: 10px;
+        font-size: 12px;
         width:50%;
     }
     .contents{
-        margin: 0 10% 20px 10%;
+        margin: 0 5% 20px 5%;
     }
     .writecontent{
         font-size: 15px;
@@ -306,21 +306,18 @@
         font-size: 13px;
     }
     .ranking{
-        position: relative;
-        left:10%;
-        width: 75%;
-        margin-bottom: 20px;
+        visibility: hidden;
     }
     .comment{
-        padding:20px 10%;
-        font-size: 15px;
-    }
-    .deletebtn{
+        padding:20px 10% 50px 10%;
         font-size: 15px;
     }
     .commentArea{
         padding:20px 10%;
         font-size: 15px;
+    }
+    .badge{
+        margin: 1px;
     }
 }
 @media only screen and (min-width:481px) and (max-width:767px){

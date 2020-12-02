@@ -195,6 +195,8 @@ class BoardRender extends Component{
         })
         if(iscomment === false){
             $('.commentArea').fadeTo(1000,1)
+            var location = document.querySelector(".commentArea").offsetTop;
+            window.scrollTo({top:location, behavior:'smooth'});
         }
         else if(iscomment === true){
             $('.commentArea').fadeTo(1000,0)
