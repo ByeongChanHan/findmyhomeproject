@@ -15,6 +15,7 @@ class Dealpage extends Component{
     markerpoint = [];
     // 인포윈도우 위치 전역변수로 사용
     infowindowpoint = [];
+    boundspoint = new kakao.maps.LatLngBounds();
     // 페이지 로드했을때 지도를 보여주고
     componentDidMount(){
         this.mapRender();
@@ -159,11 +160,13 @@ class Dealpage extends Component{
                     image: markerImage
                 });
                 this.markerpoint.push(marker)
+                this.boundspoint.extend(coords)
+                map.setBounds(this.boundspoint)
                 // 함수를 호출할때마다 중앙을 설정하면 정신없어보여서
                 // idx 가 증가하면서 state값의 마지막 인덱스랑 동일할때 중앙을 설정
-                if(idx === address.fulladdressname.length-1){
-                    map.setCenter(coords);
-                }
+                // if(idx === address.fulladdressname.length-1){
+                //     map.setCenter(coords);
+                // }
                 // 만약 display에서 받은 매개변수로 받은 주소(place)와 showArea에서 받은 주소가 같다면
                 // content는 해당 집의 세부 정보(가격,평수) 저장
                 if(place === address.fulladdressname[idx]){
@@ -221,7 +224,7 @@ class Dealpage extends Component{
         for(var idx=0; idx < address.fulladdressname.length; idx++){
             // idx 인덱스 하나하나 주소를 검색하면서 인덱스 값도 같이 넣어준다
             displayMarker(address.fulladdressname[idx],idx)
-        } 
+        }
     }
     GuChange = () =>{
         var jongno = ["익선동","효제동","연건동","충신동","창신동","숭인동","평창동","교남동","가회동","종로1가","종로2가","종로3가"];
@@ -357,7 +360,7 @@ class Dealpage extends Component{
                         <button className="locsearch" onClick={this.AreaSearch}>검색</button>
                     </section>
                     <form className="address">
-                        <article>주소로 찾기</article>
+                        <article>아파트 이름 찾기</article>
                         <input type="text" id="Addressinput"></input>
                         <button type="button" className="addressSerachbtn" onClick={this.AddressSearch}>검색</button>
                     </form>

@@ -1,3 +1,5 @@
+부동산 커뮤니티 & 매물조회 프로젝트
+
 실행방법:
 src폴더에서 yarn start  
 실행했는데 react-script error나면 npm update 명령어 실행  
