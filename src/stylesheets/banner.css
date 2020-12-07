@@ -70,17 +70,18 @@
     .advantage{
         width: 30%;
         margin-top: 30px;
-        font-size: 20px;
+        font-size: 15px;
         margin-left: 5px;
         margin-right: 5px;
     }
-    .SiteExplain{   
-        padding: 6em 1em 2em 1em;
+    .SiteExplain{
+        font-size: 25px;   
+        padding: 8em 1em 2em 1em;
     }
     #askbtn{
-        font-size: 15px;
-        width: 45%;
-        height: 20px;
+        font-size: 18px;
+        width: 50%;
+        height: 30px;
         padding: 5px;
     }
     .banner::after{

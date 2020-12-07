@@ -2,9 +2,6 @@ import React,{Component,Fragment} from 'react';
 import '../stylesheets/PacificoFont.css';
 import '../stylesheets/RobotoFont.css';
 import '../stylesheets/Header.css'
-// import socketio from 'socket.io-client';
-
-// const socket = socketio('http://localhost:5000');
 
 class Header extends Component{
     state = {
@@ -54,13 +51,6 @@ class Header extends Component{
     }
 }
 class LoginHeader extends Component{
-    // componentDidMount(){
-    //     socket.emit('connect',{username:'chan'})
-    //     socket.on('user_activated',(data)=>{
-    //         const user = data['user']
-    //         console.log(user)
-    //     })
-    // }
     state = {
         isnotify : false
     }
@@ -71,33 +61,12 @@ class LoginHeader extends Component{
                 <span className="individualMenu" onClick={this.logoutReq}>
                     <button id="logoutbtn">로그아웃</button>
                 </span>
-                <span className="individualMenu" onClick={this.notifyhandler}>
+                <span className="individualMenu">
                         <button id="idtext">{this.props.success}</button>
                 </span>
             </section>
-            <div id ="notification">
-                <div className="notifytext">
-                <h1>알림</h1>
-                <p>어후어후</p>
-                </div>
-            </div>
             </Fragment>
         )
-    }
-    notifyhandler = () =>{
-        let notify = document.getElementById("notification");
-        if(this.state.isnotify ===false){
-            notify.style.display="block";
-            this.setState({
-                isnotify: true
-            })
-        }
-        else{
-            notify.style.display="none";
-            this.setState({
-                isnotify: false
-            })
-        }
     }
     logoutReq = () =>{
         fetch("/logout",{ credentials: 'include' })

@@ -110,35 +110,35 @@ label#uid,label#upass{
 }
 @media only screen and (max-width:480px){
     .LoginText{
-        margin-top:40%;
+        margin-top:50%;
         font-size: 30px;
     }
     .LoginRequire{
         font-size: 13px;
     }
     #wrap{
-        width: 200px;
-        height: 220px;
+        width: 220px;
+        height: 260px;
     }
     .LoginTitle{
         font-size: 15px;
         margin-bottom: 5px;
     }
     label#uid,label#upass{
-        width: 50px;
+        width: 55px;
         font-size: 13px;
     }
     input#uid, input#upass{
-        width: 135px;
+        width: 150px;
     }
     #loginbtn{
-        width: 200px;
+        width: 220px;
         height: 30px;
         font-size: 15px;
     }
     .create{
         padding:0;
-        width: 200px;
+        width: 220px;
         height: 30px;
         font-size: 15px;
     }
@@ -149,41 +149,47 @@ label#uid,label#upass{
 }
 @media only screen and (min-width:481px) and (max-width:767px){
     .LoginText{
-        margin-top:35%;
+        margin-top:50%;
         font-size: 40px;
     }
     .LoginRequire{
-        font-size: 17px;
+        font-size: 20px;
     }
     #wrap{
-        width: 250px;
-        height: 250px;
+        width: 300px;
+        height: 310px;
     }
     .LoginTitle{
-        font-size: 20px;
+        font-size: 25px;
         margin-bottom: 5px;
     }
     label#uid,label#upass{
-        width: 60px;
-        font-size: 15px;
+        width: 55px;
+        font-size: 13px;
     }
     input#uid, input#upass{
-        width: 175px;
+        width: 230px;
+        height: 30px;
     }
     #loginbtn{
-        width: 250px;
-        height: 35px;
-        font-size: 17px;
+        margin: 0 10px 10px 10px;
+        width: 280px;
+        height: 50px;
+        font-size: 20px;
     }
     .create{
-        padding:0;
-        width: 250px;
-        height: 35px;
-        font-size: 17px;
+        margin: 0 10px;
+        padding:10px 0 0 0;
+        width: 280px;
+        height: 40px;
+        font-size: 15px;
     }
     #isagent{
-        margin-top: 5px;
-        font-size: 13px;
+        margin-top: 10px;
+        font-size: 15px;
+    }
+    .create a{
+        font-size: 20px;
     }
 }
 @media all and (min-width:768px) and (max-width:1023px){

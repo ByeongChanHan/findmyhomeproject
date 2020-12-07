@@ -62,8 +62,8 @@
 
 @media only screen and (max-width:480px){
     .member_register_wrap .ex_text{
-        margin-top: 45%;
-        font-size: 15px;
+        margin-top: 55%;
+        font-size: 16px;
     }
     .member_register_basic, .member_register_dealer{
         width: 120px;
